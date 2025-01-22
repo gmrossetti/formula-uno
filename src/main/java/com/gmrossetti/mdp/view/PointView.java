@@ -6,18 +6,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class PointView {
-    private final Point point;
     private final Node view;
 
     public PointView(Point point){
-        this.point = point;
+        Color color;
 
-        if(point == null){
-            this.view = new Circle(5, 5, 3, Color.RED);
-            return;
+        switch(point.type){
+            case START -> color = Color.YELLOW;
+            case INSIDE -> color = Color.BLUE;
+            case OUTSIDE -> color = Color.RED;
+            default -> throw new RuntimeException();
         }
 
-        this.view = new Circle(5, 5, 3, Color.BLUE);
+        this.view = new Circle(5, 5, 3, color);
     }
 
     public Node getView(){

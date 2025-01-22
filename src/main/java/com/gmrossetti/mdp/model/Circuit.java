@@ -1,12 +1,9 @@
 package com.gmrossetti.mdp.model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Circuit {
     private final Point[][] grid;
@@ -21,17 +18,27 @@ public class Circuit {
 
         for (int x = 0; x < this.grid.length; x++) {
             for (int y = 0; y < this.grid[x].length; y++) {
-                Point point = new Point(x, y);
-                if(gridLoaded[x][y] == 'X')
-                    this.grid[x][y] = point;
-                else if(gridLoaded[x][y] == 'S'){
-                    this.grid[x][y] = point;
 
-                    if(tempStart != null)
-                        throw new RuntimeException("Circuit File: contains multiples starting points");
+                Point point;
+                switch (gridLoaded[x][y]){
+                    case 'X':
+                        point = new Point(x,y, Point.PointType.INSIDE);
+                        break;
 
-                    tempStart = point;
+                    case 'O':
+                        point = new Point(x,y, Point.PointType.OUTSIDE);
+                        break;
+
+                    case 'S':
+                        point = new Point(x,y, Point.PointType.START);
+                        tempStart = point;
+                        break;
+
+                    default:
+                        throw new RuntimeException("Circuit File: contains invalid symbols");
                 }
+
+                this.grid[x][y] = point;
             }
         }
 
@@ -54,10 +61,10 @@ public class Circuit {
         return (pointRequested == null) ? null : new Point(pointRequested);
     }
 
-    public void setGridPointIsBusy(Point point){
+    /*public void setGridPointIsBusy(Point point){
         Point pointRequested = this.grid[point.x][point.y];
-        pointRequested.setBusy(point.isBusy());
-    }
+        pointRequested.setOccupiedBy(point.isBusy());
+    }*/
 
     public int getGridWidth(){
         return this.grid.length;
