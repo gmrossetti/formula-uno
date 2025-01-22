@@ -1,32 +1,45 @@
 package com.gmrossetti.mdp.model;
 
 public class Point {
+
+    public enum PointType {
+        OUTSIDE,  // Fuori mappa
+        INSIDE,           // Dentro la mappa
+        START
+    }
     public final int x;
     public final int y;
-    private boolean isBusy;
+    private Player occupiedBy;
+    public final PointType type;
+
     public boolean isBusy() {
-        return isBusy;
+        return this.occupiedBy != null;
     }
-    public void setBusy(boolean isBusy) {
-        this.isBusy = isBusy;
+    public void setOccupiedBy(Player occupiedBy) {
+        this.occupiedBy = occupiedBy;
     }
-    public Point(int x, int y) {
+
+    public Point(int x, int y, PointType type) {
         this.x = x;
         this.y = y;
-        this.isBusy = false;
+        this.type = type;
+
+        this.occupiedBy = null;
     }
-    public Point(int x, int y, boolean isBusy) {
+    public Point(int x, int y, PointType type, Player occupiedBy) {
         this.x = x;
         this.y = y;
-        this.isBusy = isBusy;
+        this.type = type;
+        this.occupiedBy = occupiedBy;
     }
 
     public Point(Point point) {
         this.x = point.x;
         this.y = point.y;
-        this.isBusy = point.isBusy;
+        this.type = point.type;
+        this.occupiedBy = point.occupiedBy;
     }
-    public Point[] getAdjacentPoints(){
+    /*public Point[] getAdjacentPoints(){
         Point[] adjacentPoints = new Point[8];
 
         int i = 0;
@@ -43,8 +56,8 @@ public class Point {
         }
 
         return adjacentPoints;
-    }
-    public Point sum(Point point2sum){
+    }*/
+    /*public Point sum(Point point2sum){
         int newX = this.x + point2sum.x;
         int newY = this.y + point2sum.y;
 
@@ -55,7 +68,7 @@ public class Point {
         int newY = this.y - point2sub.y;
 
         return new Point(newX, newY);
-    }
+    }*/
     public boolean equals(Point p) {
         return this.x == p.x && this.y == p.y;
     }

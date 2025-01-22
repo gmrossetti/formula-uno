@@ -7,10 +7,16 @@ public class Player {
     public Point getPosition() { return position; }
     public Point getLastMove() { return lastMove; }
 
+    public void setPosition(Point point) {
+        this.position = new Point(point);
+    }
+
+    /*
     public Player(Point position){
         this.position = position;
         this.lastMove = new Point(position.x, position.y, false);
     }
+
     public Point getPivot(){
         return position.sum(lastMove);
     }
@@ -31,5 +37,5 @@ public class Player {
         }
 
         throw new IllegalArgumentException("Provided point is not reachable.");
-    }
+    }*/
 }
