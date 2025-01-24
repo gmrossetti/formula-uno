@@ -7,8 +7,8 @@ import javafx.scene.Node;
 
 public class PlayerController {
 
-    private Player model;
-    private PlayerView view;
+    private final Player model;
+    private final PlayerView view;
 
     public PlayerController() {
         this.model = new Player();

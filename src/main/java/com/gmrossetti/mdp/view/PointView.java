@@ -18,7 +18,7 @@ public class PointView {
             default -> throw new RuntimeException();
         }
 
-        this.view = new Circle(5, 5, 3, color);
+        this.view = new Circle(0, 0, 3, color);
     }
 
     public Node getView(){
