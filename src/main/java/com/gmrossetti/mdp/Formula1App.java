@@ -50,7 +50,7 @@ public class Formula1App extends Application {
     private void onUpdate() {
         PlayerController playerCtrl = this.players.get(0);
 
-        playerCtrl.setPosition(new Point((int) (1*Math.random()*10),(int) (1*Math.random()*10), Point.PointType.INSIDE));
+        playerCtrl.setPosition(new Point((int) (1*Math.random()*10),(int) (1*Math.random()*10)));
 
         this.stackPane.getChildren().remove(playerCtrl.getView());
 
