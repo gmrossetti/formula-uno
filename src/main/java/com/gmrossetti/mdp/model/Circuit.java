@@ -61,11 +61,6 @@ public class Circuit {
         return (pointRequested == null) ? null : new Point(pointRequested);
     }
 
-    /*public void setGridPointIsBusy(Point point){
-        Point pointRequested = this.grid[point.x][point.y];
-        pointRequested.setOccupiedBy(point.isBusy());
-    }*/
-
     public int getGridWidth(){
         return this.grid.length;
     }

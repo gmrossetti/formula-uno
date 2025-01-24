@@ -25,8 +25,6 @@ public class Formula1App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        // Crea la scena e imposta il StackPane come radice
         Scene scene = new Scene(stackPane);
 
         addPlayer();
@@ -52,20 +50,19 @@ public class Formula1App extends Application {
     private void onUpdate() {
         PlayerController playerCtrl = this.players.get(0);
 
-        playerCtrl.setPosition(new Point(1,1, Point.PointType.INSIDE));
+        playerCtrl.setPosition(new Point((int) (1*Math.random()*10),(int) (1*Math.random()*10), Point.PointType.INSIDE));
 
         this.stackPane.getChildren().remove(playerCtrl.getView());
-
 
         this.stackPane.getChildren().add(playerCtrl.getView());
     }
 
     private void initView(){
-        stackPane.setStyle("-fx-padding: 20px;");
+        stackPane.setStyle("-fx-background-color: #ccc; -fx-padding: 20px;");
 
         Pane rootPane = new Pane();
         rootPane.setPrefSize(1920, 1000);
-        rootPane.setStyle("-fx-background-color: #ccc; -fx-padding: 20px;");
+        rootPane.setStyle("-fx-padding: 20px;");
 
         stackPane.getChildren().addAll(rootPane,circuitCtrl.getView());
     }

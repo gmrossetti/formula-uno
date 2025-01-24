@@ -4,12 +4,21 @@ public class Player {
     private Point position;
     private Point lastMove;
 
+
     public Point getPosition() { return position; }
     public Point getLastMove() { return lastMove; }
 
     public void setPosition(Point point) {
         this.position = new Point(point);
     }
+
+//    public Point[] getReachablePoints(){
+//        return this.getPivot().getAdjacentPoints();
+//    }
+
+//    public Point getMovePivot(){
+//        Point =
+//    }
 
     /*
     public Player(Point position){
