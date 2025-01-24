@@ -6,59 +6,57 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class Circuit {
-    private final Point[][] grid;
-    private final Point raceStartPoint;
+    private final GridPoint[][] grid;
+    private final GridPoint raceStartGridPoint;
 
     public Circuit(){
         char[][] gridLoaded = Circuit.loadFromFile("circuit1.dat");
 
-        this.grid = new Point[gridLoaded.length][gridLoaded[0].length];
+        this.grid = new GridPoint[gridLoaded.length][gridLoaded[0].length];
 
-        Point tempStart = null;
+        GridPoint tempStart = null;
 
         for (int x = 0; x < this.grid.length; x++) {
             for (int y = 0; y < this.grid[x].length; y++) {
 
-                Point point;
+                GridPoint gridPoint;
                 switch (gridLoaded[x][y]){
                     case 'X':
-                        point = new Point(x,y, Point.PointType.INSIDE);
+                        gridPoint = new GridPoint(x,y, GridPoint.GridPointType.INSIDE);
                         break;
 
                     case 'O':
-                        point = new Point(x,y, Point.PointType.OUTSIDE);
+                        gridPoint = new GridPoint(x,y, GridPoint.GridPointType.OUTSIDE);
                         break;
 
                     case 'S':
-                        point = new Point(x,y, Point.PointType.START);
-                        tempStart = point;
+                        gridPoint = new GridPoint(x,y, GridPoint.GridPointType.START);
+                        tempStart = gridPoint;
                         break;
 
                     default:
                         throw new RuntimeException("Circuit File: contains invalid symbols");
                 }
 
-                this.grid[x][y] = point;
+                this.grid[x][y] = gridPoint;
             }
         }
 
         if(tempStart == null) throw new RuntimeException("Circuit File: does NOT contain the starting point");
 
-        this.raceStartPoint = tempStart;
+        this.raceStartGridPoint = tempStart;
     }
 
-    public Point getGridPoint(int x, int y){
-        Point pointRequested = this.grid[x][y];
-        return (pointRequested == null) ? null : new Point(pointRequested);
+    public GridPoint getGridPoint(int x, int y){
+        GridPoint gridPoint = this.grid[x][y];
+        return (gridPoint == null) ? null : new GridPoint(gridPoint);
+    }
+    public GridPoint getGridPoint(GridPoint gridPoint){
+        return this.getGridPoint(gridPoint.x,gridPoint.y);
     }
 
-    public Point getRaceStartPoint(){
-        return this.raceStartPoint;
-    }
-
-    public Point getGridPoint(Point point){
-        Point pointRequested = this.grid[point.x][point.y];
-        return (pointRequested == null) ? null : new Point(pointRequested);
+    public GridPoint getRaceStartPoint(){
+        return this.raceStartGridPoint;
     }
 
     public int getGridWidth(){

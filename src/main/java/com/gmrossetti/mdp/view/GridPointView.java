@@ -1,17 +1,18 @@
 package com.gmrossetti.mdp.view;
 
+import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Point;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class PointView {
+public class GridPointView {
     private final Node view;
 
-    public PointView(Point point){
+    public GridPointView(GridPoint gridPoint){
         Color color;
 
-        switch(point.type){
+        switch(gridPoint.type){
             case START -> color = Color.YELLOW;
             case INSIDE -> color = Color.BLUE;
             case OUTSIDE -> color = Color.RED;
