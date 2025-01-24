@@ -6,7 +6,6 @@ import com.gmrossetti.mdp.view.PlayerView;
 import javafx.scene.Node;
 
 public class PlayerController {
-
     private final Player model;
     private final PlayerView view;
 
