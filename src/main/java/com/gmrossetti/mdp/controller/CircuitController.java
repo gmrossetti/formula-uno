@@ -2,44 +2,42 @@ package com.gmrossetti.mdp.controller;
 
 import com.gmrossetti.mdp.model.Circuit;
 import com.gmrossetti.mdp.model.Point;
-import com.gmrossetti.mdp.view.CircuitView;
+import com.gmrossetti.mdp.view.PointView;
 import javafx.scene.layout.Pane;
 
 public class CircuitController {
 
-    private Circuit model;
-    private CircuitView view;
+    private final Circuit model;
+    private final Pane view;
+
+    final int spacing = 20;
 
     public CircuitController(){
         this.model = new Circuit();
-        this.view = new CircuitView();
+        this.view = new Pane();
 
         this.initView();
     }
 
-//    public CircuitController(Circuit circuit){
-//        this.model = circuit;
-//        this.view = new CircuitView(model);
-//    }
-
     public void initView(){
+        this.view.setStyle("-fx-padding: 20px;");
+
         for (int x = 0; x < this.model.getGridWidth(); x++) {
             for (int y = 0; y < this.model.getGridHeight(); y++){
 
                 Point point2add = this.model.getGridPoint(x,y);
 
-//                if(point2add == null) point2add = new Point(x,y);
+                PointView pointView = new PointView(point2add);
 
-                this.view.addPoint(point2add);
+                pointView.getView().setTranslateX(this.spacing * point2add.y);
+                pointView.getView().setTranslateY(this.spacing * point2add.x);
+
+                this.view.getChildren().add(pointView.getView());
             }
         }
     }
 
-    public Point getRaceStartPoint(){
-        return this.model.getRaceStartPoint();
-    }
+    public Point getRaceStartPoint(){ return this.model.getRaceStartPoint(); }
 
-    public Pane getView() {
-        return view.getView();
-    }
+    public Pane getView() { return this.view; }
 }
