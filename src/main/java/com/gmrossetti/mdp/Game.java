@@ -16,8 +16,8 @@ public class Game {
     }
 
     public void addPlayer(){
-        PlayerController playerCtrl = new PlayerController();
-        playerCtrl.setPosition(circuitCtrl.getRaceStartPoint());
+        PlayerController playerCtrl = new PlayerController(circuitCtrl.getModel().getRaceStartPoint());
+        playerCtrl.setPosition(circuitCtrl.getModel().getRaceStartPoint());
         players.add(playerCtrl);
     }
 }
