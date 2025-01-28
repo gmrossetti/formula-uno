@@ -1,18 +1,20 @@
 package com.gmrossetti.mdp.model;
 
+import com.gmrossetti.mdp.controller.GridPointController;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
 public class Circuit {
-    private final GridPoint[][] grid;
+    private final GridPointController[][] grid;
     private final GridPoint raceStartGridPoint;
 
     public Circuit(){
         char[][] gridLoaded = Circuit.loadFromFile("circuit1.dat");
 
-        this.grid = new GridPoint[gridLoaded.length][gridLoaded[0].length];
+        this.grid = new GridPointController[gridLoaded.length][gridLoaded[0].length];
 
         GridPoint tempStart = null;
 
@@ -20,17 +22,17 @@ public class Circuit {
             for (int y = 0; y < this.grid[x].length; y++) {
 
                 GridPoint gridPoint;
-                switch (gridLoaded[x][y]){
+                switch (gridLoaded[x][y]) {
                     case 'X':
-                        gridPoint = new GridPoint(x,y, GridPoint.GridPointType.INSIDE);
+                        gridPoint = new GridPoint(x, y, GridPoint.GridPointType.INSIDE);
                         break;
 
                     case 'O':
-                        gridPoint = new GridPoint(x,y, GridPoint.GridPointType.OUTSIDE);
+                        gridPoint = new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE);
                         break;
 
                     case 'S':
-                        gridPoint = new GridPoint(x,y, GridPoint.GridPointType.START);
+                        gridPoint = new GridPoint(x, y, GridPoint.GridPointType.START);
                         tempStart = gridPoint;
                         break;
 
@@ -38,7 +40,7 @@ public class Circuit {
                         throw new RuntimeException("Circuit File: contains invalid symbols");
                 }
 
-                this.grid[x][y] = gridPoint;
+                this.grid[x][y] = new GridPointController(gridPoint);
             }
         }
 
@@ -47,12 +49,17 @@ public class Circuit {
         this.raceStartGridPoint = tempStart;
     }
 
-    public GridPoint getGridPoint(int x, int y){
-        GridPoint gridPoint = this.grid[x][y];
-        return (gridPoint == null) ? null : new GridPoint(gridPoint);
+    public Circuit(Circuit circuit){
+        this.grid = circuit.grid;
+        this.raceStartGridPoint = circuit.raceStartGridPoint;
     }
-    public GridPoint getGridPoint(GridPoint gridPoint){
-        return this.getGridPoint(gridPoint.x,gridPoint.y);
+
+    public GridPointController getGridPointCtrl(int x, int y){
+        GridPointController gridPointCtrl = this.grid[x][y];
+        return (gridPointCtrl == null) ? null : new GridPointController(gridPointCtrl.getModel());
+    }
+    public GridPointController getGridPointCtrl(GridPoint gridPoint){
+        return this.getGridPointCtrl(gridPoint.x,gridPoint.y);
     }
 
     public GridPoint getRaceStartPoint(){

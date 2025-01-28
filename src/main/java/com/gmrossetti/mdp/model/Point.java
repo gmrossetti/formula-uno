@@ -31,8 +31,9 @@ public class Point {
         }
 
         return adjacentPoints;
-    }*/
-    /*public Point sum(Point point2sum){
+    }
+
+    public Point sum(Point point2sum){
         int newX = this.x + point2sum.x;
         int newY = this.y + point2sum.y;
 

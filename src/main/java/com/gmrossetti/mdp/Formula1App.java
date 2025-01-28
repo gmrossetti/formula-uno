@@ -1,7 +1,9 @@
 package com.gmrossetti.mdp;
 
 import com.gmrossetti.mdp.controller.CircuitController;
+import com.gmrossetti.mdp.controller.GridPointController;
 import com.gmrossetti.mdp.controller.PlayerController;
+import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Point;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -31,7 +33,7 @@ public class Formula1App extends Application {
 
         PlayerController playerCtrl = this.players.get(0);
 
-        playerCtrl.setPosition(circuitCtrl.getRaceStartPoint());
+        playerCtrl.setPosition(circuitCtrl.getModel().getRaceStartPoint());
 
         this.stackPane.getChildren().add(playerCtrl.getView());
 
@@ -50,7 +52,11 @@ public class Formula1App extends Application {
     private void onUpdate() {
         PlayerController playerCtrl = this.players.get(0);
 
-        playerCtrl.setPosition(new Point((int) (1*Math.random()*10),(int) (1*Math.random()*10)));
+        GridPointController rngGridPointCtrl = circuitCtrl.getModel().getGridPointCtrl((int) (Math.random()*10),(int) (Math.random()*10));
+
+        System.out.println(rngGridPointCtrl);
+
+        playerCtrl.setPosition(rngGridPointCtrl.getModel());
 
         this.stackPane.getChildren().remove(playerCtrl.getView());
 
@@ -68,7 +74,7 @@ public class Formula1App extends Application {
     }
 
     private void addPlayer(){
-        PlayerController playerCtrl = new PlayerController();
+        PlayerController playerCtrl = new PlayerController(circuitCtrl.getModel().getRaceStartPoint());
 
         this.players.add(playerCtrl);
     }

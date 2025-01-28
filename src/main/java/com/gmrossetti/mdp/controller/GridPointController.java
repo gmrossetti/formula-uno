@@ -5,14 +5,26 @@ import com.gmrossetti.mdp.view.GridPointView;
 import javafx.scene.Node;
 
 public class GridPointController {
-    private GridPoint model;
-    private GridPointView view;
+    private final GridPoint model;
+    private final GridPointView view;
 
-    public GridPointController(GridPoint point){
-        this.model = new GridPoint(point);
-        this.view = new GridPointView(point);
+    public GridPointController(int x, int y, GridPoint.GridPointType type){
+        this(new GridPoint(x, y, type));
     }
-    public Node getView(){
-        return this.view.getView();
+
+    public GridPointController(int x, int y, GridPoint.GridPointType type, PlayerController occupiedBy){
+        this(new GridPoint(x, y, type, occupiedBy));
+    }
+
+    public GridPointController(GridPoint model){
+        this.model = new GridPoint(model);
+        this.view = new GridPointView(this.model);
+    }
+
+    public GridPoint getModel(){
+        return this.model;
+    }
+    public Node getView() {
+        return this.view;
     }
 }
