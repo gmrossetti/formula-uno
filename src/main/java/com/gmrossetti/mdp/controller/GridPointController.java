@@ -21,6 +21,10 @@ public class GridPointController {
         this.view = new GridPointView(this.model);
     }
 
+    public boolean isUsable(){
+        return !this.model.isOccupied() && this.model.type == GridPoint.GridPointType.INSIDE;
+    }
+
     public GridPoint getModel(){
         return this.model;
     }

@@ -14,7 +14,7 @@ public class Point {
         this.y = point.y;
     }
 
-    /*public Point[] getAdjacentPoints(){
+    public Point[] getAdjacentPoints(){
         Point[] adjacentPoints = new Point[8];
 
         int i = 0;
@@ -34,6 +34,8 @@ public class Point {
     }
 
     public Point sum(Point point2sum){
+        if(point2sum == null) return new Point(this);
+
         int newX = this.x + point2sum.x;
         int newY = this.y + point2sum.y;
 
@@ -44,7 +46,7 @@ public class Point {
         int newY = this.y - point2sub.y;
 
         return new Point(newX, newY);
-    }*/
+    }
     public boolean equals(Point p) {
         return this.x == p.x && this.y == p.y;
     }
