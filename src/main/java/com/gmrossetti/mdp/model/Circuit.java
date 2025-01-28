@@ -55,11 +55,19 @@ public class Circuit {
     }
 
     public GridPointController getGridPointCtrl(int x, int y){
-        GridPointController gridPointCtrl = this.grid[x][y];
-        return (gridPointCtrl == null) ? null : new GridPointController(gridPointCtrl.getModel());
+        try {
+            GridPointController gridPointCtrl = this.grid[x][y];
+            return new GridPointController(gridPointCtrl.getModel());
+        } catch (Exception e){
+            if(e instanceof ArrayIndexOutOfBoundsException){
+                return new GridPointController(new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE));
+            }
+
+            throw e;
+        }
     }
-    public GridPointController getGridPointCtrl(GridPoint gridPoint){
-        return this.getGridPointCtrl(gridPoint.x,gridPoint.y);
+    public GridPointController getGridPointCtrl(Point point){
+        return this.getGridPointCtrl(point.x,point.y);
     }
 
     public GridPoint getRaceStartPoint(){
