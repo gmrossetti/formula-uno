@@ -11,7 +11,7 @@ public class Test {
 
         circuit.printGridToConsole();
 
-        System.out.println(circuit.getGridPoint(3,3));
+        System.out.println(circuit.getGridPointCtrl(3,3));
 
     }
 }

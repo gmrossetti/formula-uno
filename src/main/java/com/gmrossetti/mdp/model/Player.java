@@ -8,19 +8,19 @@ public class Player {
     public Point getPosition() { return position; }
     public Point getLastMove() { return lastMove; }
 
-    public void setPosition(Point point) {
-        this.position = new Point(point);
+    public void setPosition(GridPoint gridPoint) {
+        this.position = new GridPoint(gridPoint);
     }
 
-//    public Point[] getReachablePoints(){
-//        return this.getPivot().getAdjacentPoints();
-//    }
-
-//    public Point getMovePivot(){
-//        Point =
-//    }
-
     /*
+    public Point[] getReachablePoints(){
+        return this.getPivot().getAdjacentPoints();
+    }
+
+    public Point getMovePivot(){
+        Point =
+    }
+
     public Player(Point position){
         this.position = position;
         this.lastMove = new Point(position.x, position.y, false);

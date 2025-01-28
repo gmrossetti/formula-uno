@@ -1,13 +1,15 @@
 package com.gmrossetti.mdp.model;
 
+import com.gmrossetti.mdp.controller.PlayerController;
+
 public class GridPoint extends Point {
     public enum GridPointType {
         OUTSIDE,  // Fuori mappa
-        INSIDE,           // Dentro la mappa
-        START
+        INSIDE,   // Dentro la mappa
+        START     // Partenza
     }
     public final GridPointType type;
-    private Player occupiedBy;
+    private PlayerController occupiedBy;
 
     public GridPoint(int x, int y, GridPointType type) {
         super(x, y);
@@ -15,7 +17,7 @@ public class GridPoint extends Point {
         this.occupiedBy = null;
     }
 
-    public GridPoint(int x, int y, GridPointType type, Player occupiedBy) {
+    public GridPoint(int x, int y, GridPointType type, PlayerController occupiedBy) {
         super(x, y);
         this.type = type;
         this.occupiedBy = occupiedBy;
@@ -27,10 +29,10 @@ public class GridPoint extends Point {
         this.occupiedBy = gridPoint.occupiedBy;
     }
 
-    public boolean isBusy() {
+    public boolean isOccupied() {
         return this.occupiedBy != null;
     }
-    public void setOccupiedBy(Player occupiedBy) {
+    public void setOccupiedBy(PlayerController occupiedBy) {
         this.occupiedBy = occupiedBy;
     }
 }
