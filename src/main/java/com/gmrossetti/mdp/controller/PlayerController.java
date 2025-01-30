@@ -4,7 +4,6 @@ import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Player;
 import com.gmrossetti.mdp.view.PlayerView;
 import javafx.scene.Node;
-
 import java.util.ArrayList;
 import java.util.Random;
 

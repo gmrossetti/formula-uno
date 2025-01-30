@@ -5,15 +5,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class GridPointView extends Circle {
-//    private final Node view;
-
     public GridPointView(GridPoint gridPoint){
         super(0, 0, 3, getColorFormGridPointType(gridPoint));
     }
-
-//    public GridPointView(GridPointView gridPointView){
-//        super(gridPointView.getCenterX(), gridPointView.getCenterY(), gridPointView.getRadius(), gridPointView.getFill());
-//    }
 
     private static Color getColorFormGridPointType(GridPoint gridPoint){
         Color color;
