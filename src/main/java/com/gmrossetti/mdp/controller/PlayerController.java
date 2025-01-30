@@ -18,8 +18,6 @@ public class PlayerController {
     }
 
     public void nextMove(ArrayList<GridPoint> gridPointsInRange){
-//        Point[] reachablePoints = this.model.getReachablePoints();
-
         ArrayList<GridPoint> usableGridPoints = new ArrayList<>();
 
         for (GridPoint gridPoint:

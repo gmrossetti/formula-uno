@@ -1,32 +1,39 @@
 package com.gmrossetti.mdp.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private Point position;
-    private Point lastMove;
+    private final List<Point> trail;
 
     public Player(GridPoint position) {
         this.position = position;
-    }
-
-    public Player(GridPoint position, Point lastMove) {
-        this.position = position;
-        this.lastMove = lastMove;
+        this.trail = new ArrayList<>();
+        this.trail.add(position);
     }
 
     public Point getPosition() { return position; }
-    public Point getLastMove() { return lastMove; }
+    public Point getVelocity() {
+        if(this.trail.size() < 2){
+            return new Point(0,0);
+        }
+
+        Point lastPosition = this.trail.get(this.trail.size() - 2);
+
+        return this.position.sub(lastPosition);
+    }
 
     public Point[] getReachablePoints(){
         return this.getPivot().getAdjacentPoints();
     }
 
-    public Player(Point position){
-        this.position = position;
-        this.lastMove = new Point(position.x, position.y);
+    public Point getPivot(){
+        return position.sum(this.getVelocity());
     }
 
-    public Point getPivot(){
-        return position.sum(lastMove);
+    public List<Point> getTrail(){
+        return this.trail;
     }
 
     public void makeMove(Point point2reach){
@@ -35,8 +42,8 @@ public class Player {
         for (Point rp:
              reachablePoints) {
             if(rp.equals(point2reach)){
-                this.lastMove = point2reach.sub(position);
                 this.position = point2reach;
+                this.trail.add(point2reach);
 
                 return;
             }
