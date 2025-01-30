@@ -35,4 +35,7 @@ public class GridPoint extends Point {
     public void setOccupiedBy(PlayerController occupiedBy) {
         this.occupiedBy = occupiedBy;
     }
+    public boolean isWalkable() {
+        return this.type != GridPointType.OUTSIDE;
+    }
 }
