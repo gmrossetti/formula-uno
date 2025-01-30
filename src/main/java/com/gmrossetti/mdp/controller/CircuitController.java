@@ -4,7 +4,6 @@ import com.gmrossetti.mdp.model.Circuit;
 import com.gmrossetti.mdp.view.CircuitView;
 
 public class CircuitController {
-
     private final Circuit model;
     private final CircuitView view;
 
@@ -16,6 +15,5 @@ public class CircuitController {
     public Circuit getModel(){
         return this.model;
     }
-
     public CircuitView getView() { return this.view; }
 }
