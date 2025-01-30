@@ -12,9 +12,7 @@ import java.util.Set;
 
 public class PlayerView extends Pane {
     private final int spacing = 20;
-
     private Set<Line> trailLines = new HashSet<>();
-
     Rectangle rect;
 
     public PlayerView(Point position) {
