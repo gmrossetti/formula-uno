@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Circuit {
     private final GridPointController[][] grid;
@@ -14,39 +16,12 @@ public class Circuit {
     public Circuit(){
         char[][] gridLoaded = Circuit.loadFromFile("circuit1.dat");
 
-        this.grid = new GridPointController[gridLoaded.length][gridLoaded[0].length];
+        this.grid = createGrid(gridLoaded);
+        this.raceStartGridPoint = findRaceStartPoint(gridLoaded);
 
-        GridPoint tempStart = null;
-
-        for (int x = 0; x < this.grid.length; x++) {
-            for (int y = 0; y < this.grid[x].length; y++) {
-
-                GridPoint gridPoint;
-                switch (gridLoaded[x][y]) {
-                    case 'X':
-                        gridPoint = new GridPoint(x, y, GridPoint.GridPointType.INSIDE);
-                        break;
-
-                    case 'O':
-                        gridPoint = new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE);
-                        break;
-
-                    case 'S':
-                        gridPoint = new GridPoint(x, y, GridPoint.GridPointType.START);
-                        tempStart = gridPoint;
-                        break;
-
-                    default:
-                        throw new RuntimeException("Circuit File: contains invalid symbols");
-                }
-
-                this.grid[x][y] = new GridPointController(gridPoint);
-            }
+        if (this.raceStartGridPoint == null) {
+            throw new RuntimeException("Circuit File: does NOT contain the starting point");
         }
-
-        if(tempStart == null) throw new RuntimeException("Circuit File: does NOT contain the starting point");
-
-        this.raceStartGridPoint = tempStart;
     }
 
     public Circuit(Circuit circuit){
@@ -54,18 +29,15 @@ public class Circuit {
         this.raceStartGridPoint = circuit.raceStartGridPoint;
     }
 
-    public GridPointController getGridPointCtrl(int x, int y){
+    public GridPointController getGridPointCtrl(int x, int y) {
         try {
             GridPointController gridPointCtrl = this.grid[x][y];
             return new GridPointController(gridPointCtrl.getModel());
-        } catch (Exception e){
-            if(e instanceof ArrayIndexOutOfBoundsException){
-                return new GridPointController(new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE));
-            }
-
-            throw e;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return new GridPointController(new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE));
         }
     }
+
     public GridPointController getGridPointCtrl(Point point){
         return this.getGridPointCtrl(point.x,point.y);
     }
@@ -86,54 +58,52 @@ public class Circuit {
         System.out.println(Arrays.deepToString(this.grid));
     }
 
-    public static char[][] loadFromFile(String fileName){
-        // TODO: validate file format
-
-        char[][] gridTemplate;
-
+    private static char[][] loadFromFile(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            // Leggi la prima riga del file
-            String line = reader.readLine();
+            List<String> lines = reader.lines().collect(Collectors.toList());
+            int rows = lines.size();
+            int cols = lines.get(0).length();
 
-            // Determina la dimensione della matrice
-            int rows = 0;
-            int cols = 0;
-
-            while (line != null) {
-                rows++;
-                cols = line.length();
-                line = reader.readLine();
+            char[][] gridTemplate = new char[rows][cols];
+            for (int i = 0; i < rows; i++) {
+                gridTemplate[i] = lines.get(i).toCharArray();
             }
-
-            // Riposizionamento del BufferedReader all'inizio del file
-            reader.close();
-
-            // Ora inizializziamo la matrice
-            gridTemplate = new char[rows][cols];
-
-            // Riapriamo il file per leggere nuovamente riga per riga
-            BufferedReader reader2 = new BufferedReader(new FileReader(fileName));
-            int rowIndex = 0;
-            while ((line = reader2.readLine()) != null) {
-                for (int colIndex = 0; colIndex < line.length(); colIndex++) {
-                    gridTemplate[rowIndex][colIndex] = line.charAt(colIndex);
-                }
-                rowIndex++;
-            }
-            reader2.close();
-
-            // Visualizza la matrice letta
-            System.out.println("Matrice letta dal file:");
-            for (int i = 0; i < gridTemplate.length; i++) {
-                for (int j = 0; j < gridTemplate[i].length; j++) {
-                    System.out.print(gridTemplate[i][j]);
-                }
-                System.out.println();
-            }
-
             return gridTemplate;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading circuit file", e);
         }
+    }
+
+    private static GridPointController[][] createGrid(char[][] gridLoaded) {
+        GridPointController[][] grid = new GridPointController[gridLoaded.length][gridLoaded[0].length];
+
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[x].length; y++) {
+                GridPoint gridPoint = fileCharToGridPoint(gridLoaded[x][y], x, y);
+                grid[x][y] = new GridPointController(gridPoint);
+            }
+        }
+
+        return grid;
+    }
+
+    private static GridPoint fileCharToGridPoint(char symbol, int x, int y) {
+        return switch (symbol) {
+            case 'X' -> new GridPoint(x, y, GridPoint.GridPointType.INSIDE);
+            case 'O' -> new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE);
+            case 'S' -> new GridPoint(x, y, GridPoint.GridPointType.START);
+            default -> throw new RuntimeException("Circuit File: contains invalid symbols");
+        };
+    }
+
+    private static GridPoint findRaceStartPoint(char[][] gridLoaded) {
+        for (int x = 0; x < gridLoaded.length; x++) {
+            for (int y = 0; y < gridLoaded[x].length; y++) {
+                if (gridLoaded[x][y] == 'S') {
+                    return new GridPoint(x, y, GridPoint.GridPointType.START);
+                }
+            }
+        }
+        return null;
     }
 }
