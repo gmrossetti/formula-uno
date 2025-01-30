@@ -1,7 +1,6 @@
 package com.gmrossetti.mdp;
 
 import com.gmrossetti.mdp.controller.CircuitController;
-import com.gmrossetti.mdp.controller.GridPointController;
 import com.gmrossetti.mdp.controller.PlayerController;
 import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Point;
@@ -79,9 +78,9 @@ public class Game {
         for (Point playerReachablePoint:
                 playerReachablePoints) {
 
-            boolean isUsable = circuitCtrl.getModel().getGridPointCtrl(playerReachablePoint).isUsable();
+            boolean isWalkable = circuitCtrl.getModel().getGridPointCtrl(playerReachablePoint).getModel().isWalkable();
 
-            if(isUsable) usablePoints.add(circuitCtrl.getModel().getGridPointCtrl(playerReachablePoint).getModel());
+            if(isWalkable) usablePoints.add(circuitCtrl.getModel().getGridPointCtrl(playerReachablePoint).getModel());
         }
 
         return usablePoints;

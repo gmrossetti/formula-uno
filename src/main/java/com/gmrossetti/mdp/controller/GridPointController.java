@@ -11,18 +11,12 @@ public class GridPointController {
     public GridPointController(int x, int y, GridPoint.GridPointType type){
         this(new GridPoint(x, y, type));
     }
-
     public GridPointController(int x, int y, GridPoint.GridPointType type, PlayerController occupiedBy){
         this(new GridPoint(x, y, type, occupiedBy));
     }
-
     public GridPointController(GridPoint model){
         this.model = new GridPoint(model);
         this.view = new GridPointView(this.model);
-    }
-
-    public boolean isUsable(){
-        return !this.model.isOccupied() && this.model.type == GridPoint.GridPointType.INSIDE;
     }
 
     public GridPoint getModel(){
