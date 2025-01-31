@@ -2,6 +2,7 @@ package com.gmrossetti.mdp;
 
 import com.gmrossetti.mdp.controller.CircuitController;
 import com.gmrossetti.mdp.controller.PlayerController;
+import com.gmrossetti.mdp.model.Circuit;
 import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Point;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,9 @@ public class Game {
     private final ArrayList<PlayerController> playersCtrl;
 
     public Game(){
-        circuitCtrl = new CircuitController();
+        Circuit circuit = new Circuit();
+
+        circuitCtrl = new CircuitController(circuit);
         playersCtrl = new ArrayList<>();
         initGame();
     }
@@ -78,9 +81,9 @@ public class Game {
         for (Point playerReachablePoint:
                 playerReachablePoints) {
 
-            boolean isWalkable = circuitCtrl.getModel().getGridPointCtrl(playerReachablePoint).getModel().isWalkable();
+            boolean isWalkable = circuitCtrl.getModel().getGridPoint(playerReachablePoint).isWalkable();
 
-            if(isWalkable) usablePoints.add(circuitCtrl.getModel().getGridPointCtrl(playerReachablePoint).getModel());
+            if(isWalkable) usablePoints.add(circuitCtrl.getModel().getGridPoint(playerReachablePoint));
         }
 
         return usablePoints;

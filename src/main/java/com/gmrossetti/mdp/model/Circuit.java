@@ -1,7 +1,5 @@
 package com.gmrossetti.mdp.model;
 
-import com.gmrossetti.mdp.controller.GridPointController;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Circuit {
-    private final GridPointController[][] grid;
+    private final GridPoint[][] grid;
     private final GridPoint raceStartGridPoint;
 
     public Circuit(){
@@ -29,17 +27,17 @@ public class Circuit {
         this.raceStartGridPoint = circuit.raceStartGridPoint;
     }
 
-    public GridPointController getGridPointCtrl(int x, int y) {
+    public GridPoint getGridPoint(int x, int y) {
         try {
-            GridPointController gridPointCtrl = this.grid[x][y];
-            return new GridPointController(gridPointCtrl.getModel());
+            GridPoint gridPoint = this.grid[x][y];
+            return new GridPoint(gridPoint);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new GridPointController(new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE));
+            return new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE);
         }
     }
 
-    public GridPointController getGridPointCtrl(Point point){
-        return this.getGridPointCtrl(point.x,point.y);
+    public GridPoint getGridPoint(Point point){
+        return this.getGridPoint(point.x,point.y);
     }
 
     public GridPoint getRaceStartPoint(){
@@ -74,13 +72,13 @@ public class Circuit {
         }
     }
 
-    private static GridPointController[][] createGrid(char[][] gridLoaded) {
-        GridPointController[][] grid = new GridPointController[gridLoaded.length][gridLoaded[0].length];
+    private static GridPoint[][] createGrid(char[][] gridLoaded) {
+        GridPoint[][] grid = new GridPoint[gridLoaded.length][gridLoaded[0].length];
 
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[x].length; y++) {
                 GridPoint gridPoint = fileCharToGridPoint(gridLoaded[x][y], x, y);
-                grid[x][y] = new GridPointController(gridPoint);
+                grid[x][y] = gridPoint;
             }
         }
 
