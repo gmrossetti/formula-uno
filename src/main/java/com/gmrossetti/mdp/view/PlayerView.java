@@ -15,7 +15,7 @@ public class PlayerView extends Pane {
     private Set<Line> trailLines = new HashSet<>();
     Rectangle rect;
 
-    public PlayerView(Point position) {
+    public PlayerView(Player player) {
 
         super(new Pane());
 
@@ -25,8 +25,8 @@ public class PlayerView extends Pane {
 
         this.getChildren().add(rect);
 
-        rect.setTranslateX(position.y * spacing);
-        rect.setTranslateY(position.x * spacing);
+        rect.setTranslateX(player.getPosition().y * spacing);
+        rect.setTranslateY(player.getPosition().x * spacing);
     }
 
     public void update(Player model){
