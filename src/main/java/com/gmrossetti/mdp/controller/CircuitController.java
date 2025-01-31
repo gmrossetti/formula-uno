@@ -7,13 +7,15 @@ public class CircuitController {
     private final Circuit model;
     private final CircuitView view;
 
-    public CircuitController(){
-        this.model = new Circuit();
+    public CircuitController(Circuit model){
+        this.model = model;
         this.view = new CircuitView(this.model);
     }
 
     public Circuit getModel(){
         return this.model;
     }
-    public CircuitView getView() { return this.view; }
+    public CircuitView getView() {
+        return this.view;
+    }
 }
