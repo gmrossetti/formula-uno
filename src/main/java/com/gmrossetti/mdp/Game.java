@@ -4,6 +4,7 @@ import com.gmrossetti.mdp.controller.CircuitController;
 import com.gmrossetti.mdp.controller.PlayerController;
 import com.gmrossetti.mdp.model.Circuit;
 import com.gmrossetti.mdp.model.GridPoint;
+import com.gmrossetti.mdp.model.Player;
 import com.gmrossetti.mdp.model.Point;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -32,7 +33,9 @@ public class Game {
     private void addPlayer(){
         GridPoint raceStartGridPoint = circuitCtrl.getModel().getRaceStartPoint();
 
-        PlayerController playerCtrl = new PlayerController(raceStartGridPoint);
+        Player player = new Player(raceStartGridPoint);
+
+        PlayerController playerCtrl = new PlayerController(player);
         playersCtrl.add(playerCtrl);
     }
 
