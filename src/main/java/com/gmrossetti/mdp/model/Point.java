@@ -8,7 +8,6 @@ public class Point {
         this.x = x;
         this.y = y;
     }
-
     public Point(Point point) {
         this.x = point.x;
         this.y = point.y;
