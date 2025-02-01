@@ -5,15 +5,23 @@ import com.gmrossetti.mdp.model.GridPoint;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ImageToCircuit {
     final static int supportedImgWidth = 60;
     final static int supportedImgHeight = 45;
     public static GridPoint[][] parseImageToGrid(String circuitName) throws IOException {
-        BufferedImage imgBase = ImageIO.read(new File(circuitName + "-base.gif"));
-        BufferedImage imgData = ImageIO.read(new File(circuitName + "-data.gif"));
+        final String basePath = "/com/gmrossetti/mdp/circuits/";
+
+        final String imgBaseSuffix = "-base.gif";
+        final String imgDataSuffix = "-data.gif";
+
+        InputStream inputStream1 = ImageToCircuit.class.getResourceAsStream(basePath + circuitName + imgBaseSuffix);
+        InputStream inputStream2 = ImageToCircuit.class.getResourceAsStream(basePath + circuitName + imgDataSuffix);
+
+        BufferedImage imgBase = ImageIO.read(inputStream1);
+        BufferedImage imgData = ImageIO.read(inputStream2);
 
         if(!validateImgs(imgBase, imgData))
             throw new RuntimeException("Circuit file format not valid!");
