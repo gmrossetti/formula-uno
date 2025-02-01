@@ -12,26 +12,28 @@ import java.util.Set;
 
 public class PlayerView extends Pane {
     private final int spacing = 20;
-    private Set<Line> trailLines = new HashSet<>();
+    private final int rectWidth = 13;
+    private final int rectHeight = 13;
+    private final Set<Line> trailLines = new HashSet<>();
     Rectangle rect;
 
     public PlayerView(Player player) {
 
         super(new Pane());
 
-        this.rect = new Rectangle(-13 /2.d, -13 /2.d,13.d, 13.d);
+        this.rect = new Rectangle(-rectWidth/2.d,-rectHeight/2.d,rectWidth,rectHeight);
         rect.setFill(Color.YELLOW);
         rect.setRotate(45);
 
         this.getChildren().add(rect);
 
-        rect.setTranslateX(player.getPosition().y * spacing);
-        rect.setTranslateY(player.getPosition().x * spacing);
+        rect.setTranslateX(player.getPosition().x * spacing);
+        rect.setTranslateY(player.getPosition().y * spacing);
     }
 
     public void update(Player model){
-        rect.setTranslateX(model.getPosition().y * spacing);
-        rect.setTranslateY(model.getPosition().x * spacing);
+        rect.setTranslateX(model.getPosition().x * spacing);
+        rect.setTranslateY(model.getPosition().y * spacing);
 
         List<Point> trail = model.getTrail();
 
@@ -45,7 +47,7 @@ public class PlayerView extends Pane {
             Point pointA = trail.get(i-1);
             Point pointB = trail.get(i);
 
-            Line line = new Line(pointA.y * spacing, pointA.x * spacing, pointB.y * spacing, pointB.x * spacing);
+            Line line = new Line(pointA.x * spacing, pointA.y * spacing, pointB.x * spacing, pointB.y * spacing);
 
             trailLines.add(line);
 

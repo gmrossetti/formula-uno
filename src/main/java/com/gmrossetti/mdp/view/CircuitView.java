@@ -11,15 +11,15 @@ public class CircuitView extends Pane {
     public CircuitView(Circuit circuit) {
         this.setStyle("-fx-padding: 20px;");
 
-        for (int x = 0; x < circuit.getGridWidth(); x++) {
-            for (int y = 0; y < circuit.getGridHeight(); y++){
+        for (int y = 0; y < circuit.getGridWidth(); y++) {
+            for (int x = 0; x < circuit.getGridHeight(); x++){
 
-                GridPoint gridPoint = circuit.getGridPoint(x,y);
+                GridPoint gridPoint = circuit.getGridPoint(y,x);
 
                 GridPointController gridPointController = new GridPointController(gridPoint);
 
-                gridPointController.getView().setTranslateX(this.spacing * gridPointController.getModel().y);
-                gridPointController.getView().setTranslateY(this.spacing * gridPointController.getModel().x);
+                gridPointController.getView().setTranslateX(this.spacing * gridPointController.getModel().x);
+                gridPointController.getView().setTranslateY(this.spacing * gridPointController.getModel().y);
 
                 this.getChildren().add(gridPointController.getView());
             }
