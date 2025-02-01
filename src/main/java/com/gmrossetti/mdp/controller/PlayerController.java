@@ -11,11 +11,6 @@ public class PlayerController {
     private final Player model;
     private final PlayerView view;
 
-    /*public PlayerController(GridPoint positionGridPoint) {
-        this.model = new Player(positionGridPoint);
-        this.view = new PlayerView(positionGridPoint);
-    }*/
-
     public PlayerController(Player model) {
         this.model = model;
         this.view = new PlayerView(this.model);

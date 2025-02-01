@@ -1,10 +1,14 @@
 package com.gmrossetti.mdp;
 
+import com.gmrossetti.mdp.model.GridPoint;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class Formula1App extends Application {
     @Override
