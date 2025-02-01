@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageToCircuit {
-    final static int supportedImgWidth = 60;
-    final static int supportedImgHeight = 45;
+    final static int SUPPORTED_IMG_WIDTH = 60;
+    final static int SUPPORTED_IMG_HEIGHT = 45;
     public static GridPoint[][] parseImageToGrid(String circuitName) throws IOException {
         final String basePath = "/com/gmrossetti/mdp/circuits/";
 
@@ -26,10 +26,10 @@ public class ImageToCircuit {
         if(!validateImgs(imgBase, imgData))
             throw new RuntimeException("Circuit file format not valid!");
 
-        GridPoint[][] grid = new GridPoint[supportedImgHeight][supportedImgWidth];
+        GridPoint[][] grid = new GridPoint[SUPPORTED_IMG_HEIGHT][SUPPORTED_IMG_WIDTH];
 
-        for (int y = 0; y < supportedImgHeight; y++) {
-            for (int x = 0; x < supportedImgWidth; x++) {
+        for (int y = 0; y < SUPPORTED_IMG_HEIGHT; y++) {
+            for (int x = 0; x < SUPPORTED_IMG_WIDTH; x++) {
                 // Ottieni il colore del pixel (RGB)
                 Color colorBase = new Color(imgBase.getRGB(x, y));
                 Color colorData = new Color(imgData.getRGB(x, y));
@@ -66,7 +66,7 @@ public class ImageToCircuit {
         final int imgDataWidth = imgData.getWidth();
         final int imgDataHeight = imgData.getHeight();
 
-        return imgBaseWidth == supportedImgWidth && imgBaseHeight == supportedImgHeight &&
-                imgDataWidth == supportedImgWidth && imgDataHeight == supportedImgHeight;
+        return imgBaseWidth == SUPPORTED_IMG_WIDTH && imgBaseHeight == SUPPORTED_IMG_HEIGHT &&
+                imgDataWidth == SUPPORTED_IMG_WIDTH && imgDataHeight == SUPPORTED_IMG_HEIGHT;
     }
 }
