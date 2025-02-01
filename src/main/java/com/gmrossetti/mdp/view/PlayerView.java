@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public class PlayerView extends Pane {
-    private final int SPACING = 20;
+    private final int SPACING = 17;
     private final int RECT_WIDTH = 13;
     private final int RECT_HEIGHT = 13;
     private final Set<Line> trailLines = new HashSet<>();
@@ -48,6 +48,8 @@ public class PlayerView extends Pane {
             Point pointB = trail.get(i);
 
             Line line = new Line(pointA.x * SPACING, pointA.y * SPACING, pointB.x * SPACING, pointB.y * SPACING);
+
+            line.setStroke(Color.YELLOW);
 
             trailLines.add(line);
 

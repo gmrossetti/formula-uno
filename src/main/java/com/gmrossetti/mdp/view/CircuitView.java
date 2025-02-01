@@ -6,7 +6,7 @@ import com.gmrossetti.mdp.model.GridPoint;
 import javafx.scene.layout.Pane;
 
 public class CircuitView extends Pane {
-    final int SPACING = 20;
+    final int SPACING = 17;
 
     public CircuitView(Circuit circuit) {
         this.setStyle("-fx-padding: 20px;");
