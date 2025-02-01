@@ -6,7 +6,7 @@ import com.gmrossetti.mdp.model.GridPoint;
 import javafx.scene.layout.Pane;
 
 public class CircuitView extends Pane {
-    final int spacing = 20;
+    final int SPACING = 20;
 
     public CircuitView(Circuit circuit) {
         this.setStyle("-fx-padding: 20px;");
@@ -18,8 +18,8 @@ public class CircuitView extends Pane {
 
                 GridPointController gridPointController = new GridPointController(gridPoint);
 
-                gridPointController.getView().setTranslateX(this.spacing * gridPointController.getModel().x);
-                gridPointController.getView().setTranslateY(this.spacing * gridPointController.getModel().y);
+                gridPointController.getView().setTranslateX(this.SPACING * gridPointController.getModel().x);
+                gridPointController.getView().setTranslateY(this.SPACING * gridPointController.getModel().y);
 
                 this.getChildren().add(gridPointController.getView());
             }
