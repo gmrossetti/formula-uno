@@ -36,8 +36,8 @@ public class ImageToCircuit {
 
                 GridPoint.GridPointType type = GridPoint.GridPointType.OUTSIDE;
 
-//                final boolean isCurving = colorData.getGreen() == 0xff;
-//                final boolean isNarrow = colorData.getBlue() == 0xff;
+                final boolean isCurving = colorData.getGreen() == 0xff;
+                final boolean isNarrow = colorData.getBlue() == 0xff;
 
                 if (colorBase.equals(Color.WHITE)) {
                     type = GridPoint.GridPointType.INSIDE;
@@ -49,10 +49,7 @@ public class ImageToCircuit {
                     }
                 }
 
-                //  GridPoint model = new GridPoint(x,y,type,isCurving,isNarrow);
-                GridPoint model = new GridPoint(x,y,type);
-
-                grid[y][x] = model;
+                grid[y][x] = new GridPoint(x,y,type,isCurving,isNarrow);
             }
         }
 
