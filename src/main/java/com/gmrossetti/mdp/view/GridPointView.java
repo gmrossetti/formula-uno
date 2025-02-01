@@ -13,13 +13,25 @@ public class GridPointView extends Circle {
         Color color;
 
         switch(gridPoint.type){
-            case START -> color = Color.YELLOW;
-            case INSIDE -> color = Color.BLUE;
-            case OUTSIDE -> color = Color.RED;
-            case END -> color = Color.BROWN;
+            case START -> color = Color.web("#4CAF50");
+            case INSIDE -> color = getGradientColor(gridPoint);
+            case OUTSIDE -> color = Color.web("#FF4500");
+            case END -> color = Color.web("#FFD700");
             default -> throw new RuntimeException();
         }
 
         return color;
+    }
+
+    private static Color getGradientColor(GridPoint gridPoint){
+
+        if(gridPoint.isCurving != gridPoint.isNarrow)
+            return Color.web("#0099cc");
+
+        if(gridPoint.isCurving && gridPoint.isNarrow){
+            return Color.web("#006699");
+        }
+
+        return Color.web("#ADD8E6");
     }
 }

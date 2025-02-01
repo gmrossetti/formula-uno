@@ -64,7 +64,7 @@ public class Game {
 
 
         StackPane stackPane = new StackPane();
-        stackPane.setStyle("-fx-background-color: #ccc; -fx-padding: 20px;");
+        stackPane.setStyle("-fx-background-color: #333; -fx-padding: 20px;");
 
         stackPane.getChildren().addAll(rootPane, circuitCtrl.getView());
 
