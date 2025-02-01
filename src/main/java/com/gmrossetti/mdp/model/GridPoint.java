@@ -6,7 +6,8 @@ public class GridPoint extends Point {
     public enum GridPointType {
         OUTSIDE,  // Fuori mappa
         INSIDE,   // Dentro la mappa
-        START     // Partenza
+        START,     // Partenza
+        END        // Fine
     }
     public final GridPointType type;
     private PlayerController occupiedBy;

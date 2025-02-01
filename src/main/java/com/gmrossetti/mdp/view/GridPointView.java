@@ -16,6 +16,7 @@ public class GridPointView extends Circle {
             case START -> color = Color.YELLOW;
             case INSIDE -> color = Color.BLUE;
             case OUTSIDE -> color = Color.RED;
+            case END -> color = Color.BROWN;
             default -> throw new RuntimeException();
         }
 
