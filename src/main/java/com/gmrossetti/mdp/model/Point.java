@@ -1,5 +1,7 @@
 package com.gmrossetti.mdp.model;
 
+import java.util.Objects;
+
 public class Point {
     public final int x;
     public final int y;
@@ -46,8 +48,16 @@ public class Point {
 
         return new Point(newX, newY);
     }
-    public boolean equals(Point p) {
-        return this.x == p.x && this.y == p.y;
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Point that = (Point) other;
+        return x == that.x && y == that.y;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     @Override
