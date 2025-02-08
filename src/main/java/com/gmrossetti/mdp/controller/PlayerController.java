@@ -2,6 +2,7 @@ package com.gmrossetti.mdp.controller;
 
 import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Player;
+import com.gmrossetti.mdp.model.Point;
 import com.gmrossetti.mdp.view.PlayerView;
 import javafx.scene.Node;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class PlayerController {
 
         int rnd = new Random().nextInt(usableGridPoints.size());
 
-        this.model.makeMove(usableGridPoints.get(rnd));
+        this.model.makeMove(new Point(usableGridPoints.get(rnd)));
 
         this.view.update(this.model);
     }
