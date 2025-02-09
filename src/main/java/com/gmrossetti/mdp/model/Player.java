@@ -1,7 +1,10 @@
 package com.gmrossetti.mdp.model;
 
+import javafx.util.Pair;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Player {
     private Point position;
@@ -37,6 +40,8 @@ public class Player {
     }
 
     public void makeMove(Point point2reach){
+        if (this.position.equals(point2reach)) return;
+
         Point[] reachablePoints = this.getReachablePoints();
 
         for (Point rp:
@@ -50,5 +55,18 @@ public class Player {
         }
 
         throw new IllegalArgumentException("Provided point is not reachable.");
+    }
+
+    public Set<Point> getPointsInTrajectory(Point point2reach){
+        Set<Pair<Double,Double>> intersectionCoords = Point.calculateIntersectionCoords(this.position, point2reach);
+
+        Set<Point> pointsInTrajectory = new HashSet<>();
+
+        for (Pair<Double,Double> coords:
+                intersectionCoords) {
+            pointsInTrajectory.addAll(Point.findClosestIntegerPoints(coords));
+        }
+
+        return pointsInTrajectory;
     }
 }

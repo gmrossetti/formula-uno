@@ -51,30 +51,12 @@ public class Point {
 
         return new Point(newX, newY);
     }
-    public static Pair<Double,Double> calcIntersectionCoords(Pair<Point,Point> lineA, Pair<Point,Point> lineB) {
-        double x1 = lineA.getKey().x;
-        double y1 = lineA.getKey().y;
-        double x2 = lineA.getValue().x;
-        double y2 = lineA.getValue().y;
 
-        double x3 = lineB.getKey().x;
-        double y3 = lineB.getKey().y;
-        double x4 = lineB.getValue().x;
-        double y4 = lineB.getValue().y;
+    public static Double getLineSlopeCoefficient(Pair<Point,Point> line){
+        double deltaY = line.getKey().y - line.getValue().y;
+        double deltaX = line.getKey().x - line.getValue().x;
 
-        // Calcola i parametri della retta 1 (linea 1)
-        double denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-
-        if (denom == 0) {
-            // Le linee sono parallele, non hanno intersezione
-            return null; // oppure gestire l'errore come preferisci
-        }
-
-        // Calcola il punto di intersezione
-        double intersectX = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / denom;
-        double intersectY = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / denom;
-
-        return new Pair<>(intersectX, intersectY);
+        return deltaY / deltaX;
     }
 
     public static Set<Point> findClosestIntegerPoints(Pair<Double,Double> coords){
@@ -92,6 +74,42 @@ public class Point {
         closestIntegerPoints.add(new Point(ceilX,ceilY));
 
         return closestIntegerPoints;
+    }
+
+    // Metodo che calcola i punti di intersezione intermedi
+    public static Set<Pair<Double,Double>> calculateIntersectionCoords(Point p1, Point p2) {
+        final Set<Pair<Double,Double>> intersectionPoints = new HashSet<>();
+
+        double m = getLineSlopeCoefficient(new Pair<>(p1, p2));
+        double b = p1.y - m * p1.x;
+
+        final int MIN_X = Math.min(p1.x, p2.x);
+        final int MAX_X = Math.max(p1.x, p2.x);
+
+        final int MIN_Y = Math.min(p1.y, p2.y);
+        final int MAX_Y = Math.max(p1.y, p2.y);
+
+        if(m == 0){
+            for (int xi = MIN_X; xi <= MAX_X; xi++) {
+                intersectionPoints.add(new Pair<>((double)xi, (double)p1.y));
+            }
+        } else if(m == Double.POSITIVE_INFINITY || m == Double.NEGATIVE_INFINITY){
+            for (int yi = MIN_Y; yi <= MAX_Y; yi++) {
+                intersectionPoints.add(new Pair<>((double)p1.x, (double)yi));
+            }
+        } else {
+            for (int xi = MIN_X; xi <= MAX_X; xi++) {
+                double yi = m * xi + b;
+                intersectionPoints.add(new Pair<>((double)xi, yi));
+            }
+
+            for (int yi = MIN_Y; yi <= MAX_Y; yi++) {
+                double xi = (yi - b) / m;
+                intersectionPoints.add(new Pair<>(xi, (double)yi));
+            }
+        }
+
+        return intersectionPoints;
     }
 
     @Override
