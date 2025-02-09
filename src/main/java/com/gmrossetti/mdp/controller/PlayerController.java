@@ -1,7 +1,6 @@
 package com.gmrossetti.mdp.controller;
 
 import com.gmrossetti.mdp.model.Player;
-import com.gmrossetti.mdp.model.Point;
 import com.gmrossetti.mdp.view.PlayerView;
 import javafx.scene.Node;
 
@@ -14,8 +13,8 @@ public class PlayerController {
         this.view = new PlayerView(this.model);
     }
 
-    public void nextMove(Point point2reach){
-        this.model.makeMove(point2reach);
+    public void nextMove(Player.Move move){
+        this.model.makeMove(move);
 
         this.view.update(this.model);
     }
