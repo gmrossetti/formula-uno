@@ -50,10 +50,10 @@ public class Game {
 
     List<Point> moves = new ArrayList<>(Arrays.asList(new Point(18, 4), new Point(20, 4), new Point(23, 5)));
 
-    public void nextStep(){
+    public void nextStep(Player.Move move){
         for (PlayerController playerCtrl:
                 playersCtrl) {
-            playerCtrl.nextMove(moves.get(0));
+            playerCtrl.nextMove(move);
             moves.remove(0);
         }
     }

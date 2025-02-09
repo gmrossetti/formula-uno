@@ -1,14 +1,16 @@
 package com.gmrossetti.mdp.model;
 
 import javafx.util.Pair;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 public class Player {
     private Point position;
     private final List<Point> trail;
+
+    public enum Move {
+        TL, TM, TR, CL, CM, CR, BL, BM, BR
+    }
 
     public Player(GridPoint position) {
         this.position = position;
@@ -39,7 +41,9 @@ public class Player {
         return this.trail;
     }
 
-    public void makeMove(Point point2reach){
+    public void makeMove(Move move){
+        Point point2reach = getMovesPoints().get(move);
+
         if (this.position.equals(point2reach)) return;
 
         Point[] reachablePoints = this.getReachablePoints();
@@ -68,5 +72,25 @@ public class Player {
         }
 
         return pointsInTrajectory;
+    }
+
+    public Map<Move,Point> getMovesPoints(){
+        final Map<Move,Point> movesPoint = new HashMap<>();
+
+        Point pivot = this.getPivot();
+
+        movesPoint.put(Move.TL, new Point(pivot.x - 1, pivot.y - 1));
+        movesPoint.put(Move.TM, new Point(pivot.x, pivot.y - 1));
+        movesPoint.put(Move.TR, new Point(pivot.x + 1, pivot.y - 1));
+
+        movesPoint.put(Move.CL, new Point(pivot.x - 1, pivot.y));
+        movesPoint.put(Move.CM, new Point(pivot.x, pivot.y));
+        movesPoint.put(Move.CR, new Point(pivot.x + 1, pivot.y));
+
+        movesPoint.put(Move.BL, new Point(pivot.x - 1, pivot.y + 1));
+        movesPoint.put(Move.BM, new Point(pivot.x, pivot.y + 1));
+        movesPoint.put(Move.BR, new Point(pivot.x + 1, pivot.y + 1));
+
+        return movesPoint;
     }
 }
