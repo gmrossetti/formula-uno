@@ -10,6 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Game {
     private final CircuitController circuitCtrl;
@@ -46,18 +48,17 @@ public class Game {
         }
     }
 
+    List<Point> moves = new ArrayList<>(Arrays.asList(new Point(18, 4), new Point(20, 4), new Point(23, 5)));
+
     public void nextStep(){
         for (PlayerController playerCtrl:
                 playersCtrl) {
-
-            ArrayList<GridPoint> availableGridPoints = getAvailablePlayerPoints(playerCtrl, circuitCtrl);
-
-            playerCtrl.nextMove(availableGridPoints);
+            playerCtrl.nextMove(moves.get(0));
+            moves.remove(0);
         }
     }
 
     public StackPane getView(){
-
         Pane rootPane = new Pane();
         rootPane.setPrefSize(1920, 1000);
         rootPane.setStyle("-fx-padding: 20px;");

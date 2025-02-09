@@ -1,12 +1,9 @@
 package com.gmrossetti.mdp.controller;
 
-import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Player;
 import com.gmrossetti.mdp.model.Point;
 import com.gmrossetti.mdp.view.PlayerView;
 import javafx.scene.Node;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class PlayerController {
     private final Player model;
@@ -17,19 +14,8 @@ public class PlayerController {
         this.view = new PlayerView(this.model);
     }
 
-    public void nextMove(ArrayList<GridPoint> gridPointsInRange){
-        ArrayList<GridPoint> usableGridPoints = new ArrayList<>();
-
-        for (GridPoint gridPoint:
-                gridPointsInRange) {
-            if(gridPoint.type == GridPoint.GridPointType.INSIDE && !gridPoint.isOccupied()) {
-                usableGridPoints.add(gridPoint);
-            }
-        }
-
-        int rnd = new Random().nextInt(usableGridPoints.size());
-
-        this.model.makeMove(new Point(usableGridPoints.get(rnd)));
+    public void nextMove(Point point2reach){
+        this.model.makeMove(point2reach);
 
         this.view.update(this.model);
     }
