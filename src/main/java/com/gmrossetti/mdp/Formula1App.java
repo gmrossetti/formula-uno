@@ -6,20 +6,26 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
 
 public class Formula1App extends Application {
+    private Stage primaryStage;
     private Game game;
+    private StackPane gameStackPane;
 
     @Override
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+
         game = new Game();
 
-        StackPane stackPane = game.getView();
+        gameStackPane = game.getView();
 
-        VBox gameScreen = new VBox(stackPane, getPlayerControlsGrid());
+        VBox gameScreen = new VBox(gameStackPane, getPlayerControlsGrid());
 
         Scene scene = new Scene(gameScreen);
 
@@ -61,6 +67,38 @@ public class Formula1App extends Application {
 
     private void handlePlayerButtonClick(Player.Move move) {
         game.nextStep(move);
+
+        if(game.getGameStatus() != Game.Status.GAME_IN_PROGRESS){
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(primaryStage);
+            VBox dialogVbox = new VBox(20);
+            dialogVbox.getChildren().add(new Text(game.getGameStatus().toString()));
+
+            Button btnRestartGame = new Button("RESTART");
+
+            btnRestartGame.setOnAction(e -> {
+                handleRestartGameButton();
+                dialog.close();
+            });
+
+            dialogVbox.getChildren().add(btnRestartGame);
+            Scene dialogScene = new Scene(dialogVbox, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        }
+    }
+
+    private void handleRestartGameButton(){
+        game = new Game();
+
+        gameStackPane = game.getView();
+
+        VBox gameScreen = new VBox(gameStackPane, getPlayerControlsGrid());
+
+        Scene scene = new Scene(gameScreen);
+        primaryStage.setScene(scene);
+
     }
 
     public static void main(String[] args) {
