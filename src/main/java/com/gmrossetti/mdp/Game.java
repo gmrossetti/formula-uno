@@ -10,12 +10,23 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class Game {
     private final CircuitController circuitCtrl;
     private final ArrayList<PlayerController> playersCtrl;
+
+    enum Status {
+        GAME_START,
+        GAME_IN_PROGRESS,
+        PLAYER_OUT_OF_TRACK,
+        BOT_WINS,
+        PLAYER_WINS,
+        GAME_OVER
+    }
+
+    private Status gameStatus;
 
     public Game(){
         Circuit circuit = new Circuit();
@@ -23,6 +34,10 @@ public class Game {
         circuitCtrl = new CircuitController(circuit);
         playersCtrl = new ArrayList<>();
         initGame();
+    }
+
+    public Status getGameStatus(){
+        return this.gameStatus;
     }
 
     public CircuitController getCircuitCtrl() {
@@ -46,22 +61,82 @@ public class Game {
         for (int i = 0; i < 1; i++) {
             addPlayer();
         }
-    }
 
-    List<Point> moves = new ArrayList<>(Arrays.asList(new Point(18, 4), new Point(20, 4), new Point(23, 5)));
+        gameStatus = Status.GAME_START;
+    }
 
     public void nextStep(Player.Move move){
         for (PlayerController playerCtrl:
                 playersCtrl) {
-            playerCtrl.nextMove(move);
-            moves.remove(0);
+
+            gameStatus = Status.GAME_IN_PROGRESS;
+
+            Point point2reach = playerCtrl.getModel().getMovesPoints().get(move);
+
+            Set<Point> pointsInTrajectory = playerCtrl.getModel().getPointsInTrajectory(point2reach);
+
+            Set<GridPoint> gridPointsInTrajectory = circuitCtrl.getModel().pointsToGridPoints(pointsInTrajectory);
+
+            handlePlayerMove(gridPointsInTrajectory);
+        }
+    }
+
+    public void handlePlayerMove(Set<GridPoint> gridPointsInTrajectory){
+        Stream<GridPoint> gridPointsStream =  gridPointsInTrajectory.stream();
+
+        if(gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE)){
+            // OK
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE)) {
+            throw new IllegalStateException();
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START)) {
+            // OK
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.END)) {
+            throw new IllegalStateException();
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+                || gridPoint.type == GridPoint.GridPointType.OUTSIDE)){
+            this.gameStatus = Status.GAME_OVER; // GAME OVER
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+                || gridPoint.type == GridPoint.GridPointType.START)){
+            // OK
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+                || gridPoint.type == GridPoint.GridPointType.END)){
+            // RACE END
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
+                || gridPoint.type == GridPoint.GridPointType.START)){
+            // GAME OVER
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
+                || gridPoint.type == GridPoint.GridPointType.END)){
+            throw new IllegalStateException();
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START
+                || gridPoint.type == GridPoint.GridPointType.END)){
+            throw new IllegalStateException();
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+                || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.START)){
+            // GAME OVER
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+                || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.END)){
+            // RACE END (SE END DISTANCE CLOSER THAN OUTSIDE) ELSE GAME OVER
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+                || gridPoint.type == GridPoint.GridPointType.START || gridPoint.type == GridPoint.GridPointType.END)){
+            // RACE END (SE END DISTANCE CLOSER THAN START) ELSE ILLEGAL MOVE
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
+                || gridPoint.type == GridPoint.GridPointType.START || gridPoint.type == GridPoint.GridPointType.END)){
+            // RACE END (SE END DISTANCE CLOSER THAN OUTSIDE) ELSE GAME OVER
+        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+                || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.START
+                || gridPoint.type == GridPoint.GridPointType.END)){
+            // RACE END (SE END DISTANCE CLOSER THAN 		OUTSIDE && END DISTANCE CLOSER THAN START)
         }
     }
 
     public StackPane getView(){
         Pane rootPane = new Pane();
-        rootPane.setPrefSize(1920, 1000);
-        rootPane.setStyle("-fx-padding: 20px;");
+//        rootPane.setPrefSize(1920, 1000);
+
+        rootPane.setPrefSize(circuitCtrl.getModel().getGridWidth() * circuitCtrl.getView().SPACING - 20, circuitCtrl.getModel().getGridHeight() * circuitCtrl.getView().SPACING);
+
+
+        rootPane.setStyle("-fx-margin: 20px;");
 
 
         StackPane stackPane = new StackPane();
@@ -75,21 +150,5 @@ public class Game {
         }
 
         return stackPane;
-    }
-
-    public static ArrayList<GridPoint> getAvailablePlayerPoints(PlayerController playerCtrl, CircuitController circuitCtrl){
-        Point[] playerReachablePoints = playerCtrl.getModel().getReachablePoints();
-
-        ArrayList<GridPoint> usablePoints = new ArrayList<>();
-
-        for (Point playerReachablePoint:
-                playerReachablePoints) {
-
-            boolean isWalkable = circuitCtrl.getModel().getGridPoint(playerReachablePoint).isWalkable();
-
-            if(isWalkable) usablePoints.add(circuitCtrl.getModel().getGridPoint(playerReachablePoint));
-        }
-
-        return usablePoints;
     }
 }
