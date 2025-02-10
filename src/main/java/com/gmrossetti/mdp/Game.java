@@ -82,47 +82,47 @@ public class Game {
     }
 
     public void handlePlayerMove(Set<GridPoint> gridPointsInTrajectory){
-        Stream<GridPoint> gridPointsStream =  gridPointsInTrajectory.stream();
+//        Stream<GridPoint> gridPointsStream =  gridPointsInTrajectory.stream();
 
-        if(gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE)){
+        if(gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE)){
             // OK
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE)) {
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE)) {
             throw new IllegalStateException();
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START)) {
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START)) {
             // OK
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.END)) {
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.END)) {
             throw new IllegalStateException();
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
                 || gridPoint.type == GridPoint.GridPointType.OUTSIDE)){
             this.gameStatus = Status.GAME_OVER; // GAME OVER
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
                 || gridPoint.type == GridPoint.GridPointType.START)){
             // OK
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
                 || gridPoint.type == GridPoint.GridPointType.END)){
             // RACE END
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
                 || gridPoint.type == GridPoint.GridPointType.START)){
             // GAME OVER
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
                 || gridPoint.type == GridPoint.GridPointType.END)){
             throw new IllegalStateException();
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START
                 || gridPoint.type == GridPoint.GridPointType.END)){
             throw new IllegalStateException();
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
                 || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.START)){
             // GAME OVER
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
                 || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN OUTSIDE) ELSE GAME OVER
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
                 || gridPoint.type == GridPoint.GridPointType.START || gridPoint.type == GridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN START) ELSE ILLEGAL MOVE
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
                 || gridPoint.type == GridPoint.GridPointType.START || gridPoint.type == GridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN OUTSIDE) ELSE GAME OVER
-        } else if (gridPointsStream.allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
                 || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.START
                 || gridPoint.type == GridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN 		OUTSIDE && END DISTANCE CLOSER THAN START)
