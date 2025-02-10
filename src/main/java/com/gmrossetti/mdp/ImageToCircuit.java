@@ -14,7 +14,8 @@ public class ImageToCircuit {
     public static GridPoint[][] parseImageToGrid(String circuitName) throws IOException {
         final String basePath = "/com/gmrossetti/mdp/circuits/";
 
-        final String imgBaseSuffix = "-base.gif";
+//        final String imgBaseSuffix = "-base.gif";
+        final String imgBaseSuffix = "-base-v2.gif";
         final String imgDataSuffix = "-data.gif";
 
         InputStream inputStream1 = ImageToCircuit.class.getResourceAsStream(basePath + circuitName + imgBaseSuffix);
@@ -34,22 +35,20 @@ public class ImageToCircuit {
                 Color colorBase = new Color(imgBase.getRGB(x, y));
                 Color colorData = new Color(imgData.getRGB(x, y));
 
-                GridPoint.GridPointType type = GridPoint.GridPointType.OUTSIDE;
-
                 final boolean isCurving = colorData.getGreen() == 0xff;
                 final boolean isNarrow = colorData.getBlue() == 0xff;
 
+                GridPoint.GridPointType type = GridPoint.GridPointType.OUTSIDE;
+
                 if (colorBase.equals(Color.WHITE)) {
                     type = GridPoint.GridPointType.INSIDE;
-
-                    if (colorData.getRed() == 0xff) {
-                        type = GridPoint.GridPointType.START;
-                    } else if (colorData.getRed() > 0) {
-                        type = GridPoint.GridPointType.END;
-                    }
+                } else if(colorBase.equals(Color.GREEN)){
+                    type = GridPoint.GridPointType.START;
+                } else if(colorBase.equals(Color.BLUE)){
+                    type = GridPoint.GridPointType.END;
                 }
 
-                grid[y][x] = new GridPoint(x,y,type,isCurving,isNarrow);
+                grid[y][x] = new GridPoint(x,y,type,isCurving,isNarrow/*,isWaypoint*/);
             }
         }
 
