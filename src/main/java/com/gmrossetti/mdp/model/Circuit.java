@@ -3,10 +3,11 @@ package com.gmrossetti.mdp.model;
 import com.gmrossetti.mdp.ImageToCircuit;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.*;
 
 public class Circuit {
     private final GridPoint[][] grid;
+    private final List<GridPoint> raceStartLine;
     private final GridPoint raceStartGridPoint;
 
     public Circuit(){
@@ -16,12 +17,10 @@ public class Circuit {
             throw new RuntimeException(e);
         }
 
-        this.raceStartGridPoint = findRaceStartPoint(this.grid);
-    }
+        this.raceStartLine = new ArrayList<>();
+        initRaceStartEndLines();
 
-    public Circuit(Circuit circuit){
-        this.grid = circuit.grid;
-        this.raceStartGridPoint = circuit.raceStartGridPoint;
+        raceStartGridPoint = raceStartLine.get(raceStartLine.size() / 2);
     }
 
     public GridPoint getGridPoint(int x, int y) {
@@ -53,28 +52,43 @@ public class Circuit {
         System.out.println(Arrays.deepToString(this.grid));
     }
 
-    private static GridPoint findRaceStartPoint(GridPoint[][] grid) {
-        GridPoint raceStartPoint = null;
-
+    private void initRaceStartEndLines() {
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
                 GridPoint gridPoint = grid[y][x];
 
                 if (gridPoint.type == GridPoint.GridPointType.START) {
-
-                    if(raceStartPoint != null){
-                        throw new RuntimeException("Race start point must be unique.");
-                    }
-
-                    raceStartPoint = gridPoint;
+                    this.raceStartLine.add(gridPoint);
                 }
             }
         }
 
-        if(raceStartPoint == null){
-            throw new RuntimeException("Race start point must have 1 start point.");
+        if(raceStartLine.isEmpty()){
+            throw new RuntimeException("Race start line not provided.");
+        }
+    }
+
+    public boolean isValidRoute(Set<Point> routePoints){
+        for (Point routePoint:
+                routePoints) {
+            GridPoint routeGridPoint = this.getGridPoint(routePoint);
+
+            if(routeGridPoint.type == GridPoint.GridPointType.OUTSIDE){
+                return false;
+            }
         }
 
-        return raceStartPoint;
+        return true;
+    }
+
+    public Set<GridPoint> pointsToGridPoints(Set<Point> points){
+        Set<GridPoint> gridPoints = new HashSet<>();
+
+        for (Point point:
+                points) {
+            gridPoints.add(this.getGridPoint(point));
+        }
+
+        return gridPoints;
     }
 }
