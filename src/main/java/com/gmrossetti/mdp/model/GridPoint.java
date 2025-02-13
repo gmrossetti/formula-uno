@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.model;
 
-import com.gmrossetti.mdp.controller.PlayerController;
+import com.gmrossetti.mdp.actor.Car;
 
 public class GridPoint extends Point {
     public enum GridPointType {
@@ -10,7 +10,7 @@ public class GridPoint extends Point {
         END        // Fine
     }
     public final GridPointType type;
-    private PlayerController occupiedBy;
+    private Car occupiedBy;
     public final boolean isCurving;
     public final boolean isNarrow;
 
@@ -22,7 +22,7 @@ public class GridPoint extends Point {
         this.isNarrow = false;
     }
 
-    public GridPoint(int x, int y, GridPointType type, PlayerController occupiedBy) {
+    public GridPoint(int x, int y, GridPointType type, Car occupiedBy) {
         super(x, y);
         this.type = type;
         this.occupiedBy = occupiedBy;
@@ -48,7 +48,7 @@ public class GridPoint extends Point {
     public boolean isOccupied() {
         return this.occupiedBy != null;
     }
-    public void setOccupiedBy(PlayerController occupiedBy) {
+    public void setOccupiedBy(Car occupiedBy) {
         this.occupiedBy = occupiedBy;
     }
     public boolean isWalkable() {
