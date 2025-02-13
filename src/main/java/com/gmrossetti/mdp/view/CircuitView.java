@@ -1,7 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.controller.GridPointController;
-import com.gmrossetti.mdp.model.Circuit;
+import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.model.GridPoint;
 import javafx.scene.layout.Pane;
 
@@ -16,12 +15,12 @@ public class CircuitView extends Pane {
 
                 GridPoint gridPoint = circuit.getGridPoint(y,x);
 
-                GridPointController gridPointController = new GridPointController(gridPoint);
+                GridPointView gridPointView = new GridPointView(gridPoint);
 
-                gridPointController.getView().setTranslateX(this.SPACING * gridPointController.getModel().x);
-                gridPointController.getView().setTranslateY(this.SPACING * gridPointController.getModel().y);
+                gridPointView.setTranslateX(this.SPACING * gridPoint.x);
+                gridPointView.setTranslateY(this.SPACING * gridPoint.y);
 
-                this.getChildren().add(gridPointController.getView());
+                this.getChildren().add(gridPointView);
             }
         }
     }

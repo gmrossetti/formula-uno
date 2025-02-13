@@ -1,6 +1,8 @@
-package com.gmrossetti.mdp.model;
+package com.gmrossetti.mdp.actor;
 
-import com.gmrossetti.mdp.ImageToCircuit;
+import com.gmrossetti.mdp.level.LevelParser;
+import com.gmrossetti.mdp.model.GridPoint;
+import com.gmrossetti.mdp.model.Point;
 
 import java.io.IOException;
 import java.util.*;
@@ -12,7 +14,7 @@ public class Circuit {
 
     public Circuit(){
         try {
-            this.grid = ImageToCircuit.parseImageToGrid("circuit1");
+            this.grid = LevelParser.parseImageToGrid("circuit1");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -46,10 +48,6 @@ public class Circuit {
 
     public int getGridHeight(){
         return this.grid.length;
-    }
-
-    public void printGridToConsole(){
-        System.out.println(Arrays.deepToString(this.grid));
     }
 
     private void initRaceStartEndLines() {
