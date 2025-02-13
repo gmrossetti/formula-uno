@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp;
+package com.gmrossetti.mdp.level;
 
 import com.gmrossetti.mdp.model.GridPoint;
 
@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ImageToCircuit {
+public class LevelParser {
     final static int SUPPORTED_IMG_WIDTH = 60;
     final static int SUPPORTED_IMG_HEIGHT = 45;
     public static GridPoint[][] parseImageToGrid(String circuitName) throws IOException {
@@ -18,8 +18,8 @@ public class ImageToCircuit {
         final String imgBaseSuffix = "-base-v2.gif";
         final String imgDataSuffix = "-data.gif";
 
-        InputStream inputStream1 = ImageToCircuit.class.getResourceAsStream(basePath + circuitName + imgBaseSuffix);
-        InputStream inputStream2 = ImageToCircuit.class.getResourceAsStream(basePath + circuitName + imgDataSuffix);
+        InputStream inputStream1 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgBaseSuffix);
+        InputStream inputStream2 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgDataSuffix);
 
         BufferedImage imgBase = ImageIO.read(inputStream1);
         BufferedImage imgData = ImageIO.read(inputStream2);
