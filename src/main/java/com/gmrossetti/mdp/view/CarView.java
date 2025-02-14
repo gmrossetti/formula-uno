@@ -17,14 +17,26 @@ public class CarView extends Pane {
 
     private final Shape shape;
 
+    private final Rectangle pivotRect;
+
     public CarView(Car car){
         shape = new Rectangle(-RECT_WIDTH/2.d,-RECT_HEIGHT/2.d,RECT_WIDTH,RECT_HEIGHT);
         shape.setFill(Color.YELLOW);
         shape.setRotate(45);
 
+
+        pivotRect = new Rectangle(-RECT_WIDTH/2.d,-RECT_HEIGHT/2.d,RECT_WIDTH,RECT_HEIGHT);
+        Color color = new Color(Color.YELLOW.getRed(), Color.YELLOW.getGreen(), Color.YELLOW.getBlue(), 0.6);
+
+        pivotRect.setFill(color);
+        pivotRect.setRotate(45);
+
+
         update(car);
 
         this.getChildren().add(shape);
+
+        this.getChildren().add(pivotRect);
     }
 
     public void update(Car car){
@@ -32,6 +44,7 @@ public class CarView extends Pane {
         shape.setTranslateY(car.getPosition().y * SPACING);
 
         addTrailLine(car);
+        updatePivotPoint(car);
     }
 
     private void addTrailLine(Car car){
@@ -46,5 +59,10 @@ public class CarView extends Pane {
         trailSegment.setStroke(Color.YELLOW);
 
         this.getChildren().add(trailSegment);
+    }
+
+    private void updatePivotPoint(Car car){
+        pivotRect.setTranslateX(car.getPivot().x * SPACING);
+        pivotRect.setTranslateY(car.getPivot().y * SPACING);
     }
 }
