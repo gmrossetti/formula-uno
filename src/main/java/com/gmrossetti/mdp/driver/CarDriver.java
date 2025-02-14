@@ -24,8 +24,6 @@ abstract public class CarDriver {
     public final void makeMove(CarDriver.Move move){
         Point point2reach = getMovesPoints().get(move);
 
-        if (this.car.getPosition().equals(point2reach)) return;
-
         this.car.move(point2reach);
     }
     
