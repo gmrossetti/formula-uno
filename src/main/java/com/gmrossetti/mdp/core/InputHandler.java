@@ -20,7 +20,7 @@ public class InputHandler {
         this.gameLogic = gameLogic;
     }*/
 
-    public void handleInput(CarDriver.Move move){
+    public void stashInput(CarDriver.Move move){
         this.lastMove = move;
     }
 

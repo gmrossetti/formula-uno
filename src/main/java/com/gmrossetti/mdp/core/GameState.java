@@ -9,9 +9,24 @@ import java.util.List;
 
 public class GameState {
     private Circuit circuit;
+    public Circuit getCircuit() {
+        return circuit;
+    }
 
+    private List<CarDriver> carDrivers;
     public List<CarDriver> getCarDrivers() {
         return carDrivers;
+    }
+
+    private boolean isRaceActive;
+    public boolean isRaceActive() {
+        return isRaceActive;
+    }
+
+    public GameState(Circuit circuit) {
+        this.circuit = circuit;
+        carDrivers = new ArrayList<>();
+        isRaceActive = true;
     }
 
     public HumanCarDriver getHumanCarDriver() {
@@ -25,25 +40,7 @@ public class GameState {
         return null;
     }
 
-    private List<CarDriver> carDrivers;
-
-    public boolean isRaceActive() {
-        return isRaceActive;
-    }
-
-    private boolean isRaceActive;
-
-    public GameState(Circuit circuit) {
-        this.circuit = circuit;
-        carDrivers = new ArrayList<>();
-        isRaceActive = true;
-    }
-
     public void addCarDriver(CarDriver carDriver){
         carDrivers.add(carDriver);
-    }
-
-    public Circuit getCircuit() {
-        return circuit;
     }
 }
