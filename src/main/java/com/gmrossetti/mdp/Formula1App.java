@@ -5,17 +5,15 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 public class Formula1App extends Application {
-    private GameManager gameManager;
+    private final GameManager gameManager = GameManager.getInstance();
 
     @Override
     public void start(Stage primaryStage) {
-        gameManager = GameManager.getInstance();
-
-        Scene scene = new Scene(gameManager.getView());
+        Scene gameScene = new Scene(gameManager.getView());
 
         // Imposta il titolo della finestra
         primaryStage.setTitle("Formula 1");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(gameScene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }

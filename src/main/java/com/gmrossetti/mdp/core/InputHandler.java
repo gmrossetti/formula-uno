@@ -3,13 +3,36 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.driver.CarDriver;
 
 public class InputHandler {
-    private final GameLogic gameLogic;
+//    private final GameLogic gameLogic;
+    private static InputHandler instance;
+    private CarDriver.Move lastMove = null;
 
-    public InputHandler(GameLogic gameLogic) {
-        this.gameLogic = gameLogic;
+    private InputHandler() {} // Costruttore privato
+
+    public static InputHandler getInstance() {
+        if (instance == null) {
+            instance = new InputHandler();
+        }
+        return instance;
     }
 
-    public void handleInput(CarDriver.Move move){
+/*    public InputHandler(GameLogic gameLogic) {
+        this.gameLogic = gameLogic;
+    }*/
 
+    public void handleInput(CarDriver.Move move){
+        this.lastMove = move;
+    }
+
+    public CarDriver.Move popMove() {
+        CarDriver.Move moveToReturn = this.lastMove;
+
+        this.lastMove = null;
+
+        return moveToReturn;
+    }
+
+    public boolean hasMove(){
+        return lastMove != null;
     }
 }

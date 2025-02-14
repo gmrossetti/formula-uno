@@ -2,6 +2,16 @@ package com.gmrossetti.mdp.core;
 
 public class GameLogic {
 
+    private GameState gameState;
+
+    public GameLogic(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+
+
+
+
     /*public void handlePlayerMove(Set<GridPoint> gridPointsInTrajectory){
 //        Stream<GridPoint> gridPointsStream =  gridPointsInTrajectory.stream();
 

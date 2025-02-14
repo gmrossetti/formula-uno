@@ -2,18 +2,13 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
-import com.gmrossetti.mdp.driver.BotCarDriver;
+import com.gmrossetti.mdp.driver.HumanCarDriver;
 import com.gmrossetti.mdp.view.ControlsView;
 import com.gmrossetti.mdp.view.GameView;
 import com.gmrossetti.mdp.view.RaceView;
 
 public class GameManager {
     private static GameManager instance = null;
-
-    private GameManager(){
-        init();
-    }
-
     public static GameManager getInstance(){
         if(instance == null){
             instance = new GameManager();
@@ -25,15 +20,18 @@ public class GameManager {
     private Renderer renderer;
     private GameLoop gameLoop;
     private GameState gameState;
-//    private GameLogic gameLogic;
+    private GameLogic gameLogic;
 
     private RaceView raceView;
     private ControlsView controlsView;
-
     private GameView view;
 
     public GameView getView(){
         return view;
+    }
+
+    private GameManager(){
+        init();
     }
 
     public void init(){
@@ -42,30 +40,22 @@ public class GameManager {
         gameState = new GameState(circuit);
 
         raceView = new RaceView(gameState);
-
         controlsView = new ControlsView();
-
         view = new GameView(raceView, controlsView);
 
         renderer = new Renderer(gameState, view);
-        gameLoop = new GameLoop(renderer);
 
-        //        gameLogic = new GameLogic();
+        gameLogic = new GameLogic(gameState);
+
+        gameLoop = new GameLoop(gameState, gameLogic, renderer);
 
         gameLoop.start();
 
-        // TODO: da rimuovere... Solo per scopo di test
-        addCarDriver();
-    }
-
-    // TODO: rimuovere. Serve solo per test
-    private void addCarDriver(){
-
+        // TODO: verione dinamica da caricare tramite file
         Car car = new Car(gameState.getCircuit().getRaceStartPoint());
-        BotCarDriver botCarDriver = new BotCarDriver(car);
+        HumanCarDriver humanCarDriver = new HumanCarDriver(car);
 
-//        gameState.getCarDrivers();
-
-        this.gameState.addCarDriver(botCarDriver);
+        gameState.addCarDriver(humanCarDriver);
+        // ----------------
     }
 }
