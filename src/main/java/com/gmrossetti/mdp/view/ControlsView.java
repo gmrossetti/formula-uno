@@ -30,7 +30,7 @@ public class ControlsView extends GridPane {
 
                 InputHandler inputHandler = InputHandler.getInstance();
 
-                btn.setOnAction(e -> inputHandler.handleInput(move));
+                btn.setOnAction(e -> inputHandler.stashInput(move));
 
                 this.add(btn, j, i);
             }
