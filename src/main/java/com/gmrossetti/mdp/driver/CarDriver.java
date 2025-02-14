@@ -2,6 +2,7 @@ package com.gmrossetti.mdp.driver;
 
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.model.Point;
+import javafx.util.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +22,14 @@ abstract public class CarDriver {
         this.car = car;
     }
 
-    public final void makeMove(CarDriver.Move move){
+    public final Pair<Point,Point> makeMove(CarDriver.Move move){
         Point point2reach = getMovesPoints().get(move);
 
+        final Pair<Point,Point> trace = new Pair<>(this.car.getPosition(),point2reach);
+
         this.car.move(point2reach);
+
+        return trace;
     }
     
     /*public Set<Point> getPointsInTrajectory(Point point2reach){

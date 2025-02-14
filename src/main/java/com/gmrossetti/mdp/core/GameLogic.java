@@ -2,6 +2,10 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
+import com.gmrossetti.mdp.model.Point;
+import javafx.util.Pair;
+
+import java.util.Set;
 
 public class GameLogic {
     private GameState gameState;
@@ -16,7 +20,9 @@ public class GameLogic {
         HumanCarDriver humanCarDriver = gameState.getHumanCarDriver();
 
         if(humanCarDriver != null){
-            humanCarDriver.makeMove(move);
+            Pair<Point, Point> driverTrace = humanCarDriver.makeMove(move);
+
+            // TODO: add Human Move check
         }
 
 
