@@ -17,15 +17,8 @@ public class GameLoop extends AnimationTimer {
     @Override
     public void handle(long l) {
         // aggiornamento stato tramite logica
-
-//        gameLogic.
-
-        HumanCarDriver humanCarDriver = gameState.getHumanCarDriver();
-
-        if(humanCarDriver != null){
-            if(InputHandler.getInstance().hasMove()){
-                humanCarDriver.makeMove(InputHandler.getInstance().popMove());
-            }
+        if(InputHandler.getInstance().hasMove()){
+            gameLogic.nextStep(InputHandler.getInstance().popMove());
         }
 
         renderer.update();

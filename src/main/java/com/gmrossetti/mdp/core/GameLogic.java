@@ -1,16 +1,26 @@
 package com.gmrossetti.mdp.core;
 
-public class GameLogic {
+import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.HumanCarDriver;
 
+public class GameLogic {
     private GameState gameState;
 
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
     }
 
+    public void nextStep(CarDriver.Move move){
+        // TODO: add all checks for player and bot moves
+
+        HumanCarDriver humanCarDriver = gameState.getHumanCarDriver();
+
+        if(humanCarDriver != null){
+            humanCarDriver.makeMove(move);
+        }
 
 
-
+    }
 
     /*public void handlePlayerMove(Set<GridPoint> gridPointsInTrajectory){
 //        Stream<GridPoint> gridPointsStream =  gridPointsInTrajectory.stream();
