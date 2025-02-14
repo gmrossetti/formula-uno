@@ -32,4 +32,8 @@ public class Car {
         this.position = position;
         this.trail.add(position);
     }
+
+    public final Point getPivot(){
+        return this.getPosition().sum(this.getVelocity());
+    }
 }

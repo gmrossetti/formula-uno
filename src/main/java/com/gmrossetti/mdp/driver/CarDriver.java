@@ -21,10 +21,6 @@ abstract public class CarDriver {
         this.car = car;
     }
 
-    public final Point getPivot(){
-        return car.getPosition().sum(car.getVelocity());
-    }
-
     public final void makeMove(CarDriver.Move move){
         Point point2reach = getMovesPoints().get(move);
 
@@ -49,7 +45,7 @@ abstract public class CarDriver {
     public final Map<CarDriver.Move,Point> getMovesPoints(){
         final Map<CarDriver.Move,Point> movesPoint = new HashMap<>();
 
-        Point pivot = this.getPivot();
+        Point pivot = this.car.getPivot();
 
         movesPoint.put(CarDriver.Move.TL, new Point(pivot.x - 1, pivot.y - 1));
         movesPoint.put(CarDriver.Move.TM, new Point(pivot.x, pivot.y - 1));
