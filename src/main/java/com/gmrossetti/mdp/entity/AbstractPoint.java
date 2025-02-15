@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.model;
+package com.gmrossetti.mdp.entity;
 
 import java.util.Objects;
 
@@ -22,8 +22,7 @@ public abstract class AbstractPoint<T extends Number> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AbstractPoint<?> that = (AbstractPoint<?>) o;
+        if (!(o instanceof AbstractPoint<?> that)) return false;
         return x.equals(that.x) && y.equals(that.y);
     }
     @Override
