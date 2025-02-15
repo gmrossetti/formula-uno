@@ -1,10 +1,8 @@
 package com.gmrossetti.mdp.actor;
 
 import com.gmrossetti.mdp.level.LevelParser;
-import com.gmrossetti.mdp.model.CircuitGridPoint;
-import com.gmrossetti.mdp.model.GridLine;
-import com.gmrossetti.mdp.model.GridPoint;
-import com.gmrossetti.mdp.model.Point;
+import com.gmrossetti.mdp.entity.CircuitGridPoint;
+import com.gmrossetti.mdp.entity.GridPoint;
 
 import java.io.IOException;
 import java.util.*;

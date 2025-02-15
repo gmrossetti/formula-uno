@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.level;
 
-import com.gmrossetti.mdp.model.CircuitGridPoint;
+import com.gmrossetti.mdp.entity.CircuitGridPoint;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
