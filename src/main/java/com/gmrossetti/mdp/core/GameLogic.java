@@ -2,9 +2,9 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
-import com.gmrossetti.mdp.model.GridLine;
-import com.gmrossetti.mdp.model.GridPoint;
-import com.gmrossetti.mdp.model.Point;
+import com.gmrossetti.mdp.entity.CircuitGridPoint;
+import com.gmrossetti.mdp.entity.GridLine;
+import com.gmrossetti.mdp.entity.GridPoint;
 import javafx.util.Pair;
 
 import java.util.Set;

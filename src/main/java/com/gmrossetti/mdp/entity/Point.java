@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.model;
+package com.gmrossetti.mdp.entity;
 
 import java.util.HashSet;
 import java.util.Set;

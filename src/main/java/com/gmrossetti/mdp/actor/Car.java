@@ -1,8 +1,6 @@
 package com.gmrossetti.mdp.actor;
 
-import com.gmrossetti.mdp.model.GridPoint;
-import com.gmrossetti.mdp.model.Point;
-import javafx.util.Pair;
+import com.gmrossetti.mdp.entity.GridPoint;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.model;
+package com.gmrossetti.mdp.entity;
 
 import com.gmrossetti.mdp.actor.Car;
 
