@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.model.GridPoint;
+import com.gmrossetti.mdp.entity.GridPoint;
 import com.gmrossetti.mdp.actor.Car;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

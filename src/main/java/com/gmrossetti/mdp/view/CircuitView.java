@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.actor.Circuit;
-import com.gmrossetti.mdp.model.CircuitGridPoint;
+import com.gmrossetti.mdp.entity.CircuitGridPoint;
 import javafx.scene.layout.Pane;
 
 public class CircuitView extends Pane {

@@ -1,10 +1,8 @@
 package com.gmrossetti.mdp.driver;
 
 import com.gmrossetti.mdp.actor.Car;
-import com.gmrossetti.mdp.model.GridLine;
-import com.gmrossetti.mdp.model.GridPoint;
-import com.gmrossetti.mdp.model.Point;
-import javafx.util.Pair;
+import com.gmrossetti.mdp.entity.GridLine;
+import com.gmrossetti.mdp.entity.GridPoint;
 
 import java.util.HashMap;
 import java.util.Map;

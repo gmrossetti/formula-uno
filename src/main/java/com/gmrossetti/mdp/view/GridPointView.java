@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.model.CircuitGridPoint;
+import com.gmrossetti.mdp.entity.CircuitGridPoint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 

@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.model;
+package com.gmrossetti.mdp.entity;
 
 public class GridPoint extends AbstractPoint<Integer> {
     public GridPoint(int x, int y) {
