@@ -1,20 +1,20 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.model.GridPoint;
+import com.gmrossetti.mdp.model.CircuitGridPoint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class GridPointView extends Circle {
-    public GridPointView(GridPoint gridPoint){
-        super(0, 0, 3, getColorFormGridPointType(gridPoint));
+    public GridPointView(CircuitGridPoint circuitGridPoint){
+        super(0, 0, 3, getColorFormGridPointType(circuitGridPoint));
     }
 
-    private static Color getColorFormGridPointType(GridPoint gridPoint){
+    private static Color getColorFormGridPointType(CircuitGridPoint circuitGridPoint){
         Color color;
 
-        switch(gridPoint.type){
+        switch(circuitGridPoint.type){
             case START -> color = Color.web("#4CAF50");
-            case INSIDE -> color = getGradientColor(gridPoint);
+            case INSIDE -> color = getGradientColor(circuitGridPoint);
             case OUTSIDE -> color = Color.web("#FF4500");
             case END -> color = Color.web("#FFD700");
             default -> throw new RuntimeException();
@@ -23,12 +23,12 @@ public class GridPointView extends Circle {
         return color;
     }
 
-    private static Color getGradientColor(GridPoint gridPoint){
+    private static Color getGradientColor(CircuitGridPoint circuitGridPoint){
 
-        if(gridPoint.isCurving != gridPoint.isNarrow)
+        if(circuitGridPoint.isCurving != circuitGridPoint.isNarrow)
             return Color.web("#0099cc");
 
-        if(gridPoint.isCurving && gridPoint.isNarrow){
+        if(circuitGridPoint.isCurving && circuitGridPoint.isNarrow){
             return Color.web("#006699");
         }
 

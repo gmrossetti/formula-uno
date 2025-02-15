@@ -1,39 +1,57 @@
 package com.gmrossetti.mdp.actor;
 
+import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Point;
+import javafx.util.Pair;
 
-import java.util.List;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Car {
-    private Point position;
-    private final List<Point> trail;
+    private GridPoint position;
+    private final List<GridPoint> trail;
 
-    public Point getPosition() { return position; }
-    public List<Point> getTrail() { return trail; }
+    public GridPoint getPosition() { return position; }
+    public List<GridPoint> getTrail() { return trail; }
 
-    public Point getVelocity() {
+    public GridPoint getVelocity() {
         if(this.trail.size() < 2){
-            return new Point(0,0);
+            return new GridPoint(0,0);
         }
 
-        Point lastPosition = this.trail.get(this.trail.size() - 2);
+        GridPoint lastPosition = this.trail.get(this.trail.size() - 2);
 
         return this.position.sub(lastPosition);
     }
 
-    public Car(Point position) {
+    public Car(GridPoint position) {
         this.position = position;
         this.trail = new LinkedList<>();
         this.trail.add(position);
     }
 
-    public void move(Point position){
+    public void move(GridPoint position){
         this.position = position;
         this.trail.add(position);
     }
 
-    public final Point getPivot(){
+    /*public List<Point> getTrajectoryPoints(Point targetPosition){
+        Set<Pair<Double, Double>> gridIntersections = Point.getSegmentGridIntersections(this.position,targetPosition);
+
+        Set<Point> descretGridIntersections = new HashSet<>();
+
+        for (Pair<Double, Double> gridIntersection:
+                gridIntersections) {
+            descretGridIntersections.addAll(Point.getNearestDiscretePoints(gridIntersection));
+        }
+
+        return descretGridIntersections.stream().sorted((o1, o2) -> {
+            double diff = Point.getDistance(position,o1) - Point.getDistance(position,o2);
+            return (diff >= 0) ? (int) Math.ceil(diff) : (int) Math.floor(diff);
+        }).toList();
+    }*/
+
+
+    public final GridPoint getPivot(){
         return this.getPosition().sum(this.getVelocity());
     }
 }

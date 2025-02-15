@@ -1,6 +1,8 @@
 package com.gmrossetti.mdp.actor;
 
 import com.gmrossetti.mdp.level.LevelParser;
+import com.gmrossetti.mdp.model.CircuitGridPoint;
+import com.gmrossetti.mdp.model.GridLine;
 import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Point;
 
@@ -8,9 +10,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class Circuit {
-    private final GridPoint[][] grid;
-    private final List<GridPoint> raceStartLine;
-    private final GridPoint raceStartGridPoint;
+    private final CircuitGridPoint[][] grid;
+    private final List<CircuitGridPoint> raceStartLine;
+    private final CircuitGridPoint raceStartCircuitGridPoint;
 
     public Circuit(){
         try {
@@ -22,24 +24,24 @@ public class Circuit {
         this.raceStartLine = new ArrayList<>();
         initRaceStartEndLines();
 
-        raceStartGridPoint = raceStartLine.get(raceStartLine.size() / 2);
+        raceStartCircuitGridPoint = raceStartLine.get(raceStartLine.size() / 2);
     }
 
-    public GridPoint getGridPoint(int x, int y) {
+    public CircuitGridPoint getGridPoint(int x, int y) {
         try {
-            GridPoint gridPoint = this.grid[y][x];
-            return new GridPoint(gridPoint);
+            CircuitGridPoint circuitGridPoint = this.grid[y][x];
+            return new CircuitGridPoint(circuitGridPoint);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new GridPoint(x, y, GridPoint.GridPointType.OUTSIDE);
+            return new CircuitGridPoint(x, y, CircuitGridPoint.GridPointType.OUTSIDE);
         }
     }
 
-    public GridPoint getGridPoint(Point point){
-        return this.getGridPoint(point.x,point.y);
+    public CircuitGridPoint getGridPoint(GridPoint gp){
+        return this.getGridPoint(gp.x,gp.y);
     }
 
-    public GridPoint getRaceStartPoint(){
-        return this.raceStartGridPoint;
+    public CircuitGridPoint getRaceStartPoint(){
+        return this.raceStartCircuitGridPoint;
     }
 
     public int getGridWidth(){
@@ -53,10 +55,10 @@ public class Circuit {
     private void initRaceStartEndLines() {
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
-                GridPoint gridPoint = grid[y][x];
+                CircuitGridPoint circuitGridPoint = grid[y][x];
 
-                if (gridPoint.type == GridPoint.GridPointType.START) {
-                    this.raceStartLine.add(gridPoint);
+                if (circuitGridPoint.type == CircuitGridPoint.GridPointType.START) {
+                    this.raceStartLine.add(circuitGridPoint);
                 }
             }
         }
@@ -66,27 +68,54 @@ public class Circuit {
         }
     }
 
-    public boolean isValidRoute(Set<Point> routePoints){
-        for (Point routePoint:
-                routePoints) {
-            GridPoint routeGridPoint = this.getGridPoint(routePoint);
+    /*public boolean isValidRoute(GridLine routeLine){
 
-            if(routeGridPoint.type == GridPoint.GridPointType.OUTSIDE){
+
+
+//        routeLine.getGridIntersections().forEach(intesectionPoint -> mIrc.join(mSession, join));
+
+    }*/
+
+
+    /*public boolean isValidRoute(Set<GridPoint> routePoints){
+        for (GridPoint routePoint:
+                routePoints) {
+            CircuitGridPoint routeCircuitGridPoint = this.getGridPoint(routePoint);
+
+            if(routeCircuitGridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE){
                 return false;
             }
         }
 
         return true;
-    }
+    }*/
 
-    public Set<GridPoint> pointsToGridPoints(Set<Point> points){
-        Set<GridPoint> gridPoints = new HashSet<>();
+    /*public Set<CircuitGridPoint> pointsToGridPoints(Set<Point> points){
+        Set<CircuitGridPoint> circuitGridPoints = new HashSet<>();
 
         for (Point point:
                 points) {
-            gridPoints.add(this.getGridPoint(point));
+            circuitGridPoints.add(this.getGridPoint(point));
         }
 
-        return gridPoints;
-    }
+        return circuitGridPoints;
+    }*/
+
+    /*public List<CircuitGridPoint> getGridRoute(Point p1, Point p2){
+        Set<Pair<Double, Double>>intersectionPoints = Point.getSegmentGridIntersections(p1,p2);
+
+        Pair<Double,Double> point1 = new Pair<>((double)p1.x,(double)p1.y);
+
+        intersectionPoints.stream().sorted(new Comparator<Pair<Double, Double>>() {
+            @Override
+            public int compare(Pair<Double, Double> o1, Pair<Double, Double> o2) {
+                if(Point.getDistance(point1,o1) > Point.getDistance(point1,o2)){
+
+                }
+                if(Point.getDistance(point1,o1) > Point.getDistance(point1,o2)){
+
+                }
+            }
+        })
+    }*/
 }

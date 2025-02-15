@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.model.Point;
+import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.actor.Car;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -48,14 +48,14 @@ public class CarView extends Pane {
     }
 
     private void addTrailLine(Car car){
-        final List<Point> carTrail = car.getTrail();
+        final List<GridPoint> carTrail = car.getTrail();
 
         if(carTrail.size() < 2) return;
 
-        Point pointA = carTrail.get(carTrail.size() - 2);
-        Point pointB = carTrail.get(carTrail.size() - 1);
+        GridPoint gpA = carTrail.get(carTrail.size() - 2);
+        GridPoint gpB = carTrail.get(carTrail.size() - 1);
 
-        Line trailSegment = new Line(pointA.x * SPACING, pointA.y * SPACING, pointB.x * SPACING, pointB.y * SPACING);
+        Line trailSegment = new Line(gpA.x * SPACING, gpA.y * SPACING, gpB.x * SPACING, gpB.y * SPACING);
         trailSegment.setStroke(Color.YELLOW);
 
         this.getChildren().add(trailSegment);
