@@ -6,6 +6,7 @@ import com.gmrossetti.mdp.entity.GridPoint;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Supplier;
 
 public class Circuit {
     private final CircuitGridPoint[][] grid;
@@ -66,11 +67,23 @@ public class Circuit {
         }
     }
 
+    public <C extends Collection<CircuitGridPoint>> C toCircuitGridPoint(Collection<GridPoint> points, Supplier<C> collectionFactory) {
+        if (points == null) {
+            throw new IllegalArgumentException("Points collection cannot be null");
+        }
+
+        C result = collectionFactory.get();
+        points.forEach(p -> result.add(new CircuitGridPoint(this.getGridPoint(p))));
+        return result;
+    }
+    public CircuitGridPoint toCircuitGridPoint(GridPoint point) {
+        if (point == null) {
+            throw new IllegalArgumentException("Point cannot be null");
+        }
+        return new CircuitGridPoint(this.getGridPoint(point));
+    }
+
     /*public boolean isValidRoute(GridLine routeLine){
-
-
-
-//        routeLine.getGridIntersections().forEach(intesectionPoint -> mIrc.join(mSession, join));
 
     }*/
 
