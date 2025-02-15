@@ -2,6 +2,8 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
+import com.gmrossetti.mdp.model.GridLine;
+import com.gmrossetti.mdp.model.GridPoint;
 import com.gmrossetti.mdp.model.Point;
 import javafx.util.Pair;
 
@@ -20,7 +22,7 @@ public class GameLogic {
         HumanCarDriver humanCarDriver = gameState.getHumanCarDriver();
 
         if(humanCarDriver != null){
-            Pair<Point, Point> driverTrace = humanCarDriver.makeMove(move);
+            GridLine driverTrace = humanCarDriver.makeMove(move);
 
             // TODO: add Human Move check
         }
@@ -28,50 +30,50 @@ public class GameLogic {
 
     }
 
-    /*public void handlePlayerMove(Set<GridPoint> gridPointsInTrajectory){
-//        Stream<GridPoint> gridPointsStream =  gridPointsInTrajectory.stream();
+    /*public void handlePlayerMove(Set<CircuitGridPoint> gridPointsInTrajectory){
+//        Stream<CircuitGridPoint> gridPointsStream =  gridPointsInTrajectory.stream();
 
-        if(gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE)){
+        if(gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE)){
             // OK
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE)) {
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE)) {
             throw new IllegalStateException();
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START)) {
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.START)) {
             // OK
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.END)) {
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.END)) {
             throw new IllegalStateException();
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
-                || gridPoint.type == GridPoint.GridPointType.OUTSIDE)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE)){
             this.gameStatus = Status.GAME_OVER; // GAME OVER
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
-                || gridPoint.type == GridPoint.GridPointType.START)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.START)){
             // OK
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
-                || gridPoint.type == GridPoint.GridPointType.END)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.END)){
             // RACE END
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
-                || gridPoint.type == GridPoint.GridPointType.START)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.START)){
             // GAME OVER
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
-                || gridPoint.type == GridPoint.GridPointType.END)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.END)){
             throw new IllegalStateException();
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.START
-                || gridPoint.type == GridPoint.GridPointType.END)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.START
+                || gridPoint.type == CircuitGridPoint.GridPointType.END)){
             throw new IllegalStateException();
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
-                || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.START)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE || gridPoint.type == CircuitGridPoint.GridPointType.START)){
             // GAME OVER
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
-                || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.END)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE || gridPoint.type == CircuitGridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN OUTSIDE) ELSE GAME OVER
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
-                || gridPoint.type == GridPoint.GridPointType.START || gridPoint.type == GridPoint.GridPointType.END)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.START || gridPoint.type == CircuitGridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN START) ELSE ILLEGAL MOVE
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.OUTSIDE
-                || gridPoint.type == GridPoint.GridPointType.START || gridPoint.type == GridPoint.GridPointType.END)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.START || gridPoint.type == CircuitGridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN OUTSIDE) ELSE GAME OVER
-        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == GridPoint.GridPointType.INSIDE
-                || gridPoint.type == GridPoint.GridPointType.OUTSIDE || gridPoint.type == GridPoint.GridPointType.START
-                || gridPoint.type == GridPoint.GridPointType.END)){
+        } else if (gridPointsInTrajectory.stream().allMatch(gridPoint -> gridPoint.type == CircuitGridPoint.GridPointType.INSIDE
+                || gridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE || gridPoint.type == CircuitGridPoint.GridPointType.START
+                || gridPoint.type == CircuitGridPoint.GridPointType.END)){
             // RACE END (SE END DISTANCE CLOSER THAN 		OUTSIDE && END DISTANCE CLOSER THAN START)
         }
     }*/

@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.level;
 
-import com.gmrossetti.mdp.model.GridPoint;
+import com.gmrossetti.mdp.model.CircuitGridPoint;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.io.InputStream;
 public class LevelParser {
     final static int SUPPORTED_IMG_WIDTH = 60;
     final static int SUPPORTED_IMG_HEIGHT = 45;
-    public static GridPoint[][] parseImageToGrid(String circuitName) throws IOException {
+    public static CircuitGridPoint[][] parseImageToGrid(String circuitName) throws IOException {
         final String basePath = "/com/gmrossetti/mdp/circuits/";
 
 //        final String imgBaseSuffix = "-base.gif";
@@ -27,7 +27,7 @@ public class LevelParser {
         if(!validateImgs(imgBase, imgData))
             throw new RuntimeException("Circuit file format not valid!");
 
-        GridPoint[][] grid = new GridPoint[SUPPORTED_IMG_HEIGHT][SUPPORTED_IMG_WIDTH];
+        CircuitGridPoint[][] grid = new CircuitGridPoint[SUPPORTED_IMG_HEIGHT][SUPPORTED_IMG_WIDTH];
 
         for (int y = 0; y < SUPPORTED_IMG_HEIGHT; y++) {
             for (int x = 0; x < SUPPORTED_IMG_WIDTH; x++) {
@@ -38,17 +38,17 @@ public class LevelParser {
                 final boolean isCurving = colorData.getGreen() == 0xff;
                 final boolean isNarrow = colorData.getBlue() == 0xff;
 
-                GridPoint.GridPointType type = GridPoint.GridPointType.OUTSIDE;
+                CircuitGridPoint.GridPointType type = CircuitGridPoint.GridPointType.OUTSIDE;
 
                 if (colorBase.equals(Color.WHITE)) {
-                    type = GridPoint.GridPointType.INSIDE;
+                    type = CircuitGridPoint.GridPointType.INSIDE;
                 } else if(colorBase.equals(Color.GREEN)){
-                    type = GridPoint.GridPointType.START;
+                    type = CircuitGridPoint.GridPointType.START;
                 } else if(colorBase.equals(Color.BLUE)){
-                    type = GridPoint.GridPointType.END;
+                    type = CircuitGridPoint.GridPointType.END;
                 }
 
-                grid[y][x] = new GridPoint(x,y,type,isCurving,isNarrow/*,isWaypoint*/);
+                grid[y][x] = new CircuitGridPoint(x,y,type,isCurving,isNarrow/*,isWaypoint*/);
             }
         }
 
