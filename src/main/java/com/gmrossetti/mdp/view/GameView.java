@@ -12,9 +12,7 @@ public class GameView extends HBox {
         this.raceView = raceView;
         this.controlsView = controlsView;
 
-        this.setPrefSize(1280, 720);
-        this.setStyle("-fx-margin: 20px;");
-        this.setStyle("-fx-background-color: #333; -fx-margin: 20px; -fx-padding: 20px;");
+        this.setStyle("-fx-background-color: #333; -fx-padding: 20px;");
     }
 
     public void update(GameState gameState){

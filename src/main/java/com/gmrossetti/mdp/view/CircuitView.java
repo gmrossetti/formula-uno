@@ -6,9 +6,14 @@ import javafx.scene.layout.Pane;
 
 public class CircuitView extends Pane {
     public final int SPACING = 17;
+    public final int WIDTH;
+    public final int HEIGHT;
 
     public CircuitView(Circuit circuit) {
-        this.setStyle("-fx-padding: 20px;");
+        WIDTH = (circuit.getGridWidth() - 1) * SPACING;
+        HEIGHT = (circuit.getGridHeight() - 1) * SPACING;
+
+        this.setPrefSize(WIDTH, HEIGHT);
 
         for (int y = 0; y < circuit.getGridWidth(); y++) {
             for (int x = 0; x < circuit.getGridHeight(); x++){
