@@ -7,7 +7,7 @@ public class Point extends AbstractPoint<Double> {
     public Point(double x, double y) {
         super(x, y);
         if (!Double.isFinite(x) || !Double.isFinite(y)) {
-            throw new IllegalArgumentException("x e y devono essere numeri finiti");
+            throw new IllegalArgumentException("x and y must be finite. x: " + x + ", y: " + y);
         }
     }
     public Point(Point point) {

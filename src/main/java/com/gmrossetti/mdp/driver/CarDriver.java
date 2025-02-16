@@ -31,20 +31,7 @@ abstract public class CarDriver {
 
         return trace;
     }
-    
-    /*public Set<Point> getPointsInTrajectory(Point point2reach){
-        Set<Pair<Double,Double>> intersectionCoords = Point.calculateIntersectionCoords(this.position, point2reach);
 
-        Set<Point> pointsInTrajectory = new HashSet<>();
-
-        for (Pair<Double,Double> coords:
-                intersectionCoords) {
-            pointsInTrajectory.addAll(Point.findClosestIntegerPoints(coords));
-        }
-
-        return pointsInTrajectory;
-    }*/
-    
     public final Map<CarDriver.Move,GridPoint> getMovesPoints(){
         final Map<CarDriver.Move,GridPoint> movesPoint = new HashMap<>();
 
