@@ -32,23 +32,6 @@ public class Car {
         this.trail.add(position);
     }
 
-    /*public List<Point> getTrajectoryPoints(Point targetPosition){
-        Set<Pair<Double, Double>> gridIntersections = Point.getSegmentGridIntersections(this.position,targetPosition);
-
-        Set<Point> descretGridIntersections = new HashSet<>();
-
-        for (Pair<Double, Double> gridIntersection:
-                gridIntersections) {
-            descretGridIntersections.addAll(Point.getNearestDiscretePoints(gridIntersection));
-        }
-
-        return descretGridIntersections.stream().sorted((o1, o2) -> {
-            double diff = Point.getDistance(position,o1) - Point.getDistance(position,o2);
-            return (diff >= 0) ? (int) Math.ceil(diff) : (int) Math.floor(diff);
-        }).toList();
-    }*/
-
-
     public final GridPoint getPivot(){
         return this.getPosition().sum(this.getVelocity());
     }
