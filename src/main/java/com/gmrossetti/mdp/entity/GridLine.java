@@ -100,4 +100,9 @@ public class GridLine implements ProperGridLine {
 
         return sortedByDistanceGridPoints;
     }
+
+    @Override
+    public String toString(){
+        return "GridLine [start: " + this.start + ", end: " + this.end + "]";
+    }
 }
