@@ -67,15 +67,16 @@ public class Circuit {
         }
     }
 
-    public <C extends Collection<CircuitGridPoint>> C toCircuitGridPoint(Collection<GridPoint> points, Supplier<C> collectionFactory) {
+    public List<CircuitGridPoint> toCircuitGridPoint(List<GridPoint> points) {
         if (points == null) {
             throw new IllegalArgumentException("Points collection cannot be null");
         }
 
-        C result = collectionFactory.get();
+        List<CircuitGridPoint> result = new ArrayList<>(points.size());
         points.forEach(p -> result.add(new CircuitGridPoint(this.getGridPoint(p))));
         return result;
     }
+
     public CircuitGridPoint toCircuitGridPoint(GridPoint point) {
         if (point == null) {
             throw new IllegalArgumentException("Point cannot be null");
