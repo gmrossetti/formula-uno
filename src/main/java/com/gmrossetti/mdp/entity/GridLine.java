@@ -1,31 +1,43 @@
 package com.gmrossetti.mdp.entity;
 
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GridLine implements ProperGridLine {
-    private final GridPoint gp1;
-    private final GridPoint gp2;
+    private final GridPoint start;
 
-    public boolean isDegenerate() {
-        return gp1.equals(gp2);
+    public GridPoint getStart() {
+        return start;
     }
 
-    public GridLine(GridPoint gp1, GridPoint gp2) {
-        if (gp1 == null || gp2 == null) {
+    public GridPoint getEnd() {
+        return end;
+    }
+
+    private final GridPoint end;
+
+    public boolean isDegenerate() {
+        return start.equals(end);
+    }
+
+    public GridLine(GridPoint start, GridPoint end) {
+        if (start == null || end == null) {
             throw new IllegalArgumentException("Grid points cannot be null");
         }
 
-        this.gp1 = gp1;
-        this.gp2 = gp2;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public double getSlopeCoefficient(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
 
-        double deltaY = this.gp1.y - this.gp2.y;
-        double deltaX = this.gp1.x - this.gp2.x;
+        double deltaY = this.start.y - this.end.y;
+        double deltaX = this.start.x - this.end.x;
 
         return deltaY / deltaX;
     }
@@ -38,21 +50,21 @@ public class GridLine implements ProperGridLine {
         final Set<Point> intersectionPoints = new HashSet<>();
 
         final double m = this.getSlopeCoefficient();
-        final double b = gp1.y - m * gp1.x;
+        final double b = start.y - m * start.x;
 
-        final int MIN_X = Math.min(gp1.x, gp2.x);
-        final int MAX_X = Math.max(gp1.x, gp2.x);
+        final int MIN_X = Math.min(start.x, end.x);
+        final int MAX_X = Math.max(start.x, end.x);
 
-        final int MIN_Y = Math.min(gp1.y, gp2.y);
-        final int MAX_Y = Math.max(gp1.y, gp2.y);
+        final int MIN_Y = Math.min(start.y, end.y);
+        final int MAX_Y = Math.max(start.y, end.y);
 
         if(m == 0){
             for (int xi = MIN_X; xi <= MAX_X; xi++) {
-                intersectionPoints.add(new Point(xi, gp1.y));
+                intersectionPoints.add(new Point(xi, start.y));
             }
         } else if(m == Double.POSITIVE_INFINITY || m == Double.NEGATIVE_INFINITY){
             for (int yi = MIN_Y; yi <= MAX_Y; yi++) {
-                intersectionPoints.add(new Point(gp1.x, yi));
+                intersectionPoints.add(new Point(start.x, yi));
             }
         } else {
             for (int xi = MIN_X; xi <= MAX_X; xi++) {
@@ -70,7 +82,7 @@ public class GridLine implements ProperGridLine {
     }
 
     @Override
-    public Set<GridPoint> getNearestGridPointsOnIntersections(){
+    public List<GridPoint> getNearestGridPointsOnIntersections(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
 
         Set<Point> intersectionPoints = this.getLineIntersectionsWithGrid();
@@ -82,6 +94,10 @@ public class GridLine implements ProperGridLine {
             intersectionGridPoints.addAll(intersectionPoint.getNearestDiscretePoints());
         }
 
-        return intersectionGridPoints;
+        List<GridPoint> sortedByDistanceGridPoints = intersectionGridPoints.stream()
+                .sorted(Comparator.comparingDouble(p -> p.distanceTo(this.start)))
+                .collect(Collectors.toList());
+
+        return sortedByDistanceGridPoints;
     }
 }
