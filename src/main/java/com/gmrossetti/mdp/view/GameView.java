@@ -6,11 +6,11 @@ import javafx.scene.layout.HBox;
 public class GameView extends HBox {
     private RaceView raceView;
     private ControlsView controlsView;
-    public GameView(RaceView raceView, ControlsView controlsView) {
-        super(raceView, controlsView);
+    public GameView(GameState gameState) {
+        this.raceView = new RaceView(gameState);
+        this.controlsView = new ControlsView();
 
-        this.raceView = raceView;
-        this.controlsView = controlsView;
+        this.getChildren().addAll(raceView, controlsView);
 
         this.setStyle("-fx-background-color: #333; -fx-padding: 20px;");
     }

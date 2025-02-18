@@ -3,9 +3,7 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
-import com.gmrossetti.mdp.view.ControlsView;
 import com.gmrossetti.mdp.view.GameView;
-import com.gmrossetti.mdp.view.RaceView;
 
 public class GameManager {
     private static GameManager instance = null;
@@ -22,8 +20,6 @@ public class GameManager {
     private GameState gameState;
     private GameLogic gameLogic;
 
-    private RaceView raceView;
-    private ControlsView controlsView;
     private GameView view;
 
     public GameView getView(){
@@ -39,9 +35,7 @@ public class GameManager {
 
         gameState = new GameState(circuit);
 
-        raceView = new RaceView(gameState);
-        controlsView = new ControlsView();
-        view = new GameView(raceView, controlsView);
+        view = new GameView(gameState);
 
         renderer = new Renderer(gameState, view);
 
