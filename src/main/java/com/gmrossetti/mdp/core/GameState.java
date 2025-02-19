@@ -59,14 +59,10 @@ public class GameState {
         carDriversMoveResult.put(carDriver, DriverMoveValidator.MoveResult.OK);
     }
 
-    public void applyMove(CarDriver carDriver, CarDriver.Move move){
+    public void updateCarDriverState(CarDriver carDriver, DriverMoveValidator.MoveResult moveResult){
         if(!getCarDrivers().contains(carDriver)){
             throw new IllegalArgumentException("carDriver provided does not exist.");
         }
-
-        GridLine driverTrace = carDriver.makeMove(move);
-
-        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, this);
 
         carDriversMoveResult.put(carDriver,moveResult);
     }

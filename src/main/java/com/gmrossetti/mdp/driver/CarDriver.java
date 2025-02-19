@@ -22,7 +22,7 @@ abstract public class CarDriver {
         this.car = car;
     }
 
-    public final GridLine makeMove(CarDriver.Move move){
+    protected final GridLine processMove(CarDriver.Move move){
         GridPoint point2reach = getMovesPoints().get(move);
 
         final GridLine trace = new GridLine(this.car.getPosition(),point2reach);
