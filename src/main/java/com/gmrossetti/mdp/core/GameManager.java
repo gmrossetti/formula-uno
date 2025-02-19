@@ -95,6 +95,7 @@ public class GameManager {
                 message = "Sei uscito dalla pista!";
             }
             case FINISH -> {
+                // TODO: aggiungere posizione in classifica
                 title = "Complimenti!";
                 message = "Hai completato la gara!";
             }
