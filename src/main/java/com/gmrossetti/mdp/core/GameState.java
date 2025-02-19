@@ -6,8 +6,13 @@ import com.gmrossetti.mdp.driver.HumanCarDriver;
 import com.gmrossetti.mdp.entity.GridLine;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameState {
+    private boolean isRaceActive;
+    public boolean isRaceActive() {
+        return isRaceActive;
+    }
     private Circuit circuit;
     public Circuit getCircuit() {
         return circuit;
@@ -17,6 +22,12 @@ public class GameState {
 
     public Set<CarDriver> getCarDrivers() {
         return carDriversMoveResult.keySet();
+    }
+
+    public Set<CarDriver> getCarDriversStillPlaying() {
+        return carDriversMoveResult.keySet().stream()
+                .filter(carDriver -> carDriversMoveResult.get(carDriver) == DriverMoveValidator.MoveResult.OK)
+                .collect(Collectors.toSet());
     }
 
     public DriverMoveValidator.MoveResult getCarDriverMoveResult(CarDriver carDriver){
@@ -31,11 +42,6 @@ public class GameState {
 
     public Map<CarDriver, DriverMoveValidator.MoveResult> getCarDriverMoveResults(){
         return carDriversMoveResult;
-    }
-
-    private boolean isRaceActive;
-    public boolean isRaceActive() {
-        return isRaceActive;
     }
 
     public GameState(Circuit circuit) {
@@ -56,14 +62,26 @@ public class GameState {
     }
 
     public void addCarDriver(CarDriver carDriver){
+        if(!isRaceActive){
+            throw new IllegalStateException("Race ended.");
+        }
+
         carDriversMoveResult.put(carDriver, DriverMoveValidator.MoveResult.OK);
     }
 
     public void updateCarDriverState(CarDriver carDriver, DriverMoveValidator.MoveResult moveResult){
+        if(!isRaceActive){
+            throw new IllegalStateException("Race ended.");
+        }
+
         if(!getCarDrivers().contains(carDriver)){
             throw new IllegalArgumentException("carDriver provided does not exist.");
         }
 
         carDriversMoveResult.put(carDriver,moveResult);
+
+        if(carDriver instanceof HumanCarDriver && moveResult != DriverMoveValidator.MoveResult.OK){
+            isRaceActive = false;
+        }
     }
 }
