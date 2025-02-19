@@ -3,9 +3,9 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
+import com.gmrossetti.mdp.entity.GridLine;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GameState {
     private Circuit circuit;
@@ -13,9 +13,24 @@ public class GameState {
         return circuit;
     }
 
-    private List<CarDriver> carDrivers;
-    public List<CarDriver> getCarDrivers() {
-        return carDrivers;
+    final private Map<CarDriver, DriverMoveValidator.MoveResult> carDriversMoveResult;
+
+    public Set<CarDriver> getCarDrivers() {
+        return carDriversMoveResult.keySet();
+    }
+
+    public DriverMoveValidator.MoveResult getCarDriverMoveResult(CarDriver carDriver){
+        DriverMoveValidator.MoveResult moveResult = carDriversMoveResult.get(carDriver);
+
+        if(moveResult == null){
+            throw new IllegalArgumentException("carDriver provided does not exist.");
+        }
+
+        return moveResult;
+    }
+
+    public Map<CarDriver, DriverMoveValidator.MoveResult> getCarDriverMoveResults(){
+        return carDriversMoveResult;
     }
 
     private boolean isRaceActive;
@@ -25,13 +40,13 @@ public class GameState {
 
     public GameState(Circuit circuit) {
         this.circuit = circuit;
-        carDrivers = new ArrayList<>();
+        carDriversMoveResult = new HashMap<>();
         isRaceActive = true;
     }
 
     public HumanCarDriver getHumanCarDriver() {
         for (CarDriver carDriver:
-                carDrivers) {
+                getCarDrivers()) {
             if(carDriver instanceof HumanCarDriver){
                 return (HumanCarDriver) carDriver;
             }
@@ -41,6 +56,18 @@ public class GameState {
     }
 
     public void addCarDriver(CarDriver carDriver){
-        carDrivers.add(carDriver);
+        carDriversMoveResult.put(carDriver, DriverMoveValidator.MoveResult.OK);
+    }
+
+    public void applyMove(CarDriver carDriver, CarDriver.Move move){
+        if(!getCarDrivers().contains(carDriver)){
+            throw new IllegalArgumentException("carDriver provided does not exist.");
+        }
+
+        GridLine driverTrace = carDriver.makeMove(move);
+
+        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, this);
+
+        carDriversMoveResult.put(carDriver,moveResult);
     }
 }
