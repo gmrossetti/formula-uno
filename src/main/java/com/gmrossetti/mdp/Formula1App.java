@@ -9,7 +9,7 @@ public class Formula1App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene gameScene = new Scene(gameManager.getView());
+        final Scene gameScene = gameManager.getGameScene();
 
         // Imposta il titolo della finestra
         primaryStage.setTitle("Formula 1");
