@@ -2,9 +2,11 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.driver.BotCarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
 import com.gmrossetti.mdp.view.GameView;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.StageStyle;
@@ -26,12 +28,16 @@ public class GameManager {
 
     private GameView view;
 
-    public GameView getView(){
-        return view;
+    public Scene getGameScene() {
+        return gameScene;
     }
+
+    private final Scene gameScene;
 
     private GameManager(){
         init();
+
+        gameScene = new Scene(view);
     }
 
     public void init(){
@@ -55,39 +61,28 @@ public class GameManager {
 
         gameState.addCarDriver(humanCarDriver);
         // ----------------
+
+        for (int i = 0; i < 3; i++) {
+            gameState.addCarDriver(new BotCarDriver(new Car(gameState.getCircuit().getRaceStartPoint())));
+        }
     }
 
     public void reset(){
-        Circuit circuit = new Circuit();
+        init();
 
-        gameState = new GameState(circuit);
-        renderer = new Renderer(gameState, view);
-
-        gameLogic = new GameLogic(gameState);
-
-        gameLoop = new GameLoop(gameState, gameLogic, renderer);
-
-        gameLoop.start();
-
-        // TODO: verione dinamica da caricare tramite file
-        Car car = new Car(gameState.getCircuit().getRaceStartPoint());
-        HumanCarDriver humanCarDriver = new HumanCarDriver(car);
-
-        gameState.addCarDriver(humanCarDriver);
-        // ----------------
+        gameScene.setRoot(view);
     }
 
     public void checkIfGameEnded() {
-        HumanCarDriver humanCarDriver = gameState.getHumanCarDriver();
+        if(gameState.isRaceActive()) return;
 
-        DriverMoveValidator.MoveResult humanCarDriverMoveResult = gameState.getCarDriverMoveResult(humanCarDriver);
+        DriverMoveValidator.MoveResult finalHumanCarDriverMoveResult =
+                gameState.getCarDriverMoveResult(gameState.getHumanCarDriver());
 
-        if(humanCarDriverMoveResult != DriverMoveValidator.MoveResult.OK){
-            gameLoop.stop();
+        gameLoop.stop();
 
-            showAlert(humanCarDriverMoveResult);
-            reset();
-        }
+        showAlert(finalHumanCarDriverMoveResult);
+        reset();
     }
 
     public void showAlert(DriverMoveValidator.MoveResult moveResult){
@@ -116,15 +111,10 @@ public class GameManager {
         dialog.setTitle(title);
         dialog.setHeaderText(message);
 
-        ButtonType btnReset = new ButtonType("RESET");
-
         // Aggiungi il pulsante OK
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 
         dialog.initStyle(StageStyle.UNDECORATED);
-
-        // Rendi il dialogo non chiudibile forzando l'utente a interagire
-//        dialog.setOnCloseRequest(event -> event.consume()); // Blocca il pulsante "X"
 
         Platform.runLater(() -> {
             // Mostra il dialogo in modo sicuro
