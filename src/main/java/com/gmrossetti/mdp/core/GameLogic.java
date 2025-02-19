@@ -1,7 +1,9 @@
 package com.gmrossetti.mdp.core;
 
+import com.gmrossetti.mdp.driver.BotCarDriver;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
+import com.gmrossetti.mdp.entity.GridLine;
 
 public class GameLogic {
     private GameState gameState;
@@ -12,16 +14,26 @@ public class GameLogic {
 
     public void nextStep(CarDriver.Move move){
         // TODO: add all checks also for bot moves
-        for (CarDriver carDriver:
-            gameState.getCarDrivers()) {
-
-            if(carDriver instanceof HumanCarDriver){
-                gameState.applyMove(carDriver, move);
-
-                continue;
+        for (CarDriver carDriver : gameState.getCarDrivers()) {
+            if (carDriver instanceof HumanCarDriver humanCarDriver) {
+                handleHumanCarDriver(humanCarDriver, move);
+            } else if (carDriver instanceof BotCarDriver botCarDriver) {
+                handleBotCarDriver(botCarDriver);
             }
-
-            // TODO: add bot moves
         }
+    }
+
+    private void handleHumanCarDriver(HumanCarDriver humanCarDriver, CarDriver.Move move) {
+        // Gestisce i movimenti del driver umano
+        GridLine driverTrace = humanCarDriver.makeMove(move);
+        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState);
+        gameState.updateCarDriverState(humanCarDriver, moveResult);
+    }
+
+    private void handleBotCarDriver(BotCarDriver botCarDriver) {
+        // Gestisce i movimenti del driver bot
+        GridLine driverTrace = botCarDriver.makeMove();
+        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState);
+        gameState.updateCarDriverState(botCarDriver, moveResult);
     }
 }
