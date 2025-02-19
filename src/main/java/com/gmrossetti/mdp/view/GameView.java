@@ -16,9 +16,6 @@ public class GameView extends HBox {
     }
 
     public void update(GameState gameState){
-        // TODO: check if UI is usable in current state
-        // this.controlsView ....
-
         this.raceView.update(gameState);
     }
 }
