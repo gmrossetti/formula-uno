@@ -1,6 +1,5 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.driver.HumanCarDriver;
 import javafx.animation.AnimationTimer;
 
 public class GameLoop extends AnimationTimer {
@@ -19,6 +18,8 @@ public class GameLoop extends AnimationTimer {
         // aggiornamento stato tramite logica
         if(InputHandler.getInstance().hasMove()){
             gameLogic.nextStep(InputHandler.getInstance().popMove());
+
+            GameManager.getInstance().checkIfGameEnded();
         }
 
         renderer.update();

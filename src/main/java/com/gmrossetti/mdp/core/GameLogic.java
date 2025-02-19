@@ -2,7 +2,6 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
-import com.gmrossetti.mdp.entity.GridLine;
 
 public class GameLogic {
     private GameState gameState;
@@ -13,15 +12,16 @@ public class GameLogic {
 
     public void nextStep(CarDriver.Move move){
         // TODO: add all checks also for bot moves
+        for (CarDriver carDriver:
+            gameState.getCarDrivers()) {
 
-        HumanCarDriver humanCarDriver = gameState.getHumanCarDriver();
+            if(carDriver instanceof HumanCarDriver){
+                gameState.applyMove(carDriver, move);
 
-        if(humanCarDriver != null){
-            GridLine driverTrace = humanCarDriver.makeMove(move);
+                continue;
+            }
 
-            DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState);
-
-            System.out.println(moveResult);
+            // TODO: add bot moves
         }
     }
 }
