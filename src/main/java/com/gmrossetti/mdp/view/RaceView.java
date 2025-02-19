@@ -39,8 +39,6 @@ public class RaceView extends StackPane {
     }
 
     public void update(GameState gameState){
-        // TODO: implement support to circuit change
-
         ArrayList<Car> cars = new ArrayList<>();
 
         for (CarDriver carDriver:

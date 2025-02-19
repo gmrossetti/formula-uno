@@ -13,7 +13,6 @@ public class GameLogic {
     }
 
     public void nextStep(CarDriver.Move move){
-        // TODO: add all checks also for bot moves
         for (CarDriver carDriver : gameState.getCarDriversStillPlaying()) {
             if(!gameState.isRaceActive()) return; // prevents making moves after HumanPlayer lost
 
