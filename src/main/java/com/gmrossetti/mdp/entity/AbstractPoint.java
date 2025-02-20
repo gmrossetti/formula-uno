@@ -14,7 +14,7 @@ public abstract class AbstractPoint<T extends Number> {
         this.x = x;
         this.y = y;
     }
-    public double distanceTo(AbstractPoint<T> other) {
+    public double distanceTo(AbstractPoint<?> other) {
         return Math.sqrt(Math.pow(other.x.doubleValue() - this.x.doubleValue(), 2)
                 + Math.pow(other.y.doubleValue() - this.y.doubleValue(), 2));
     }
