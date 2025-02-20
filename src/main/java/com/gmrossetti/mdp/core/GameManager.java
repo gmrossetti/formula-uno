@@ -40,6 +40,8 @@ public class GameManager {
         gameScene = new Scene(view);
     }
 
+    final int BOTS_PLAYERS_NUMBER = 1;
+
     public void init(){
         Circuit circuit = new Circuit();
 
@@ -62,8 +64,9 @@ public class GameManager {
         gameState.addCarDriver(humanCarDriver);
         // ----------------
 
-        for (int i = 0; i < 3; i++) {
-            gameState.addCarDriver(new BotCarDriver(new Car(gameState.getCircuit().getRaceStartPoint())));
+        for (int i = 0; i < BOTS_PLAYERS_NUMBER; i++) {
+            gameState.addCarDriver(new BotCarDriver(new Car(gameState.getCircuit().getRaceStartPoint()),
+                    gameState.getCircuit()));
         }
     }
 
