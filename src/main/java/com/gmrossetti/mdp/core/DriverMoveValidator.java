@@ -1,5 +1,6 @@
 package com.gmrossetti.mdp.core;
 
+import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.entity.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.GridLine;
 import com.gmrossetti.mdp.entity.GridPoint;
@@ -12,13 +13,13 @@ public class DriverMoveValidator {
         OK, OFFTRACK, FINISH, CHEAT
     }
 
-    public static MoveResult evaluateMove(GridLine driverPath, GameState gameState) {
+    public static MoveResult evaluateMove(GridLine driverPath, Circuit circuit) {
         if (driverPath.isDegenerate()) {
             return MoveResult.OK; // Mossa nulla, nessun effetto
         }
 
         List<GridPoint> intersectionPoints = driverPath.getNearestGridPointsOnIntersections();
-        List<CircuitGridPoint> trackIntersections = gameState.getCircuit().toCircuitGridPoint(intersectionPoints);
+        List<CircuitGridPoint> trackIntersections = circuit.toCircuitGridPoint(intersectionPoints);
 
         List<CircuitGridPoint.GridPointType> uniquePathSequence = extractUniqueGridPointTypes(trackIntersections);
 
