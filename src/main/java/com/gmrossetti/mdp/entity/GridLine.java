@@ -32,6 +32,13 @@ public class GridLine implements ProperGridLine {
         this.end = end;
     }
 
+    public Point getMedianPoint(){
+        final double medianX = (double) (this.start.x + this.end.x) / 2;
+        final double medianY = (double) (this.start.y + this.end.y) / 2;
+
+        return new Point(medianX,medianY);
+    }
+
     @Override
     public double getSlopeCoefficient(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
