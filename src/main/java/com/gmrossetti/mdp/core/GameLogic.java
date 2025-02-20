@@ -27,14 +27,14 @@ public class GameLogic {
     private void handleHumanCarDriver(HumanCarDriver humanCarDriver, CarDriver.Move move) {
         // Gestisce i movimenti del driver umano
         GridLine driverTrace = humanCarDriver.makeMove(move);
-        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState);
+        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
         gameState.updateCarDriverState(humanCarDriver, moveResult);
     }
 
     private void handleBotCarDriver(BotCarDriver botCarDriver) {
         // Gestisce i movimenti del driver bot
         GridLine driverTrace = botCarDriver.makeMove();
-        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState);
+        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
         gameState.updateCarDriverState(botCarDriver, moveResult);
     }
 }
