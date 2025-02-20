@@ -117,9 +117,7 @@ public class GameManager {
 
         dialog.initStyle(StageStyle.UNDECORATED);
 
-        Platform.runLater(() -> {
-            // Mostra il dialogo in modo sicuro
-            dialog.showAndWait();
-        });
+        // Mostra il dialogo in modo sicuro
+        Platform.runLater(dialog::showAndWait);
     }
 }
