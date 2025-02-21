@@ -11,7 +11,7 @@ import com.gmrossetti.mdp.entity.Point;
 import java.util.*;
 
 public class BotCarDriver extends CarDriver{
-    final ArrayList<GridPoint> waypoints;
+//    final ArrayList<GridPoint> waypoints;
     final Circuit circuit;
 
     final DriverMoveValidator driverMoveValidator;
@@ -23,7 +23,7 @@ public class BotCarDriver extends CarDriver{
         driverMoveValidator = new DriverMoveValidator();
 
         // TODO: refactor, waypoints are hardcoded
-        waypoints = new ArrayList<>();
+        /*waypoints = new ArrayList<>();
 
         waypoints.add(new GridPoint(18, 5)); // start point
         waypoints.add(new GridPoint(47, 5));
@@ -38,7 +38,7 @@ public class BotCarDriver extends CarDriver{
         waypoints.add(new GridPoint(3, 12));
         waypoints.add(new GridPoint(8, 5));
         waypoints.add(new GridPoint(17, 5));
-        waypoints.add(new GridPoint(17, 5)); // end point
+        waypoints.add(new GridPoint(17, 5)); // end point*/
     }
 
     public final GridLine makeMove(){
