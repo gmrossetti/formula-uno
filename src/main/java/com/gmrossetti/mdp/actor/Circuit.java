@@ -1,5 +1,6 @@
 package com.gmrossetti.mdp.actor;
 
+import com.gmrossetti.mdp.entity.Waypoint;
 import com.gmrossetti.mdp.level.LevelParser;
 import com.gmrossetti.mdp.entity.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.GridPoint;
@@ -12,6 +13,7 @@ public class Circuit {
     private final CircuitGridPoint[][] grid;
     private final List<CircuitGridPoint> raceStartLine;
     private final CircuitGridPoint raceStartCircuitGridPoint;
+    private final ArrayList<Waypoint> waypoints;
 
     public Circuit(){
         try {
@@ -24,6 +26,24 @@ public class Circuit {
         initRaceStartEndLines();
 
         raceStartCircuitGridPoint = raceStartLine.get(raceStartLine.size() / 2);
+
+        this.waypoints = new ArrayList<>();
+
+        // TODO: refactor, waypoints are hardcoded
+        waypoints.add(new Waypoint(new GridPoint(18,5), 5,0.2)); // start point
+        waypoints.add(new Waypoint(new GridPoint(47, 5), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(53, 11), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(49, 18), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(55, 32), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(36, 39), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(32, 28), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(23, 24), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(10, 29), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(4, 22), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(3, 12), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(8, 5), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(17, 5), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(17, 5), 5,0.2)); // end point
     }
 
     public CircuitGridPoint getGridPoint(int x, int y) {

@@ -29,7 +29,7 @@ public class GridPoint extends AbstractPoint<Integer> {
         return new GridPoint(newX, newY);
     }
 
-    public Set<GridPoint> gridPointsInRange(int radius) {
+    /*public Set<GridPoint> gridPointsInRange(int radius) {
         Set<GridPoint> pointsInradius = new HashSet<>();
 
         final int x0 = this.x;
@@ -46,5 +46,5 @@ public class GridPoint extends AbstractPoint<Integer> {
         }
 
         return pointsInradius;
-    }
+    }*/
 }
