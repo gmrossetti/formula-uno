@@ -4,7 +4,7 @@ import com.gmrossetti.mdp.core.GameManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-public class Formula1App extends Application {
+public class MainApp extends Application {
     private final GameManager gameManager = GameManager.getInstance();
 
     @Override
