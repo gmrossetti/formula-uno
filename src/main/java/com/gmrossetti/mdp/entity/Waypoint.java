@@ -1,37 +1,28 @@
 package com.gmrossetti.mdp.entity;
 
-import com.gmrossetti.mdp.driver.CarDriver;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Waypoint {
+public abstract class Waypoint {
     public GridPoint getCenter() {
         return center;
     }
-
-    public int getRadius() {
-        return radius;
-    }
-
-    private final GridPoint center;
-    private final int radius;
+    protected final GridPoint center;
     private final double harshness;
     public double getHarshness() {
         return harshness;
     }
-    private final Set<GridPoint> withinRadiusGPs;
+    private final Set<GridPoint> withinRangeGPs;
 
     private Waypoint next;
     private Waypoint previous;
 
-    public Waypoint(GridPoint center, int radius, double harshness) {
+    public Waypoint(GridPoint center, double harshness) {
         this.center = center;
-        this.radius = radius;
         this.harshness = harshness;
 
-        this.withinRadiusGPs = calcWithinRadiusGPs();
+        this.withinRangeGPs = calcWithinRangeGridPoints();
 
         this.next = null;
         this.previous = null;
@@ -62,39 +53,23 @@ public class Waypoint {
         return previous;
     }
 
-    private Set<GridPoint> calcWithinRadiusGPs(){
-        final int x0 = this.center.x;
-        final int y0 = this.center.y;
+    abstract Set<GridPoint> calcWithinRangeGridPoints();
 
-        final Set<GridPoint> withinRadiusGPs = new HashSet<>();
-
-        for (int x = x0 - radius; x <= x0 + radius; x++) {
-            for (int y = y0 - radius; y <= y0 + radius; y++) {
-                // Controlla se il punto (x, y) è all'interno del cerchio
-                if ((Math.pow(x - x0, 2) + Math.pow(y - y0, 2)) <= Math.pow(radius, 2)) {
-                    withinRadiusGPs.add(new GridPoint(x, y));
-                }
-            }
-        }
-
-        return withinRadiusGPs;
+    public Set<GridPoint> getWithinRangeGridPoints(){
+        return withinRangeGPs;
     }
 
-    public Set<GridPoint> getWithinRadiusGPs(){
-        return withinRadiusGPs;
+    public boolean isWithinRange(GridPoint gp){
+        return withinRangeGPs.contains(gp);
     }
 
-    public boolean isWithinRadius(GridPoint gp){
-        return withinRadiusGPs.contains(gp);
-    }
-
-    public boolean isWithinRadius(GridLine trace){
-        if(isWithinRadius(trace.getEnd())) return true;
+    public boolean isWithinRange(GridLine trace){
+        if(isWithinRange(trace.getEnd())) return true;
 
         if(trace.isDegenerate()) return false;
 
         List<GridPoint> lastMoveTrailGPs = trace.getNearestGridPointsOnIntersections();
 
-        return this.getWithinRadiusGPs().stream().anyMatch(lastMoveTrailGPs::contains);
+        return this.withinRangeGPs.stream().anyMatch(lastMoveTrailGPs::contains);
     }
 }
