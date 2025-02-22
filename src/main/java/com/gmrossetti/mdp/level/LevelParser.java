@@ -7,6 +7,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gmrossetti.mdp.entity.cartesian.GridPoint;
+import com.gmrossetti.mdp.entity.waypoint.BoundaryWaypoint;
+import com.gmrossetti.mdp.entity.waypoint.MidWaypoint;
+import com.gmrossetti.mdp.entity.waypoint.Waypoint;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 public class LevelParser {
     final static int SUPPORTED_IMG_WIDTH = 60;
@@ -41,6 +51,72 @@ public class LevelParser {
         }
 
         return grid;
+    }
+
+    public static List<Waypoint> parseJson(String circuitName){
+        final String basePath = "/com/gmrossetti/mdp/circuits/";
+        final String imgFileExtension = ".json";
+
+        InputStream inputStream1 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
+
+        try {
+            // Creare un JSONTokener per leggere il file JSON
+            JSONTokener tokener = new JSONTokener(inputStream1);
+
+            // Creare un JSONObject a partire dal JSONTokener
+            JSONObject jsonObject = new JSONObject(tokener);
+
+            // Ottenere i dati dal JSON
+            String name = jsonObject.getString("name");
+            System.out.println("Name: " + name);
+
+            // Lista per memorizzare i waypoints
+            List<Waypoint> waypoints = new ArrayList<>();
+            // Estrai i dati dal JSON
+            JSONObject data = jsonObject.getJSONObject("data");
+            JSONArray waypointsToParse = data.getJSONArray("waypoints");
+
+
+            // Itera sull'array "waypoints"
+            for (int i = 0; i < waypointsToParse.length(); i++) {
+                JSONObject waypointToParse = waypointsToParse.getJSONObject(i);
+
+                // Estrai il campo "center"
+                JSONObject centerToParse = waypointToParse.getJSONObject("center");
+                final GridPoint center = new GridPoint(centerToParse.getInt("x"), centerToParse.getInt("y"));
+
+                final double harshness = waypointToParse.getDouble("harshness");
+                String type = waypointToParse.getString("type");
+
+                switch (type) {
+                    case "BOUNDARY":
+                        final int width = waypointToParse.getInt("width");
+                        final int height = waypointToParse.getInt("height");
+                        final String boundaryTypeString = waypointToParse.getString("boundaryType");
+
+                        final BoundaryWaypoint.Type boundaryType = BoundaryWaypoint.Type.valueOf(boundaryTypeString);
+
+                        waypoints.add(new BoundaryWaypoint(center, harshness, width, height, boundaryType));
+                        break;
+
+                    case "MID":
+                        final int radius = waypointToParse.getInt("radius");
+                        waypoints.add(new MidWaypoint(center, harshness, radius));
+                        break;
+
+                    default:
+                        throw new RuntimeException("Waypoint type not valid.");
+                }
+            }
+
+            // Esempio di output (puoi rimuoverlo se non ti serve)
+            waypoints.forEach(waypoint -> System.out.println(waypoint));
+
+            return waypoints;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public static boolean validateImgs(BufferedImage imgBase){

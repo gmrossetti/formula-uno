@@ -2,6 +2,7 @@ module com.gmrossetti.mdp {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+    requires org.json;
 
     opens com.gmrossetti.mdp to javafx.fxml;
     exports com.gmrossetti.mdp;

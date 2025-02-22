@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.gmrossetti.mdp'
-    mainClass = 'com.gmrossetti.mdp.HelloApplication'
+    mainClass = 'com.gmrossetti.mdp.MainApp'
 }
 
 javafx {
@@ -35,9 +35,9 @@ javafx {
 }
 
 dependencies {
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-core:${junitVersion}")
+    implementation 'org.json:json:20210307'
 }
 
 test {
