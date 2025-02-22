@@ -58,8 +58,6 @@ public class GameManager {
 
         gameLoop.start();
 
-        Waypoint firstWaypoint = gameState.getCircuit().getWaypointsHead();
-
         // TODO: verione dinamica da caricare tramite file
         Car car = new Car(gameState.getCircuit().getRaceStartPoint());
         HumanCarDriver humanCarDriver = new HumanCarDriver(car, gameState.getCircuit());
