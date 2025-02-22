@@ -35,19 +35,19 @@ public class Circuit {
         this.waypoints = new ArrayList<>();
 
         // TODO: refactor, waypoints are hardcoded
-        waypoints.add(new Waypoint(new GridPoint(18,5), 5,0.2)); // start point
+        waypoints.add(new Waypoint(new GridPoint(18,5), 4,0.2)); // start point
         waypoints.add(new Waypoint(new GridPoint(47, 5), 5,0.2));
         waypoints.add(new Waypoint(new GridPoint(53, 11), 5,0.2));
         waypoints.add(new Waypoint(new GridPoint(49, 18), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(55, 32), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(55, 32), 4,0.2));
         waypoints.add(new Waypoint(new GridPoint(36, 39), 5,0.2));
         waypoints.add(new Waypoint(new GridPoint(32, 28), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(23, 24), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(10, 29), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(4, 22), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(3, 12), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(23, 24), 4,0.2));
+        waypoints.add(new Waypoint(new GridPoint(10, 30), 5,0.2));
+        waypoints.add(new Waypoint(new GridPoint(4, 22), 3,0.2));
+        waypoints.add(new Waypoint(new GridPoint(3, 12), 3,0.2));
         waypoints.add(new Waypoint(new GridPoint(8, 5), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(17, 5), 5,0.2)); // end point
+        waypoints.add(new Waypoint(new GridPoint(17, 5), 4,0.2)); // end point
 
         this.waypointsHead = generateWaypointLinkedList(waypoints);
     }
