@@ -3,7 +3,6 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
-import com.gmrossetti.mdp.entity.GridLine;
 
 import java.util.*;
 import java.util.stream.Collectors;

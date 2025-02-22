@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.entity.GridPoint;
+import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.actor.Car;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;

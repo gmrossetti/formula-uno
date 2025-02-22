@@ -4,7 +4,6 @@ import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.BotCarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
-import com.gmrossetti.mdp.entity.Waypoint;
 import com.gmrossetti.mdp.view.GameView;
 import javafx.application.Platform;
 import javafx.scene.Scene;

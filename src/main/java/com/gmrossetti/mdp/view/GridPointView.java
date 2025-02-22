@@ -1,11 +1,8 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.entity.CircuitGridPoint;
-import com.gmrossetti.mdp.entity.GridPoint;
+import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-
-import java.util.ArrayList;
 
 public class GridPointView extends Circle {
     public GridPointView(CircuitGridPoint circuitGridPoint){
