@@ -37,7 +37,7 @@ public class Circuit {
         this.waypoints = new ArrayList<>();
 
         // TODO: refactor, waypoints are hardcoded
-        waypoints.add(new BoundaryWaypoint(new GridPoint(18,5), 0.2, 1,6, BoundaryWaypoint.Type.START)); // start point
+        waypoints.add(new BoundaryWaypoint(raceStartCircuitGridPoint, 0.2, 1,7, BoundaryWaypoint.Type.START)); // start point
         waypoints.add(new MidWaypoint(new GridPoint(47, 5), 0.2, 5));
         waypoints.add(new MidWaypoint(new GridPoint(53, 11), 0.2, 5));
         waypoints.add(new MidWaypoint(new GridPoint(49, 18), 0.2, 5));
@@ -49,7 +49,7 @@ public class Circuit {
         waypoints.add(new MidWaypoint(new GridPoint(4, 22), 0.2, 3));
         waypoints.add(new MidWaypoint(new GridPoint(3, 12), 0.2, 3));
         waypoints.add(new MidWaypoint(new GridPoint(8, 5), 0.2, 5));
-        waypoints.add(new BoundaryWaypoint(new GridPoint(17, 5), 0.2, 1,6, BoundaryWaypoint.Type.FINISH)); // end point
+        waypoints.add(new BoundaryWaypoint(new GridPoint(raceStartCircuitGridPoint.x - 1, raceStartCircuitGridPoint.y), 0.2, 1,7, BoundaryWaypoint.Type.FINISH)); // end point
 
         this.waypointsHead = generateWaypointLinkedList(waypoints);
     }
@@ -96,19 +96,14 @@ public class Circuit {
     }
 
     private void initRaceStartEndLines() {
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[y].length; x++) {
-                CircuitGridPoint circuitGridPoint = grid[y][x];
-
-                if (circuitGridPoint.type == CircuitGridPoint.GridPointType.START) {
-                    this.raceStartLine.add(circuitGridPoint);
-                }
-            }
-        }
-
-        if(raceStartLine.isEmpty()){
-            throw new RuntimeException("Race start line not provided.");
-        }
+        // TODO: make it dynamic based on json file
+        this.raceStartLine.add(new CircuitGridPoint(18,1, CircuitGridPoint.GridPointType.INSIDE));
+        this.raceStartLine.add(new CircuitGridPoint(18,2, CircuitGridPoint.GridPointType.INSIDE));
+        this.raceStartLine.add(new CircuitGridPoint(18,3, CircuitGridPoint.GridPointType.INSIDE));
+        this.raceStartLine.add(new CircuitGridPoint(18,4, CircuitGridPoint.GridPointType.INSIDE));
+        this.raceStartLine.add(new CircuitGridPoint(18,5, CircuitGridPoint.GridPointType.INSIDE));
+        this.raceStartLine.add(new CircuitGridPoint(18,6, CircuitGridPoint.GridPointType.INSIDE));
+        this.raceStartLine.add(new CircuitGridPoint(18,7, CircuitGridPoint.GridPointType.INSIDE));
     }
 
     public List<CircuitGridPoint> toCircuitGridPoint(List<GridPoint> points) {
