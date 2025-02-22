@@ -2,12 +2,17 @@ package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.entity.CircuitGridPoint;
+import com.gmrossetti.mdp.entity.Waypoint;
 import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
 
 public class CircuitView extends Pane {
     public final int SPACING = 17;
     public final int WIDTH;
     public final int HEIGHT;
+
+    private ArrayList<WaypointView> waypointsViews;
 
     public CircuitView(Circuit circuit) {
         WIDTH = (circuit.getGridWidth() - 1) * SPACING;
@@ -28,5 +33,14 @@ public class CircuitView extends Pane {
                 this.getChildren().add(gridPointView);
             }
         }
+
+        waypointsViews = new ArrayList<>();
+
+        for (Waypoint wp:
+             circuit.getWaypoints()) {
+            waypointsViews.add(new WaypointView(wp));
+        }
+
+        this.getChildren().addAll(waypointsViews);
     }
 }
