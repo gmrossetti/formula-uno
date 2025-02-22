@@ -1,11 +1,13 @@
 package com.gmrossetti.mdp.view;
 
+import com.gmrossetti.mdp.entity.waypoint.BoundaryWaypoint;
 import com.gmrossetti.mdp.entity.waypoint.MidWaypoint;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 public class WaypointView extends Pane {
     public final int SPACING = 17;
@@ -19,7 +21,7 @@ public class WaypointView extends Pane {
 
             circle.setStroke(Color.GOLD);
 
-            circle.setFill(Color.web("#00000000"));
+            circle.setFill(Color.TRANSPARENT);
 
             circle.setStrokeWidth(1.5);
 
@@ -30,10 +32,23 @@ public class WaypointView extends Pane {
             Group group = new Group(circle, center);
 
             this.getChildren().add(group);
+        } else if (waypoint instanceof BoundaryWaypoint boundaryWaypoint) {
+            Rectangle rectangle = new Rectangle(
+                    SPACING * (boundaryWaypoint.getCenter().x  - boundaryWaypoint.getWidth() / 2.f),
+                    SPACING * (boundaryWaypoint.getCenter().y - boundaryWaypoint.getHeight() / 2.f),
+                    SPACING * boundaryWaypoint.getWidth(),
+                    SPACING * boundaryWaypoint.getHeight());
+
+            rectangle.setFill(Color.TRANSPARENT);
+
+            if(boundaryWaypoint.getType() == BoundaryWaypoint.Type.START){
+                rectangle.setStroke(Color.AQUAMARINE);
+            } else {
+                rectangle.setStroke(Color.GREEN);
+            }
+
+            rectangle.setStrokeWidth(2);
+            this.getChildren().add(rectangle);
         }
-
-        // TODO: add View also for other subtypes of Waypoint
-
-
     }
 }
