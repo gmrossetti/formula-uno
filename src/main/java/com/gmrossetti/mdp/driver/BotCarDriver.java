@@ -31,9 +31,9 @@ public class BotCarDriver extends CarDriver{
 
         if(!currentWaypoint.hasPrevious()) throw new RuntimeException("CarDriver must be initialized with the second waypoint");
 
-        Waypoint previuosWaypoint = this.waypointTarget.getPrevious();
+        Waypoint previousWaypoint = this.waypointTarget.getPrevious();
 
-        GridLine waypoint2waypoint = new GridLine(previuosWaypoint.getCenter(), currentWaypoint.getCenter());
+        GridLine waypoint2waypoint = new GridLine(previousWaypoint.getCenter(), currentWaypoint.getCenter());
         Point medianPoint = waypoint2waypoint.getMedianPoint();
 
         List<GridPoint> sortedGpsToMedian = new ArrayList<>(movesPoints.values().stream().sorted(Comparator
@@ -42,8 +42,12 @@ public class BotCarDriver extends CarDriver{
         List<GridPoint> sortedGpsToNextWaypoint = new ArrayList<>(movesPoints.values().stream().sorted(Comparator
                 .comparingDouble(gp -> gp.distanceTo(currentWaypoint.getCenter()))).toList());
 
+        List<GridPoint> sortedGpsToCurrentPos = new ArrayList<>(movesPoints.values().stream().sorted(Comparator
+                .comparingDouble(gp -> gp.distanceTo(this.getCar().getPosition()))).toList());
+
         sortedGpsToMedian = filterOutUnusableGP(sortedGpsToMedian);
         sortedGpsToNextWaypoint = filterOutUnusableGP(sortedGpsToNextWaypoint);
+        sortedGpsToCurrentPos = filterOutUnusableGP(sortedGpsToCurrentPos);
 
         if(Math.max(sortedGpsToMedian.size(), sortedGpsToNextWaypoint.size())  == 0){ // nessuna mossa valida
             return Move.BR; // ritorna una mossa qualunque

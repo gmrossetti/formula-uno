@@ -13,12 +13,12 @@ public class DriverMoveValidator {
         OK, OFFTRACK, FINISH, CHEAT
     }
 
-    public static MoveResult evaluateMove(GridLine driverPath, Circuit circuit) {
-        if (driverPath.isDegenerate()) {
+    public static MoveResult evaluateMove(GridLine driverTrace, Circuit circuit) {
+        if (driverTrace.isDegenerate()) {
             return MoveResult.OK; // Mossa nulla, nessun effetto
         }
 
-        List<GridPoint> intersectionPoints = driverPath.getNearestGridPointsOnIntersections();
+        List<GridPoint> intersectionPoints = driverTrace.getNearestGridPointsOnIntersections();
         List<CircuitGridPoint> trackIntersections = circuit.toCircuitGridPoint(intersectionPoints);
 
         List<CircuitGridPoint.GridPointType> uniquePathSequence = extractUniqueGridPointTypes(trackIntersections);
