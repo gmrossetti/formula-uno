@@ -3,8 +3,11 @@ package com.gmrossetti.mdp.driver;
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.entity.GridLine;
 import com.gmrossetti.mdp.entity.GridPoint;
+import com.gmrossetti.mdp.entity.Waypoint;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 abstract public class CarDriver {
@@ -12,22 +15,40 @@ abstract public class CarDriver {
         return car;
     }
 
+    protected Waypoint waypointTarget;
+
+    private List<Waypoint> waypointsAchieved = new ArrayList<>();
+
     private final Car car;
 
     public enum Move {
         TL, TM, TR, CL, CM, CR, BL, BM, BR
     }
 
-    public CarDriver(Car car){
+    public CarDriver(Car car, Waypoint waypointHead){
         this.car = car;
+        this.waypointTarget = waypointHead.getNext();
+        waypointsAchieved.add(waypointHead);
     }
 
     protected final GridLine processMove(CarDriver.Move move){
         GridPoint point2reach = getMovesPoints().get(move);
 
+        this.car.move(point2reach);
+
         final GridLine trace = new GridLine(this.car.getPosition(),point2reach);
 
-        this.car.move(point2reach);
+        if(waypointTarget.isWithinRadius(trace)){
+            System.out.println("Waypoint " +  waypointTarget + " raggiunto.");
+
+            if(!waypointTarget.hasNext()){
+                throw new IllegalStateException("BotDriver already ended the race.");
+            }
+
+            waypointTarget = waypointTarget.getNext();
+
+            System.out.println("Prossimo waypoint: " +  waypointTarget);
+        }
 
         return trace;
     }
