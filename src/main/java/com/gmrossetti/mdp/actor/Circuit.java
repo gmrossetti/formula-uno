@@ -1,10 +1,10 @@
 package com.gmrossetti.mdp.actor;
 
-import com.gmrossetti.mdp.entity.MidWaypoint;
-import com.gmrossetti.mdp.entity.Waypoint;
+import com.gmrossetti.mdp.entity.waypoint.MidWaypoint;
+import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 import com.gmrossetti.mdp.level.LevelParser;
-import com.gmrossetti.mdp.entity.CircuitGridPoint;
-import com.gmrossetti.mdp.entity.GridPoint;
+import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
+import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 
 import java.io.IOException;
 import java.util.*;

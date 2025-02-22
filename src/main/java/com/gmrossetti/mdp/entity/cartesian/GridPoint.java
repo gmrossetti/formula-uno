@@ -1,7 +1,4 @@
-package com.gmrossetti.mdp.entity;
-
-import java.util.HashSet;
-import java.util.Set;
+package com.gmrossetti.mdp.entity.cartesian;
 
 public class GridPoint extends AbstractPoint<Integer> {
     public GridPoint(int x, int y) {

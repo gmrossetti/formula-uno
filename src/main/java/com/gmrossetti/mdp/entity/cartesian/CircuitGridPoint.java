@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.entity;
+package com.gmrossetti.mdp.entity.cartesian;
 
 import com.gmrossetti.mdp.actor.Car;
 

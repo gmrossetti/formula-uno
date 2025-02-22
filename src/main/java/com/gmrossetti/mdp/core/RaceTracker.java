@@ -1,16 +1,5 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.actor.Car;
-import com.gmrossetti.mdp.driver.BotCarDriver;
-import com.gmrossetti.mdp.driver.CarDriver;
-import com.gmrossetti.mdp.entity.GridLine;
-import com.gmrossetti.mdp.entity.GridPoint;
-import com.gmrossetti.mdp.entity.Waypoint;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 /*
 
 public class RaceTracker {

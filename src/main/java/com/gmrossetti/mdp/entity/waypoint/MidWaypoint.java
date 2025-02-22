@@ -1,4 +1,6 @@
-package com.gmrossetti.mdp.entity;
+package com.gmrossetti.mdp.entity.waypoint;
+
+import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.entity.MidWaypoint;
-import com.gmrossetti.mdp.entity.Waypoint;
+import com.gmrossetti.mdp.entity.waypoint.MidWaypoint;
+import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
