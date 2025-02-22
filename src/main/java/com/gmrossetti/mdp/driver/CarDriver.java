@@ -34,9 +34,9 @@ abstract public class CarDriver {
     protected final GridLine processMove(CarDriver.Move move){
         GridPoint point2reach = getMovesPoints().get(move);
 
-        this.car.move(point2reach);
-
         final GridLine trace = new GridLine(this.car.getPosition(),point2reach);
+
+        this.car.move(point2reach);
 
         if(waypointTarget.isWithinRadius(trace)){
             System.out.println("Waypoint " +  waypointTarget + " raggiunto.");
