@@ -1,5 +1,6 @@
 package com.gmrossetti.mdp.actor;
 
+import com.gmrossetti.mdp.entity.GridLine;
 import com.gmrossetti.mdp.entity.GridPoint;
 
 import java.util.*;
@@ -10,6 +11,17 @@ public class Car {
 
     public GridPoint getPosition() { return position; }
     public List<GridPoint> getTrail() { return trail; }
+    public GridPoint getPreviousPosition() {
+        if(trail.size() == 1){
+            return position;
+        }
+
+        return trail.get(trail.size() - 2);
+    }
+    public GridLine getLastMoveTrail(){
+        return new GridLine(getPreviousPosition(), position);
+    }
+
 
     public boolean isStationary(){
         return getVelocityModule() == 0;

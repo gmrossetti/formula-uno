@@ -3,42 +3,19 @@ package com.gmrossetti.mdp.driver;
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.core.DriverMoveValidator;
-import com.gmrossetti.mdp.entity.CircuitGridPoint;
-import com.gmrossetti.mdp.entity.GridLine;
-import com.gmrossetti.mdp.entity.GridPoint;
-import com.gmrossetti.mdp.entity.Point;
+import com.gmrossetti.mdp.entity.*;
 
 import java.util.*;
 
 public class BotCarDriver extends CarDriver{
-//    final ArrayList<GridPoint> waypoints;
     final Circuit circuit;
-
     final DriverMoveValidator driverMoveValidator;
     public BotCarDriver(Car car, Circuit circuit) {
-        super(car);
+        super(car, circuit.getWaypointsHead());
 
         this.circuit = circuit;
 
         driverMoveValidator = new DriverMoveValidator();
-
-        // TODO: refactor, waypoints are hardcoded
-        /*waypoints = new ArrayList<>();
-
-        waypoints.add(new GridPoint(18, 5)); // start point
-        waypoints.add(new GridPoint(47, 5));
-        waypoints.add(new GridPoint(53, 11));
-        waypoints.add(new GridPoint(49, 18));
-        waypoints.add(new GridPoint(55, 32));
-        waypoints.add(new GridPoint(36, 39));
-        waypoints.add(new GridPoint(32, 28));
-        waypoints.add(new GridPoint(23, 24));
-        waypoints.add(new GridPoint(10, 29));
-        waypoints.add(new GridPoint(4, 22));
-        waypoints.add(new GridPoint(3, 12));
-        waypoints.add(new GridPoint(8, 5));
-        waypoints.add(new GridPoint(17, 5));
-        waypoints.add(new GridPoint(17, 5)); // end point*/
     }
 
     public final GridLine makeMove(){
@@ -47,18 +24,23 @@ public class BotCarDriver extends CarDriver{
         return super.processMove(move);
     }
 
-    int currentWaypointIdx = 1;
     private Move getNextMove(){
         Map<Move, GridPoint> movesPoints = this.getMovesPoints();
 
-        GridLine waypoint2waypoint = new GridLine(waypoints.get(currentWaypointIdx - 1), waypoints.get(currentWaypointIdx));
+        Waypoint currentWaypoint = this.waypointTarget;
+
+        if(!currentWaypoint.hasPrevious()) throw new RuntimeException("CarDriver must be initialized with the second waypoint");
+
+        Waypoint previuosWaypoint = this.waypointTarget.getPrevious();
+
+        GridLine waypoint2waypoint = new GridLine(previuosWaypoint.getCenter(), currentWaypoint.getCenter());
         Point medianPoint = waypoint2waypoint.getMedianPoint();
 
         List<GridPoint> sortedGpsToMedian = new ArrayList<>(movesPoints.values().stream().sorted(Comparator
                 .comparingDouble(gp -> gp.distanceTo(medianPoint))).filter(gridPoint -> circuit.getGridPoint(gridPoint).type != CircuitGridPoint.GridPointType.OUTSIDE).toList());
 
         List<GridPoint> sortedGpsToNextWaypoint = new ArrayList<>(movesPoints.values().stream().sorted(Comparator
-                .comparingDouble(gp -> gp.distanceTo(waypoints.get(currentWaypointIdx)))).toList());
+                .comparingDouble(gp -> gp.distanceTo(currentWaypoint.getCenter()))).toList());
 
         sortedGpsToMedian = filterOutUnusableGP(sortedGpsToMedian);
         sortedGpsToNextWaypoint = filterOutUnusableGP(sortedGpsToNextWaypoint);
@@ -77,13 +59,6 @@ public class BotCarDriver extends CarDriver{
             gpChosen = sortedGpsToNextWaypoint.get(0);
         } else {
             gpChosen = sortedGpsToMedian.get(0);
-        }
-
-        if(waypoints.get(currentWaypointIdx).gridPointsInRange(3).contains(gpChosen)){
-            System.out.println("Waypoint n." +  currentWaypointIdx + " raggiunto.");
-            currentWaypointIdx++;
-
-            System.out.println("Prossimo waypoint: " +  waypoints.get(currentWaypointIdx));
         }
 
         for (Move move:

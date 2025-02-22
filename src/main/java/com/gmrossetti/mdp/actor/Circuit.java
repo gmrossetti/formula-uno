@@ -7,13 +7,18 @@ import com.gmrossetti.mdp.entity.GridPoint;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Supplier;
 
 public class Circuit {
     private final CircuitGridPoint[][] grid;
     private final List<CircuitGridPoint> raceStartLine;
     private final CircuitGridPoint raceStartCircuitGridPoint;
+
+    public ArrayList<Waypoint> getWaypoints() {
+        return waypoints;
+    }
+
     private final ArrayList<Waypoint> waypoints;
+    private final Waypoint waypointsHead;
 
     public Circuit(){
         try {
@@ -42,8 +47,25 @@ public class Circuit {
         waypoints.add(new Waypoint(new GridPoint(4, 22), 5,0.2));
         waypoints.add(new Waypoint(new GridPoint(3, 12), 5,0.2));
         waypoints.add(new Waypoint(new GridPoint(8, 5), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(17, 5), 5,0.2));
         waypoints.add(new Waypoint(new GridPoint(17, 5), 5,0.2)); // end point
+
+        this.waypointsHead = generateWaypointLinkedList(waypoints);
+    }
+
+    private static Waypoint generateWaypointLinkedList(List<Waypoint> waypoints){
+        List<Waypoint> waypointsCopy = new ArrayList<>(waypoints);
+
+        Waypoint head = waypointsCopy.remove(0);
+
+        Waypoint currentWp = head;
+
+        for (Waypoint wp:
+                waypointsCopy) {
+            currentWp.insertAfter(wp);
+            currentWp = wp;
+        }
+
+        return head;
     }
 
     public CircuitGridPoint getGridPoint(int x, int y) {
@@ -104,50 +126,7 @@ public class Circuit {
         return new CircuitGridPoint(this.getGridPoint(point));
     }
 
-    /*public boolean isValidRoute(GridLine routeLine){
-
-    }*/
-
-
-    /*public boolean isValidRoute(Set<GridPoint> routePoints){
-        for (GridPoint routePoint:
-                routePoints) {
-            CircuitGridPoint routeCircuitGridPoint = this.getGridPoint(routePoint);
-
-            if(routeCircuitGridPoint.type == CircuitGridPoint.GridPointType.OUTSIDE){
-                return false;
-            }
-        }
-
-        return true;
-    }*/
-
-    /*public Set<CircuitGridPoint> pointsToGridPoints(Set<Point> points){
-        Set<CircuitGridPoint> circuitGridPoints = new HashSet<>();
-
-        for (Point point:
-                points) {
-            circuitGridPoints.add(this.getGridPoint(point));
-        }
-
-        return circuitGridPoints;
-    }*/
-
-    /*public List<CircuitGridPoint> getGridRoute(Point p1, Point p2){
-        Set<Pair<Double, Double>>intersectionPoints = Point.getSegmentGridIntersections(p1,p2);
-
-        Pair<Double,Double> point1 = new Pair<>((double)p1.x,(double)p1.y);
-
-        intersectionPoints.stream().sorted(new Comparator<Pair<Double, Double>>() {
-            @Override
-            public int compare(Pair<Double, Double> o1, Pair<Double, Double> o2) {
-                if(Point.getDistance(point1,o1) > Point.getDistance(point1,o2)){
-
-                }
-                if(Point.getDistance(point1,o1) > Point.getDistance(point1,o2)){
-
-                }
-            }
-        })
-    }*/
+    public Waypoint getWaypointsHead() {
+        return waypointsHead;
+    }
 }

@@ -4,6 +4,7 @@ import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.BotCarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
+import com.gmrossetti.mdp.entity.Waypoint;
 import com.gmrossetti.mdp.view.GameView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -57,9 +58,11 @@ public class GameManager {
 
         gameLoop.start();
 
+        Waypoint firstWaypoint = gameState.getCircuit().getWaypointsHead();
+
         // TODO: verione dinamica da caricare tramite file
         Car car = new Car(gameState.getCircuit().getRaceStartPoint());
-        HumanCarDriver humanCarDriver = new HumanCarDriver(car);
+        HumanCarDriver humanCarDriver = new HumanCarDriver(car, gameState.getCircuit());
 
         gameState.addCarDriver(humanCarDriver);
         // ----------------
