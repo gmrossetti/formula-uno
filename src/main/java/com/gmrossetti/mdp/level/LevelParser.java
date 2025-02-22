@@ -13,18 +13,13 @@ public class LevelParser {
     final static int SUPPORTED_IMG_HEIGHT = 45;
     public static CircuitGridPoint[][] parseImageToGrid(String circuitName) throws IOException {
         final String basePath = "/com/gmrossetti/mdp/circuits/";
+        final String imgFileExtension = ".gif";
 
-//        final String imgBaseSuffix = "-base.gif";
-        final String imgBaseSuffix = "-base-v2.gif";
-        final String imgDataSuffix = "-data.gif";
-
-        InputStream inputStream1 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgBaseSuffix);
-        InputStream inputStream2 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgDataSuffix);
+        InputStream inputStream1 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
 
         BufferedImage imgBase = ImageIO.read(inputStream1);
-        BufferedImage imgData = ImageIO.read(inputStream2);
 
-        if(!validateImgs(imgBase, imgData))
+        if(!validateImgs(imgBase))
             throw new RuntimeException("Circuit file format not valid!");
 
         CircuitGridPoint[][] grid = new CircuitGridPoint[SUPPORTED_IMG_HEIGHT][SUPPORTED_IMG_WIDTH];
@@ -33,36 +28,25 @@ public class LevelParser {
             for (int x = 0; x < SUPPORTED_IMG_WIDTH; x++) {
                 // Ottieni il colore del pixel (RGB)
                 Color colorBase = new Color(imgBase.getRGB(x, y));
-                Color colorData = new Color(imgData.getRGB(x, y));
-
-                final boolean isCurving = colorData.getGreen() == 0xff;
-                final boolean isNarrow = colorData.getBlue() == 0xff;
 
                 CircuitGridPoint.GridPointType type = CircuitGridPoint.GridPointType.OUTSIDE;
 
                 if (colorBase.equals(Color.WHITE)) {
                     type = CircuitGridPoint.GridPointType.INSIDE;
-                } else if(colorBase.equals(Color.GREEN)){
-                    type = CircuitGridPoint.GridPointType.START;
-                } else if(colorBase.equals(Color.BLUE)){
-                    type = CircuitGridPoint.GridPointType.END;
                 }
 
-                grid[y][x] = new CircuitGridPoint(x,y,type,isCurving,isNarrow/*,isWaypoint*/);
+                // TODO: remove isNarrow isCurving
+                grid[y][x] = new CircuitGridPoint(x,y,type,false,false);
             }
         }
 
         return grid;
     }
 
-    public static boolean validateImgs(BufferedImage imgBase, BufferedImage imgData){
+    public static boolean validateImgs(BufferedImage imgBase){
         final int imgBaseWidth = imgBase.getWidth();
         final int imgBaseHeight = imgBase.getHeight();
 
-        final int imgDataWidth = imgData.getWidth();
-        final int imgDataHeight = imgData.getHeight();
-
-        return imgBaseWidth == SUPPORTED_IMG_WIDTH && imgBaseHeight == SUPPORTED_IMG_HEIGHT &&
-                imgDataWidth == SUPPORTED_IMG_WIDTH && imgDataHeight == SUPPORTED_IMG_HEIGHT;
+        return imgBaseWidth == SUPPORTED_IMG_WIDTH && imgBaseHeight == SUPPORTED_IMG_HEIGHT;
     }
 }
