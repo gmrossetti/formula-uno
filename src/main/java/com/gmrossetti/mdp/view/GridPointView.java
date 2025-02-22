@@ -27,29 +27,6 @@ public class GridPointView extends Circle {
     }
 
     private static Color getGradientColor(CircuitGridPoint circuitGridPoint){
-        // TODO: remove, is only for testing
-            ArrayList<GridPoint> waypoints = new ArrayList<>();
-
-        waypoints.add(new GridPoint(18, 5)); // start point
-        waypoints.add(new GridPoint(47, 5));
-        waypoints.add(new GridPoint(53, 11));
-        waypoints.add(new GridPoint(49, 18));
-//        waypoints.add(new GridPoint(54, 28));
-//        waypoints.add(new GridPoint(52, 35));
-        waypoints.add(new GridPoint(55, 32));
-        waypoints.add(new GridPoint(36, 39));
-        waypoints.add(new GridPoint(32, 28));
-        waypoints.add(new GridPoint(23, 24));
-        waypoints.add(new GridPoint(10, 29));
-        waypoints.add(new GridPoint(4, 22));
-        waypoints.add(new GridPoint(3, 12));
-        waypoints.add(new GridPoint(8, 5));
-        waypoints.add(new GridPoint(17, 5));
-
-            if(waypoints.contains(circuitGridPoint)) return Color.web("#FFaa00");
-        // --------------
-
-
         if(circuitGridPoint.isCurving != circuitGridPoint.isNarrow)
             return Color.web("#0099cc");
 
