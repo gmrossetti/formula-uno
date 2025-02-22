@@ -1,5 +1,6 @@
 package com.gmrossetti.mdp.actor;
 
+import com.gmrossetti.mdp.entity.waypoint.BoundaryWaypoint;
 import com.gmrossetti.mdp.entity.waypoint.MidWaypoint;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 import com.gmrossetti.mdp.level.LevelParser;
@@ -36,7 +37,7 @@ public class Circuit {
         this.waypoints = new ArrayList<>();
 
         // TODO: refactor, waypoints are hardcoded
-        waypoints.add(new MidWaypoint(new GridPoint(18,5), 0.2, 4)); // start point
+        waypoints.add(new BoundaryWaypoint(new GridPoint(18,5), 0.2, 1,6, BoundaryWaypoint.Type.START)); // start point
         waypoints.add(new MidWaypoint(new GridPoint(47, 5), 0.2, 5));
         waypoints.add(new MidWaypoint(new GridPoint(53, 11), 0.2, 5));
         waypoints.add(new MidWaypoint(new GridPoint(49, 18), 0.2, 5));
@@ -48,7 +49,7 @@ public class Circuit {
         waypoints.add(new MidWaypoint(new GridPoint(4, 22), 0.2, 3));
         waypoints.add(new MidWaypoint(new GridPoint(3, 12), 0.2, 3));
         waypoints.add(new MidWaypoint(new GridPoint(8, 5), 0.2, 5));
-        waypoints.add(new MidWaypoint(new GridPoint(17, 5), 0.2, 4)); // end point
+        waypoints.add(new BoundaryWaypoint(new GridPoint(17, 5), 0.2, 1,6, BoundaryWaypoint.Type.FINISH)); // end point
 
         this.waypointsHead = generateWaypointLinkedList(waypoints);
     }
