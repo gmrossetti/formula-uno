@@ -29,6 +29,9 @@ public class GameLogic {
         GridLine driverTrace = humanCarDriver.makeMove(move);
         DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
         gameState.updateCarDriverState(humanCarDriver, moveResult);
+
+
+        // TODO: fix race end bug: after player passes end lines, games does not stop
     }
 
     private void handleBotCarDriver(BotCarDriver botCarDriver) {

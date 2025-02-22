@@ -1,5 +1,6 @@
 package com.gmrossetti.mdp.actor;
 
+import com.gmrossetti.mdp.entity.MidWaypoint;
 import com.gmrossetti.mdp.entity.Waypoint;
 import com.gmrossetti.mdp.level.LevelParser;
 import com.gmrossetti.mdp.entity.CircuitGridPoint;
@@ -35,19 +36,19 @@ public class Circuit {
         this.waypoints = new ArrayList<>();
 
         // TODO: refactor, waypoints are hardcoded
-        waypoints.add(new Waypoint(new GridPoint(18,5), 4,0.2)); // start point
-        waypoints.add(new Waypoint(new GridPoint(47, 5), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(53, 11), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(49, 18), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(55, 32), 4,0.2));
-        waypoints.add(new Waypoint(new GridPoint(36, 39), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(32, 28), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(23, 24), 4,0.2));
-        waypoints.add(new Waypoint(new GridPoint(10, 30), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(4, 22), 3,0.2));
-        waypoints.add(new Waypoint(new GridPoint(3, 12), 3,0.2));
-        waypoints.add(new Waypoint(new GridPoint(8, 5), 5,0.2));
-        waypoints.add(new Waypoint(new GridPoint(17, 5), 4,0.2)); // end point
+        waypoints.add(new MidWaypoint(new GridPoint(18,5), 0.2, 4)); // start point
+        waypoints.add(new MidWaypoint(new GridPoint(47, 5), 0.2, 5));
+        waypoints.add(new MidWaypoint(new GridPoint(53, 11), 0.2, 5));
+        waypoints.add(new MidWaypoint(new GridPoint(49, 18), 0.2, 5));
+        waypoints.add(new MidWaypoint(new GridPoint(55, 32), 0.2, 4));
+        waypoints.add(new MidWaypoint(new GridPoint(36, 39), 0.2, 5));
+        waypoints.add(new MidWaypoint(new GridPoint(32, 28), 0.2, 5));
+        waypoints.add(new MidWaypoint(new GridPoint(23, 24), 0.2, 4));
+        waypoints.add(new MidWaypoint(new GridPoint(10, 30), 0.2, 5));
+        waypoints.add(new MidWaypoint(new GridPoint(4, 22), 0.2, 3));
+        waypoints.add(new MidWaypoint(new GridPoint(3, 12), 0.2, 3));
+        waypoints.add(new MidWaypoint(new GridPoint(8, 5), 0.2, 5));
+        waypoints.add(new MidWaypoint(new GridPoint(17, 5), 0.2, 4)); // end point
 
         this.waypointsHead = generateWaypointLinkedList(waypoints);
     }

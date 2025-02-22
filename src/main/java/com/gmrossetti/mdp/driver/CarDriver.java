@@ -38,7 +38,7 @@ abstract public class CarDriver {
 
         this.car.move(point2reach);
 
-        if(waypointTarget.isWithinRadius(trace)){
+        if(waypointTarget.isWithinRange(trace)){
             System.out.println("Waypoint " +  waypointTarget + " raggiunto.");
 
             if(!waypointTarget.hasNext()){
