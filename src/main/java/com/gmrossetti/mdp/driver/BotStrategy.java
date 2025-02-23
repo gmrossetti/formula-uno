@@ -17,9 +17,21 @@ public class BotStrategy {
         NEUTRAL,
         GAS
     }
+    private final double minVelocity;
+    private final double deviationThreshold;
+    private final double brakeDistance;
+    private final double accelerateDistance;
+
 
     public BotStrategy(BotCarDriver carDriver){
         this.carDriver = carDriver;
+
+        StrategyParameters strategyParameters = new StrategyParameters();
+
+        minVelocity = StrategyParametersScaler.getMinVelocity(strategyParameters);
+        deviationThreshold = StrategyParametersScaler.getDeviationThreshold(strategyParameters);
+        brakeDistance = StrategyParametersScaler.getBrakeDistance(strategyParameters);
+        accelerateDistance = StrategyParametersScaler.getAccelerateDistance(strategyParameters);
     }
 
     public CarDriver.Move chooseBestMove(){
@@ -77,8 +89,6 @@ public class BotStrategy {
         GridPoint pivot = car.getPivot();
         GridPoint target = carDriver.waypointTarget.getCenter();
 
-        // TODO: add tollerance
-
         GridLine currentPosToTarget = new GridLine(car.getPosition(), target);
         GridLine currentPosToPivot = new GridLine(car.getPosition(), pivot);
 
@@ -91,11 +101,13 @@ public class BotStrategy {
             trajectoryDeviationDegrees = Math.abs(currentPosToTargetDegrees - currentPosToPivotDegrees);
         }
 
-        if((pivot.distanceTo(target) < median.distanceTo(target) - 2 || trajectoryDeviationDegrees > 50) && car.getVelocityModule() > 2){
+        if((pivot.distanceTo(target) < median.distanceTo(target) - brakeDistance ||
+                trajectoryDeviationDegrees > deviationThreshold) &&
+                car.getVelocityModule() > minVelocity){
             return SpeedAction.BRAKE;
         }
 
-        if(pivot.distanceTo(target) > median.distanceTo(target) + 4 && car.getVelocityModule() < 2){
+        if(pivot.distanceTo(target) > median.distanceTo(target) + accelerateDistance && car.getVelocityModule() < 2){
             return SpeedAction.GAS;
         }
 
