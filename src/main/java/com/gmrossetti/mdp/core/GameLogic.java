@@ -17,27 +17,30 @@ public class GameLogic {
             if(!gameState.isRaceActive()) return; // prevents making moves after HumanPlayer lost
 
             if (carDriver instanceof HumanCarDriver humanCarDriver) {
-                handleHumanCarDriver(humanCarDriver, move);
+                GridLine driverTrace = humanCarDriver.makeMove(move);
+                DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
+
+                System.out.println("Human moveResult: " + moveResult);
+
+                updateGameState(carDriver, moveResult);
             } else if (carDriver instanceof BotCarDriver botCarDriver) {
-                handleBotCarDriver(botCarDriver);
+                GridLine driverTrace = botCarDriver.makeMove();
+                DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
+
+                updateGameState(carDriver, moveResult);
             }
         }
     }
 
-    private void handleHumanCarDriver(HumanCarDriver humanCarDriver, CarDriver.Move move) {
-        // Gestisce i movimenti del driver umano
-        GridLine driverTrace = humanCarDriver.makeMove(move);
-        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
-        gameState.updateCarDriverState(humanCarDriver, moveResult);
+    private void updateGameState(CarDriver carDriver, DriverMoveValidator.MoveResult moveResult){
+        if(moveResult != DriverMoveValidator.MoveResult.OK){
+            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver,moveResult.toString()));
 
+            return;
+        }
 
-        // TODO: fix race end bug: after player passes end lines, games does not stop
-    }
-
-    private void handleBotCarDriver(BotCarDriver botCarDriver) {
-        // Gestisce i movimenti del driver bot
-        GridLine driverTrace = botCarDriver.makeMove();
-        DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
-        gameState.updateCarDriverState(botCarDriver, moveResult);
+        if(!carDriver.hasActiveWaypoint()){
+            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver));
+        }
     }
 }

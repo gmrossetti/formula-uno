@@ -191,8 +191,7 @@ public class BotStrategy {
             DriverMoveValidator.MoveResult ipoteticMoveResult =
                     DriverMoveValidator.evaluateMove(new GridLine(carDriver.getCar().getPosition(), moveCandidate.getMovePoint()), carDriver.getCircuit());
 
-            if(ipoteticMoveResult == DriverMoveValidator.MoveResult.CHEAT ||
-                    ipoteticMoveResult == DriverMoveValidator.MoveResult.OFFTRACK){
+            if(ipoteticMoveResult == DriverMoveValidator.MoveResult.OFFTRACK){
                 it.remove();
             }
         }
