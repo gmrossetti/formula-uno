@@ -15,10 +15,12 @@ public class MidWaypoint extends Waypoint {
         super(center, harshness);
 
         this.radius = radius;
+
+        initWithinRangeGridPoints();
     }
 
     @Override
-    Set<GridPoint> calcWithinRangeGridPoints() {
+    void initWithinRangeGridPoints() {
         final int x0 = center.x;
         final int y0 = center.y;
 
@@ -33,6 +35,6 @@ public class MidWaypoint extends Waypoint {
             }
         }
 
-        return withinRangeGPs;
+        this.withinRangeGPs = withinRangeGPs;
     }
 }
