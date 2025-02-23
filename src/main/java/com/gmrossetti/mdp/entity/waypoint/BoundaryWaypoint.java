@@ -34,9 +34,11 @@ public class BoundaryWaypoint extends Waypoint {
         this.width = width;
         this.height = height;
         this.type = type;
+
+        initWithinRangeGridPoints();
     }
     @Override
-    Set<GridPoint> calcWithinRangeGridPoints() {
+    void initWithinRangeGridPoints() {
         final double x0 = this.center.x - (width / 2.f);
         final double x1 = this.center.x + (width / 2.f);
 
@@ -56,6 +58,6 @@ public class BoundaryWaypoint extends Waypoint {
             }
         }
 
-        return withinRangeGPs;
+        this.withinRangeGPs = withinRangeGPs;
     }
 }

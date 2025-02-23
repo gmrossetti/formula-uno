@@ -15,7 +15,7 @@ public abstract class Waypoint {
     public double getHarshness() {
         return harshness;
     }
-    private final Set<GridPoint> withinRangeGPs;
+    protected Set<GridPoint> withinRangeGPs;
 
     private Waypoint next;
     private Waypoint previous;
@@ -23,9 +23,6 @@ public abstract class Waypoint {
     public Waypoint(GridPoint center, double harshness) {
         this.center = center;
         this.harshness = harshness;
-
-        this.withinRangeGPs = calcWithinRangeGridPoints();
-
         this.next = null;
         this.previous = null;
     }
@@ -55,7 +52,7 @@ public abstract class Waypoint {
         return previous;
     }
 
-    abstract Set<GridPoint> calcWithinRangeGridPoints();
+    abstract void initWithinRangeGridPoints();
 
     public Set<GridPoint> getWithinRangeGridPoints(){
         return withinRangeGPs;
