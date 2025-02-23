@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DriverMoveValidator {
     public enum MoveResult {
-        OK, OFFTRACK, FINISH, CHEAT
+        OK, OFFTRACK, FINISH
     }
 
     public static MoveResult evaluateMove(GridLine driverTrace, Circuit circuit) {
@@ -64,9 +64,6 @@ public class DriverMoveValidator {
 
         switch (current) {
             case START:
-                if (next == CircuitGridPoint.GridPointType.END) {
-                    return MoveResult.CHEAT;
-                }
                 if (next == CircuitGridPoint.GridPointType.OUTSIDE) {
                     return MoveResult.OFFTRACK;
                 }

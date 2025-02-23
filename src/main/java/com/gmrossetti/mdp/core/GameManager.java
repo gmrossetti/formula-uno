@@ -79,38 +79,30 @@ public class GameManager {
     public void checkIfGameEnded() {
         if(gameState.isRaceActive()) return;
 
-        DriverMoveValidator.MoveResult finalHumanCarDriverMoveResult =
-                gameState.getCarDriverMoveResult(gameState.getHumanCarDriver());
-
         gameLoop.stop();
 
-        showAlert(finalHumanCarDriverMoveResult);
-        reset();
-    }
+        Leaderboard leaderBoard = gameState.getLeaderboard();
 
-    public void showAlert(DriverMoveValidator.MoveResult moveResult){
+        LeaderboardEntry humanCarDriverLeaderboardEntry = leaderBoard.getLeaderboardEntry(gameState.getHumanCarDriver());
 
         String title;
         String message;
-        switch (moveResult) {
-            case OFFTRACK -> {
-                title = "Squalificato!";
-                message = "Sei uscito dalla pista!";
-            }
-            case FINISH -> {
-                // TODO: aggiungere posizione in classifica
-                title = "Complimenti!";
-                message = "Hai completato la gara!";
-            }
-            case CHEAT -> {
-                title = "Squalificato!";
-                message = "Mossa non valida!";
-            }
-            default -> throw new IllegalStateException("Risultato inatteso: " + moveResult);
+
+        if(humanCarDriverLeaderboardEntry.isDisqualified()){
+            title = "Squalificato!";
+            message = "Sei uscito dalla pista!";
+        } else {
+            title = "Complimenti!";
+            message = "Hai concluso la gara in " + leaderBoard.getPosition(gameState.getHumanCarDriver()) + "^ posizione!";
         }
 
-        message += " Il gioco è stato resettato.";
+        message += "\nIl gioco è stato resettato.";
 
+        showAlert(title, message);
+        reset();
+    }
+
+    public void showAlert(String title, String message){
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setHeaderText(message);

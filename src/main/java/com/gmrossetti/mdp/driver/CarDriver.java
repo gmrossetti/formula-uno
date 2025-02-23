@@ -17,8 +17,6 @@ abstract public class CarDriver {
 
     protected Waypoint waypointTarget;
 
-    private List<Waypoint> waypointsAchieved = new ArrayList<>();
-
     private final Car car;
 
     public enum Move {
@@ -28,10 +26,17 @@ abstract public class CarDriver {
     public CarDriver(Car car, Waypoint waypointHead){
         this.car = car;
         this.waypointTarget = waypointHead.getNext();
-        waypointsAchieved.add(waypointHead);
+    }
+
+    public boolean hasActiveWaypoint(){
+        return waypointTarget != null;
     }
 
     protected final GridLine processMove(CarDriver.Move move){
+        if(!hasActiveWaypoint()){
+            throw new IllegalStateException("CarDriver has no waypoints left");
+        }
+
         GridPoint point2reach = getMovesPoints().get(move);
 
         final GridLine trace = new GridLine(this.car.getPosition(),point2reach);
@@ -40,10 +45,6 @@ abstract public class CarDriver {
 
         if(waypointTarget.isWithinRange(trace)){
             System.out.println("Waypoint " +  waypointTarget + " raggiunto.");
-
-            if(!waypointTarget.hasNext()){
-                throw new IllegalStateException("BotDriver already ended the race.");
-            }
 
             waypointTarget = waypointTarget.getNext();
 

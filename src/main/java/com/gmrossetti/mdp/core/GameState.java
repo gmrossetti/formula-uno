@@ -8,45 +8,38 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameState {
-    private boolean isRaceActive;
     public boolean isRaceActive() {
-        return isRaceActive;
+        return !getCarDriversStillPlaying().isEmpty() && getCarDriversStillPlaying().contains(getHumanCarDriver()) ||
+                getLeaderboard().isEmpty();
     }
-    private Circuit circuit;
+    private final Circuit circuit;
     public Circuit getCircuit() {
         return circuit;
     }
 
-    final private Map<CarDriver, DriverMoveValidator.MoveResult> carDriversMoveResult;
+    final private Set<CarDriver> carDrivers;
+
+    public Leaderboard getLeaderboard() {
+        return leaderboard;
+    }
+
+    final private Leaderboard leaderboard;
 
     public Set<CarDriver> getCarDrivers() {
-        return carDriversMoveResult.keySet();
+        return carDrivers;
     }
 
     public Set<CarDriver> getCarDriversStillPlaying() {
-        return carDriversMoveResult.keySet().stream()
-                .filter(carDriver -> carDriversMoveResult.get(carDriver) == DriverMoveValidator.MoveResult.OK)
+        return carDrivers.stream()
+                .filter(CarDriver::hasActiveWaypoint)
+                .filter(carDriver -> !leaderboard.containsCarDriver(carDriver))
                 .collect(Collectors.toSet());
-    }
-
-    public DriverMoveValidator.MoveResult getCarDriverMoveResult(CarDriver carDriver){
-        DriverMoveValidator.MoveResult moveResult = carDriversMoveResult.get(carDriver);
-
-        if(moveResult == null){
-            throw new IllegalArgumentException("carDriver provided does not exist.");
-        }
-
-        return moveResult;
-    }
-
-    public Map<CarDriver, DriverMoveValidator.MoveResult> getCarDriverMoveResults(){
-        return carDriversMoveResult;
     }
 
     public GameState(Circuit circuit) {
         this.circuit = circuit;
-        carDriversMoveResult = new HashMap<>();
-        isRaceActive = true;
+        carDrivers = new HashSet<>();
+        leaderboard = new Leaderboard();
     }
 
     public HumanCarDriver getHumanCarDriver() {
@@ -61,26 +54,10 @@ public class GameState {
     }
 
     public void addCarDriver(CarDriver carDriver){
-        if(!isRaceActive){
+        if(!isRaceActive()){
             throw new IllegalStateException("Race ended.");
         }
 
-        carDriversMoveResult.put(carDriver, DriverMoveValidator.MoveResult.OK);
-    }
-
-    public void updateCarDriverState(CarDriver carDriver, DriverMoveValidator.MoveResult moveResult){
-        if(!isRaceActive){
-            throw new IllegalStateException("Race ended.");
-        }
-
-        if(!getCarDrivers().contains(carDriver)){
-            throw new IllegalArgumentException("carDriver provided does not exist.");
-        }
-
-        carDriversMoveResult.put(carDriver,moveResult);
-
-        if(carDriver instanceof HumanCarDriver && moveResult != DriverMoveValidator.MoveResult.OK){
-            isRaceActive = false;
-        }
+        carDrivers.add(carDriver);
     }
 }
