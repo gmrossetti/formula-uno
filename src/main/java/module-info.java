@@ -8,8 +8,8 @@ module com.gmrossetti.mdp {
     exports com.gmrossetti.mdp;
     exports com.gmrossetti.mdp.actor;
     opens com.gmrossetti.mdp.actor to javafx.fxml;
-    exports com.gmrossetti.mdp.level;
-    opens com.gmrossetti.mdp.level to javafx.fxml;
+    exports com.gmrossetti.mdp.parser;
+    opens com.gmrossetti.mdp.parser to javafx.fxml;
     exports com.gmrossetti.mdp.entity.cartesian;
     opens com.gmrossetti.mdp.entity.cartesian to javafx.fxml;
     exports com.gmrossetti.mdp.entity.waypoint;

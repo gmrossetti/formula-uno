@@ -1,5 +1,6 @@
 package com.gmrossetti.mdp.view;
 
+import com.gmrossetti.mdp.driver.HumanCarDriver;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.actor.Car;
 import javafx.scene.Group;
@@ -20,15 +21,16 @@ public class CarView extends Pane {
     private final Rectangle pivotRect;
     private final Group trailSegments;
 
-    public CarView(Car car){
+    public CarView(Car car, Color color){
         shape = new Rectangle(-RECT_WIDTH/2.d,-RECT_HEIGHT/2.d,RECT_WIDTH,RECT_HEIGHT);
-        shape.setFill(Color.YELLOW);
+        shape.setFill(color);
         shape.setRotate(45);
 
         pivotRect = new Rectangle(-RECT_WIDTH/2.d,-RECT_HEIGHT/2.d,RECT_WIDTH,RECT_HEIGHT);
-        Color color = new Color(Color.YELLOW.getRed(), Color.YELLOW.getGreen(), Color.YELLOW.getBlue(), 0.6);
 
-        pivotRect.setFill(color);
+        Color pivotColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), 0.5);
+
+        pivotRect.setFill(pivotColor);
         pivotRect.setRotate(45);
 
         trailSegments = new Group();

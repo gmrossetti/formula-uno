@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.level;
+package com.gmrossetti.mdp.parser;
 
 import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 
@@ -18,14 +18,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-public class LevelParser {
+public class CircuitParser {
     final static int SUPPORTED_IMG_WIDTH = 60;
     final static int SUPPORTED_IMG_HEIGHT = 45;
     public static CircuitGridPoint[][] parseImageToGrid(String circuitName) throws IOException {
         final String basePath = "/com/gmrossetti/mdp/circuits/";
         final String imgFileExtension = ".gif";
 
-        InputStream inputStream1 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
+        InputStream inputStream1 = CircuitParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
 
         BufferedImage imgBase = ImageIO.read(inputStream1);
 
@@ -52,11 +52,11 @@ public class LevelParser {
         return grid;
     }
 
-    public static List<Waypoint> parseJson(String circuitName){
+    public static List<Waypoint> parseWaypointsJson(String circuitName){
         final String basePath = "/com/gmrossetti/mdp/circuits/";
         final String imgFileExtension = ".json";
 
-        InputStream inputStream1 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
+        InputStream inputStream1 = CircuitParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
 
         try {
             JSONTokener tokener = new JSONTokener(inputStream1);
@@ -70,8 +70,6 @@ public class LevelParser {
 
             JSONObject data = jsonObject.getJSONObject("data");
             JSONArray waypointsToParse = data.getJSONArray("waypoints");
-
-
 
             for (int i = 0; i < waypointsToParse.length(); i++) {
                 JSONObject waypointToParse = waypointsToParse.getJSONObject(i);
@@ -101,9 +99,6 @@ public class LevelParser {
                         throw new RuntimeException("Waypoint type not valid.");
                 }
             }
-
-            // Esempio di output (puoi rimuoverlo se non ti serve)
-            waypoints.forEach(waypoint -> System.out.println(waypoint));
 
             return waypoints;
         } catch (Exception e) {

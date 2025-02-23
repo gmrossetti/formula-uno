@@ -3,7 +3,9 @@ package com.gmrossetti.mdp.view;
 import com.gmrossetti.mdp.core.GameState;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.driver.HumanCarDriver;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -28,8 +30,16 @@ public class RaceView extends StackPane {
         for (CarDriver carDriver:
                 gameState.getCarDrivers()) {
 
+            Color color;
+
+            if(carDriver instanceof HumanCarDriver){
+                color = Color.YELLOW;
+            } else {
+                color = Color.MAGENTA;
+            }
+
             Car car = carDriver.getCar();
-            CarView carView = new CarView(car);
+            CarView carView = new CarView(car, color);
 
             this.carViews.add(carView);
         }
@@ -40,9 +50,11 @@ public class RaceView extends StackPane {
 
     public void update(GameState gameState){
         ArrayList<Car> cars = new ArrayList<>();
+        ArrayList<CarDriver> carDrivers = new ArrayList<>();
 
         for (CarDriver carDriver:
                 gameState.getCarDrivers()) {
+            carDrivers.add(carDriver);
             cars.add(carDriver.getCar());
         }
 
@@ -55,7 +67,14 @@ public class RaceView extends StackPane {
                 this.carViews.get(i).update(car);
             } else {
                 // Se ci sono nuove auto, le creiamo e aggiungiamo alla lista
-                CarView carView = new CarView(car);
+                Color color;
+
+                if(carDrivers.get(i) instanceof HumanCarDriver){
+                    color = Color.YELLOW;
+                } else {
+                    color = Color.MAGENTA;
+                }
+                CarView carView = new CarView(car, color);
                 this.carViews.add(carView);
                 this.getChildren().add(carView);
             }
