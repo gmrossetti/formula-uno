@@ -4,6 +4,9 @@ import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.BotCarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
+import com.gmrossetti.mdp.driver.StrategyParameters;
+import com.gmrossetti.mdp.parser.GameParseObject;
+import com.gmrossetti.mdp.parser.GameParser;
 import com.gmrossetti.mdp.view.GameView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -40,10 +43,11 @@ public class GameManager {
         gameScene = new Scene(view);
     }
 
-    final int BOTS_PLAYERS_NUMBER = 1;
-
     public void init(){
-        Circuit circuit = new Circuit();
+
+        GameParseObject gameParserObject = GameParser.parseGameConfigJson("game-config1");
+
+        Circuit circuit = gameParserObject.getCircuit();
 
         gameState = new GameState(circuit);
 
@@ -57,16 +61,17 @@ public class GameManager {
 
         gameLoop.start();
 
-        // TODO: verione dinamica da caricare tramite file
         Car car = new Car(gameState.getCircuit().getRaceStartPoint());
         HumanCarDriver humanCarDriver = new HumanCarDriver(car, gameState.getCircuit());
 
         gameState.addCarDriver(humanCarDriver);
-        // ----------------
 
-        for (int i = 0; i < BOTS_PLAYERS_NUMBER; i++) {
-            gameState.addCarDriver(new BotCarDriver(new Car(gameState.getCircuit().getRaceStartPoint()),
-                    gameState.getCircuit()));
+        for (StrategyParameters strategyParameters:
+            gameParserObject.getStrategyParameters()) {
+
+            Car botCar = new Car(gameState.getCircuit().getRaceStartPoint());
+
+            gameState.addCarDriver(new BotCarDriver(botCar,gameState.getCircuit(),strategyParameters));
         }
     }
 
@@ -107,12 +112,10 @@ public class GameManager {
         dialog.setTitle(title);
         dialog.setHeaderText(message);
 
-        // Aggiungi il pulsante OK
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 
         dialog.initStyle(StageStyle.UNDECORATED);
 
-        // Mostra il dialogo in modo sicuro
         Platform.runLater(dialog::showAndWait);
     }
 }

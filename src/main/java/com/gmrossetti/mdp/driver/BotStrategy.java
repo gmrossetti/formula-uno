@@ -23,10 +23,8 @@ public class BotStrategy {
     private final double accelerateDistance;
 
 
-    public BotStrategy(BotCarDriver carDriver){
+    public BotStrategy(BotCarDriver carDriver, StrategyParameters strategyParameters){
         this.carDriver = carDriver;
-
-        StrategyParameters strategyParameters = new StrategyParameters();
 
         minVelocity = StrategyParametersScaler.getMinVelocity(strategyParameters);
         deviationThreshold = StrategyParametersScaler.getDeviationThreshold(strategyParameters);

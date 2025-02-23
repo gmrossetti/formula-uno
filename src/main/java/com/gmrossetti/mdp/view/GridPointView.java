@@ -13,10 +13,8 @@ public class GridPointView extends Circle {
         Color color;
 
         switch(circuitGridPoint.type){
-//            case START -> color = Color.web("#4CAF50");
             case INSIDE -> color = Color.web("#ADD8E6");
             case OUTSIDE -> color = Color.web("#FF4500");
-//            case END -> color = Color.web("#FFD700");
             default -> throw new RuntimeException();
         }
 

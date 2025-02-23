@@ -19,10 +19,10 @@ public class Circuit {
     private final List<Waypoint> waypoints;
     private final Waypoint waypointsHead;
 
-    public Circuit(){
+    public Circuit(String circuitName){
         try {
-            this.grid = CircuitParser.parseImageToGrid("circuit1");
-            this.waypoints = CircuitParser.parseWaypointsJson("circuit1");
+            this.grid = CircuitParser.parseImageToGrid(circuitName);
+            this.waypoints = CircuitParser.parseWaypointsJson(circuitName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

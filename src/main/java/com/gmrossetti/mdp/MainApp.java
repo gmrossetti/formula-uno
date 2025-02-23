@@ -11,7 +11,6 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         final Scene gameScene = gameManager.getGameScene();
 
-        // Imposta il titolo della finestra
         primaryStage.setTitle("Formula 1");
         primaryStage.setScene(gameScene);
         primaryStage.setResizable(false);
