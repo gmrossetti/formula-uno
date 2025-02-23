@@ -22,7 +22,6 @@ public class Car {
         return new GridLine(getPreviousPosition(), position);
     }
 
-
     public boolean isStationary(){
         return getVelocityModule() == 0;
     }
