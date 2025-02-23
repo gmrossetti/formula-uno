@@ -3,7 +3,6 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.driver.CarDriver;
 
 public class InputHandler {
-//    private final GameLogic gameLogic;
     private static InputHandler instance;
     private CarDriver.Move lastMove = null;
 
@@ -15,10 +14,6 @@ public class InputHandler {
         }
         return instance;
     }
-
-/*    public InputHandler(GameLogic gameLogic) {
-        this.gameLogic = gameLogic;
-    }*/
 
     public void stashInput(CarDriver.Move move){
         this.lastMove = move;

@@ -3,12 +3,10 @@ package com.gmrossetti.mdp.core;
 import javafx.animation.AnimationTimer;
 
 public class GameLoop extends AnimationTimer {
-    private final GameState gameState;
     private final GameLogic gameLogic;
     private final Renderer renderer;
 
-    public GameLoop(GameState gameState, GameLogic gameLogic, Renderer renderer) {
-        this.gameState = gameState;
+    public GameLoop(GameLogic gameLogic, Renderer renderer) {
         this.gameLogic = gameLogic;
         this.renderer = renderer;
     }

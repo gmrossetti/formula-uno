@@ -14,6 +14,8 @@ public class DriverMoveValidator {
             return true; // Mossa nulla, nessun effetto
         }
 
+        if(circuit.toCircuitGridPoint(driverTrace.getEnd()).isOccupied()) return false;
+
         List<GridPoint> intersectionPoints = driverTrace.getNearestGridPointsOnIntersections();
         List<CircuitGridPoint> trackIntersections = circuit.toCircuitGridPoint(intersectionPoints);
 
@@ -43,41 +45,25 @@ public class DriverMoveValidator {
 
         CircuitGridPoint.GridPointType firstPoint = trailTypesEncountered.get(0);
 
-        if (firstPoint != CircuitGridPoint.GridPointType.START && firstPoint != CircuitGridPoint.GridPointType.INSIDE) {
+        if (firstPoint != CircuitGridPoint.GridPointType.INSIDE) {
             throw new IllegalStateException("Trail can start only on race start line or inside track points.");
         }
 
-        return evaluateTrailRecursively(trailTypesEncountered, 0);
+        return evaluateTrailRecursively(trailTypesEncountered);
     }
 
-    private static boolean evaluateTrailRecursively(List<CircuitGridPoint.GridPointType> trail, int index) {
-        if (index > trail.size() - 2) {
+    private static boolean evaluateTrailRecursively(List<CircuitGridPoint.GridPointType> trail) {
+        if (trail.size() < 2) {
             return true;
         }
 
-        CircuitGridPoint.GridPointType current = trail.get(index);
-        CircuitGridPoint.GridPointType next = trail.get(index + 1);
+        CircuitGridPoint.GridPointType current = trail.get(0);
+        CircuitGridPoint.GridPointType next = trail.get(1);
 
-        switch (current) {
-            case START:
-                if (next == CircuitGridPoint.GridPointType.OUTSIDE) {
-                    return false;
-                }
-                return evaluateTrailRecursively(trail, index + 1);
-
-            case INSIDE:
-                if (next == CircuitGridPoint.GridPointType.START) {
-                    return evaluateTrailRecursively(trail, index + 1);
-                }
-                if (next == CircuitGridPoint.GridPointType.OUTSIDE) {
-                    return false;
-                }
-                if (next == CircuitGridPoint.GridPointType.END) {
-                    return true;
-                }
-                break;
-
-            default:
+        if (current == CircuitGridPoint.GridPointType.INSIDE) {
+            if (next == CircuitGridPoint.GridPointType.OUTSIDE) {
+                return false;
+            }
         }
 
         throw new IllegalStateException("Unexpected grid point encountered: " + current);

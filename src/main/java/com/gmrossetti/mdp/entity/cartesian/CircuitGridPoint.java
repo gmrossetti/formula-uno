@@ -6,8 +6,6 @@ public class CircuitGridPoint extends GridPoint {
     public enum GridPointType {
         OUTSIDE,  // Fuori mappa
         INSIDE,   // Dentro la mappa
-        START,     // Partenza
-        END        // Fine
     }
     public final GridPointType type;
     private Car occupiedBy;

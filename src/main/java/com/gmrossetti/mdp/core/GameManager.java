@@ -53,7 +53,7 @@ public class GameManager {
 
         gameLogic = new GameLogic(gameState);
 
-        gameLoop = new GameLoop(gameState, gameLogic, renderer);
+        gameLoop = new GameLoop(gameLogic, renderer);
 
         gameLoop.start();
 

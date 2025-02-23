@@ -9,17 +9,13 @@ public class BotCarDriver extends CarDriver{
     public Circuit getCircuit() {
         return circuit;
     }
-
     final Circuit circuit;
-    final DriverMoveValidator driverMoveValidator;
 
     final BotStrategy botStrategy;
     public BotCarDriver(Car car, Circuit circuit) {
         super(car, circuit.getWaypointsHead());
 
         this.circuit = circuit;
-
-        driverMoveValidator = new DriverMoveValidator();
 
         botStrategy = new BotStrategy(this);
     }
@@ -33,6 +29,4 @@ public class BotCarDriver extends CarDriver{
     private Move getNextMove(){
         return botStrategy.chooseBestMove();
     }
-
-
 }
