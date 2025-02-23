@@ -1,0 +1,202 @@
+package com.gmrossetti.mdp.driver;
+
+import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.core.DriverMoveValidator;
+import com.gmrossetti.mdp.entity.cartesian.GridLine;
+import com.gmrossetti.mdp.entity.cartesian.GridPoint;
+import com.gmrossetti.mdp.entity.cartesian.Point;
+import com.gmrossetti.mdp.entity.waypoint.Waypoint;
+
+import java.util.*;
+
+public class BotStrategy {
+    private final BotCarDriver carDriver;
+
+    enum SpeedAction {
+        BRAKE,
+        NEUTRAL,
+        GAS
+    }
+
+    public BotStrategy(BotCarDriver carDriver){
+        this.carDriver = carDriver;
+    }
+
+    public CarDriver.Move chooseBestMove(){
+        final Map<CarDriver.Move, GridPoint> movesPoints = carDriver.getMovesPoints();
+
+        final GridPoint currentPos = carDriver.getCar().getPosition();
+
+        final Waypoint currentWaypoint = carDriver.waypointTarget;
+
+        if(!carDriver.waypointTarget.hasPrevious()) throw new RuntimeException("CarDriver must be initialized with the second waypoint");
+
+        final Waypoint previousWaypoint = carDriver.waypointTarget.getPrevious();
+
+        final GridLine waypoint2waypoint = new GridLine(previousWaypoint.getCenter(), currentWaypoint.getCenter());
+        final Point medianPoint = waypoint2waypoint.getMedianPoint();
+
+        ArrayList<MoveCandidate> moveCandidates = new ArrayList<>();
+
+        for (Map.Entry<CarDriver.Move,GridPoint> moveGridPoint:
+            movesPoints.entrySet()) {
+
+            GridPoint gp = moveGridPoint.getValue();
+
+            double distanceToCurrentPos = gp.distanceTo(currentPos);
+            double distanceToTarget = gp.distanceTo(currentWaypoint.getCenter());
+            double distanceToMedian = gp.distanceTo(medianPoint);
+
+            MoveCandidate moveCandidate = new MoveCandidate(moveGridPoint.getKey(), gp, distanceToCurrentPos, distanceToTarget, distanceToMedian);
+
+            moveCandidates.add(moveCandidate);
+        }
+
+        moveCandidates.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToCurrent));
+
+        List<MoveCandidate> brakeCandidates = moveCandidates.subList(0,3);
+        List<MoveCandidate> neutralCandidates = moveCandidates.subList(3,6);
+        List<MoveCandidate> gasCandidates = moveCandidates.subList(6,9);
+
+        List<MoveCandidate> brakeCandidatesFiltered = filterOutUnusableGP(brakeCandidates);
+        List<MoveCandidate> neutralCandidatesFiltered = filterOutUnusableGP(neutralCandidates);
+        List<MoveCandidate> gasCandidatesFiltered = filterOutUnusableGP(gasCandidates);
+
+        SpeedAction speedAction = findSpeedAction();
+
+        MoveCandidate bestMoveCandidate = selectBestMove(speedAction, brakeCandidatesFiltered, neutralCandidatesFiltered, gasCandidatesFiltered);
+
+        return (bestMoveCandidate == null) ? CarDriver.Move.BL : bestMoveCandidate.getMove();
+    }
+
+    private SpeedAction findSpeedAction(){
+        Car car = carDriver.getCar();
+
+        final Point median = getMedian();
+
+        GridPoint pivot = car.getPivot();
+        GridPoint target = carDriver.waypointTarget.getCenter();
+
+        // TODO: add tollerance
+
+        GridLine currentPosToTarget = new GridLine(car.getPosition(), target);
+        GridLine currentPosToPivot = new GridLine(car.getPosition(), pivot);
+
+        double trajectoryDeviationDegrees = 0;
+
+        if(!currentPosToTarget.isDegenerate() && !currentPosToPivot.isDegenerate()){
+            double currentPosToTargetDegrees = currentPosToTarget.getSlopeCoefficientToDegrees();
+            double currentPosToPivotDegrees = currentPosToPivot.getSlopeCoefficientToDegrees();
+
+            trajectoryDeviationDegrees = Math.abs(currentPosToTargetDegrees - currentPosToPivotDegrees);
+        }
+
+        if((pivot.distanceTo(target) < median.distanceTo(target) - 2 || trajectoryDeviationDegrees > 50) && car.getVelocityModule() > 2){
+            return SpeedAction.BRAKE;
+        }
+
+        if(pivot.distanceTo(target) > median.distanceTo(target) + 4 && car.getVelocityModule() < 2){
+            return SpeedAction.GAS;
+        }
+
+        return SpeedAction.NEUTRAL;
+    }
+
+    private MoveCandidate selectBestMove(SpeedAction speedAction, List<MoveCandidate> brakes,
+                                         List<MoveCandidate> neutrals, List<MoveCandidate> gas){
+        if(speedAction == SpeedAction.BRAKE){
+            if(!brakes.isEmpty()){
+                brakes.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return brakes.get(0);
+            }
+
+            if(!neutrals.isEmpty()){
+                neutrals.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return neutrals.get(0);
+            }
+
+            if(!gas.isEmpty()){
+                gas.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return gas.get(0);
+            }
+        }
+
+        if(speedAction == SpeedAction.NEUTRAL){
+            if(!neutrals.isEmpty()){
+                neutrals.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return neutrals.get(0);
+            }
+
+            if(!brakes.isEmpty()){
+                brakes.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return brakes.get(0);
+            }
+
+            if(!gas.isEmpty()){
+                gas.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return gas.get(0);
+            }
+        }
+
+        if(speedAction == SpeedAction.GAS){
+            if(!gas.isEmpty()){
+                gas.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return gas.get(0);
+            }
+
+            if(!neutrals.isEmpty()){
+                neutrals.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return neutrals.get(0);
+            }
+
+            if(!brakes.isEmpty()){
+                brakes.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+
+                return brakes.get(0);
+            }
+        }
+
+        return null;
+    }
+
+    private Point getMedian(){
+        final Waypoint currentWaypoint = carDriver.waypointTarget;
+        final Waypoint previousWaypoint = carDriver.waypointTarget.getPrevious();
+
+        final GridLine waypoint2waypoint = new GridLine(previousWaypoint.getCenter(), currentWaypoint.getCenter());
+
+        return waypoint2waypoint.getMedianPoint();
+    }
+
+    private List<MoveCandidate> filterOutUnusableGP(List<MoveCandidate> moveCandidatesToFilter){
+        List<MoveCandidate> moveCandidatesModified = new ArrayList<>(moveCandidatesToFilter);
+
+        Iterator<MoveCandidate> it = moveCandidatesModified.iterator();
+        while (it.hasNext()) {
+            MoveCandidate moveCandidate = it.next();
+
+            if(carDriver.getCar().isStationary() && carDriver.getCar().getPosition().equals(moveCandidate.getMovePoint())){
+                it.remove();
+                continue;
+            }
+
+            DriverMoveValidator.MoveResult ipoteticMoveResult =
+                    DriverMoveValidator.evaluateMove(new GridLine(carDriver.getCar().getPosition(), moveCandidate.getMovePoint()), carDriver.getCircuit());
+
+            if(ipoteticMoveResult == DriverMoveValidator.MoveResult.CHEAT ||
+                    ipoteticMoveResult == DriverMoveValidator.MoveResult.OFFTRACK){
+                it.remove();
+            }
+        }
+
+        return moveCandidatesModified;
+    }
+}

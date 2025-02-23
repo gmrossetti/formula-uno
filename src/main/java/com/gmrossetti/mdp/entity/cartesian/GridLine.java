@@ -40,6 +40,16 @@ public class GridLine implements ProperGridLine {
     }
 
     @Override
+    public double getSlopeCoefficientToDegrees() {
+        final double m = this.getSlopeCoefficient();
+
+        if (Double.isInfinite(m)) {
+            return (m > 0) ? 90.0 : -90.0;
+        }
+        return Math.toDegrees(Math.atan(m));
+    }
+
+    @Override
     public double getSlopeCoefficient(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
 
