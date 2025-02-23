@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.actor;
 
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
-import com.gmrossetti.mdp.level.LevelParser;
+import com.gmrossetti.mdp.parser.CircuitParser;
 import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 
@@ -21,8 +21,8 @@ public class Circuit {
 
     public Circuit(){
         try {
-            this.grid = LevelParser.parseImageToGrid("circuit1");
-            this.waypoints = LevelParser.parseJson("circuit1");
+            this.grid = CircuitParser.parseImageToGrid("circuit1");
+            this.waypoints = CircuitParser.parseWaypointsJson("circuit1");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
