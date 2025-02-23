@@ -9,13 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriverMoveValidator {
-    public enum MoveResult {
-        OK, OFFTRACK, FINISH
-    }
-
-    public static MoveResult evaluateMove(GridLine driverTrace, Circuit circuit) {
+    public static boolean isMoveValid(GridLine driverTrace, Circuit circuit) {
         if (driverTrace.isDegenerate()) {
-            return MoveResult.OK; // Mossa nulla, nessun effetto
+            return true; // Mossa nulla, nessun effetto
         }
 
         List<GridPoint> intersectionPoints = driverTrace.getNearestGridPointsOnIntersections();
@@ -40,7 +36,7 @@ public class DriverMoveValidator {
         return uniqueSequence;
     }
 
-    private static MoveResult determineMoveResult(List<CircuitGridPoint.GridPointType> trailTypesEncountered) {
+    private static boolean determineMoveResult(List<CircuitGridPoint.GridPointType> trailTypesEncountered) {
         if (trailTypesEncountered.isEmpty()) {
             throw new IllegalArgumentException("Trail list cannot be empty.");
         }
@@ -54,9 +50,9 @@ public class DriverMoveValidator {
         return evaluateTrailRecursively(trailTypesEncountered, 0);
     }
 
-    private static MoveResult evaluateTrailRecursively(List<CircuitGridPoint.GridPointType> trail, int index) {
+    private static boolean evaluateTrailRecursively(List<CircuitGridPoint.GridPointType> trail, int index) {
         if (index > trail.size() - 2) {
-            return MoveResult.OK;
+            return true;
         }
 
         CircuitGridPoint.GridPointType current = trail.get(index);
@@ -65,7 +61,7 @@ public class DriverMoveValidator {
         switch (current) {
             case START:
                 if (next == CircuitGridPoint.GridPointType.OUTSIDE) {
-                    return MoveResult.OFFTRACK;
+                    return false;
                 }
                 return evaluateTrailRecursively(trail, index + 1);
 
@@ -74,10 +70,10 @@ public class DriverMoveValidator {
                     return evaluateTrailRecursively(trail, index + 1);
                 }
                 if (next == CircuitGridPoint.GridPointType.OUTSIDE) {
-                    return MoveResult.OFFTRACK;
+                    return false;
                 }
                 if (next == CircuitGridPoint.GridPointType.END) {
-                    return MoveResult.FINISH;
+                    return true;
                 }
                 break;
 

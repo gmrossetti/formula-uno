@@ -6,7 +6,7 @@ import com.gmrossetti.mdp.driver.HumanCarDriver;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 
 public class GameLogic {
-    private GameState gameState;
+    private final GameState gameState;
 
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
@@ -18,24 +18,21 @@ public class GameLogic {
 
             if (carDriver instanceof HumanCarDriver humanCarDriver) {
                 GridLine driverTrace = humanCarDriver.makeMove(move);
-                DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
+                boolean isMoveValid = DriverMoveValidator.isMoveValid(driverTrace, gameState.getCircuit());
 
-                System.out.println("Human moveResult: " + moveResult);
-
-                updateGameState(carDriver, moveResult);
+                updateGameState(carDriver, isMoveValid);
             } else if (carDriver instanceof BotCarDriver botCarDriver) {
                 GridLine driverTrace = botCarDriver.makeMove();
-                DriverMoveValidator.MoveResult moveResult = DriverMoveValidator.evaluateMove(driverTrace, gameState.getCircuit());
+                boolean isMoveValid = DriverMoveValidator.isMoveValid(driverTrace, gameState.getCircuit());
 
-                updateGameState(carDriver, moveResult);
+                updateGameState(carDriver, isMoveValid);
             }
         }
     }
 
-    private void updateGameState(CarDriver carDriver, DriverMoveValidator.MoveResult moveResult){
-        if(moveResult != DriverMoveValidator.MoveResult.OK){
-            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver,moveResult.toString()));
-
+    private void updateGameState(CarDriver carDriver, boolean isMoveValid){
+        if(!isMoveValid){
+            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver,"OFFTRACK"));
             return;
         }
 
