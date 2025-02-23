@@ -59,32 +59,26 @@ public class LevelParser {
         InputStream inputStream1 = LevelParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
 
         try {
-            // Creare un JSONTokener per leggere il file JSON
             JSONTokener tokener = new JSONTokener(inputStream1);
 
-            // Creare un JSONObject a partire dal JSONTokener
             JSONObject jsonObject = new JSONObject(tokener);
 
-            // Ottenere i dati dal JSON
             String name = jsonObject.getString("name");
             System.out.println("Name: " + name);
 
-            // Lista per memorizzare i waypoints
             List<Waypoint> waypoints = new ArrayList<>();
-            // Estrai i dati dal JSON
+
             JSONObject data = jsonObject.getJSONObject("data");
             JSONArray waypointsToParse = data.getJSONArray("waypoints");
 
 
-            // Itera sull'array "waypoints"
+
             for (int i = 0; i < waypointsToParse.length(); i++) {
                 JSONObject waypointToParse = waypointsToParse.getJSONObject(i);
 
-                // Estrai il campo "center"
                 JSONObject centerToParse = waypointToParse.getJSONObject("center");
                 final GridPoint center = new GridPoint(centerToParse.getInt("x"), centerToParse.getInt("y"));
 
-                final double harshness = waypointToParse.getDouble("harshness");
                 String type = waypointToParse.getString("type");
 
                 switch (type) {
@@ -95,12 +89,12 @@ public class LevelParser {
 
                         final BoundaryWaypoint.Type boundaryType = BoundaryWaypoint.Type.valueOf(boundaryTypeString);
 
-                        waypoints.add(new BoundaryWaypoint(center, harshness, width, height, boundaryType));
+                        waypoints.add(new BoundaryWaypoint(center, width, height, boundaryType));
                         break;
 
                     case "MID":
                         final int radius = waypointToParse.getInt("radius");
-                        waypoints.add(new MidWaypoint(center, harshness, radius));
+                        waypoints.add(new MidWaypoint(center, radius));
                         break;
 
                     default:

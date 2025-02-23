@@ -11,8 +11,8 @@ public class MidWaypoint extends Waypoint {
         return radius;
     }
 
-    public MidWaypoint(GridPoint center, double harshness, int radius){
-        super(center, harshness);
+    public MidWaypoint(GridPoint center, int radius){
+        super(center);
 
         this.radius = radius;
 

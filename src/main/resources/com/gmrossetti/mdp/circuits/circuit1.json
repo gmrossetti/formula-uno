@@ -5,7 +5,6 @@
       {
         "type": "BOUNDARY",
         "center": { "x": 18, "y": 4 },
-        "harshness": 0.2,
         "width": 1,
         "height": 7,
         "boundaryType": "START"
@@ -13,73 +12,61 @@
       {
         "type": "MID",
         "center": { "x": 47, "y": 5 },
-        "harshness": 0.5,
         "radius": 5
       },
       {
         "type": "MID",
         "center": { "x": 53, "y": 11 },
-        "harshness": 0.7,
         "radius": 5
       },
       {
         "type": "MID",
         "center": { "x": 49, "y": 18 },
-        "harshness": 0.7,
         "radius": 5
       },
       {
         "type": "MID",
         "center": { "x": 55, "y": 32 },
-        "harshness": 0.7,
         "radius": 4
       },
       {
         "type": "MID",
         "center": { "x": 36, "y": 39 },
-        "harshness": 0.7,
         "radius": 5
       },
       {
         "type": "MID",
         "center": { "x": 32, "y": 28 },
-        "harshness": 0.7,
         "radius": 5
       },
       {
         "type": "MID",
         "center": { "x": 23, "y": 24 },
-        "harshness": 0.7,
         "radius": 4
       },
       {
         "type": "MID",
         "center": { "x": 10, "y": 30 },
-        "harshness": 0.7,
         "radius": 5
       },
       {
         "type": "MID",
         "center": { "x": 4, "y": 22 },
-        "harshness": 0.7,
         "radius": 3
       },
       {
         "type": "MID",
         "center": { "x": 3, "y": 12 },
-        "harshness": 0.7,
         "radius": 3
       },
       {
         "type": "MID",
         "center": { "x": 8, "y": 5 },
-        "harshness": 0.7,
         "radius": 5
       },
       {
         "type": "BOUNDARY",
         "center": { "x": 17, "y": 4 },
-        "harshness": 1.2,
         "width": 1,
         "height": 7,
         "boundaryType": "FINISH"

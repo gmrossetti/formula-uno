@@ -28,8 +28,8 @@ public class BoundaryWaypoint extends Waypoint {
         FINISH
     }
 
-    public BoundaryWaypoint(GridPoint center, double harshness, int width, int height, Type type){
-        super(center, harshness);
+    public BoundaryWaypoint(GridPoint center, int width, int height, Type type){
+        super(center);
 
         this.width = width;
         this.height = height;

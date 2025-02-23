@@ -11,18 +11,13 @@ public abstract class Waypoint {
         return center;
     }
     protected final GridPoint center;
-    private final double harshness;
-    public double getHarshness() {
-        return harshness;
-    }
     protected Set<GridPoint> withinRangeGPs;
 
     private Waypoint next;
     private Waypoint previous;
 
-    public Waypoint(GridPoint center, double harshness) {
+    public Waypoint(GridPoint center) {
         this.center = center;
-        this.harshness = harshness;
         this.next = null;
         this.previous = null;
     }
@@ -53,10 +48,6 @@ public abstract class Waypoint {
     }
 
     abstract void initWithinRangeGridPoints();
-
-    public Set<GridPoint> getWithinRangeGridPoints(){
-        return withinRangeGPs;
-    }
 
     public boolean isWithinRange(GridPoint gp){
         return withinRangeGPs.contains(gp);
