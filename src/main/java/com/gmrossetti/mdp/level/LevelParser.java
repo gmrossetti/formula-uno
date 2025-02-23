@@ -46,7 +46,7 @@ public class LevelParser {
                 }
 
                 // TODO: remove isNarrow isCurving
-                grid[y][x] = new CircuitGridPoint(x,y,type,false,false);
+                grid[y][x] = new CircuitGridPoint(x,y,type);
             }
         }
 
