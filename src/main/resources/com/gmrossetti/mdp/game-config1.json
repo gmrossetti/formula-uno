@@ -1,0 +1,7 @@
+{
+  "circuitName": "circuit1",
+  "botStrategies": [
+    { "strategyName": "aggressive-strategy" },
+    { "strategyName": "cautious-strategy" }
+  ]
+}

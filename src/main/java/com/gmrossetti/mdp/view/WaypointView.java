@@ -42,9 +42,11 @@ public class WaypointView extends Pane {
             rectangle.setFill(Color.TRANSPARENT);
 
             if(boundaryWaypoint.getType() == BoundaryWaypoint.Type.START){
-                rectangle.setStroke(Color.AQUAMARINE);
-            } else {
+                rectangle.setFill(Color.GREEN);
                 rectangle.setStroke(Color.GREEN);
+            } else {
+                rectangle.setFill(Color.BLACK);
+                rectangle.setStroke(Color.BLACK);
             }
 
             rectangle.setStrokeWidth(2);

@@ -1,6 +1,5 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.driver.HumanCarDriver;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.actor.Car;
 import javafx.scene.Group;

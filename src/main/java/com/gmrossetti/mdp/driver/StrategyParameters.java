@@ -7,12 +7,12 @@ public class StrategyParameters {
     private final double accelerateDistance;
 
     // TODO: dynamic load from JSON
-    public StrategyParameters(){
-        this.minVelocity = 0.5;
-        this.deviationThreshold = 0.5;
-        this.brakeDistance = 0.5;
-        this.accelerateDistance = 0.5;
-    }
+//    public StrategyParameters(){
+//        this.minVelocity = 0.5;
+//        this.deviationThreshold = 0.5;
+//        this.brakeDistance = 0.5;
+//        this.accelerateDistance = 0.5;
+//    }
 
 //    public StrategyParameters(){
 //        this.minVelocity = 0.7;

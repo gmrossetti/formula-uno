@@ -18,9 +18,6 @@ public class Car {
 
         return trail.get(trail.size() - 2);
     }
-    public GridLine getLastMoveTrail(){
-        return new GridLine(getPreviousPosition(), position);
-    }
 
     public boolean isStationary(){
         return getVelocityModule() == 0;

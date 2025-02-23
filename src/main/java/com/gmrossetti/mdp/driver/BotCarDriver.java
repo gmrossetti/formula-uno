@@ -12,12 +12,12 @@ public class BotCarDriver extends CarDriver{
     final Circuit circuit;
 
     final BotStrategy botStrategy;
-    public BotCarDriver(Car car, Circuit circuit) {
+    public BotCarDriver(Car car, Circuit circuit, StrategyParameters strategyParameters) {
         super(car, circuit.getWaypointsHead());
 
         this.circuit = circuit;
 
-        botStrategy = new BotStrategy(this);
+        botStrategy = new BotStrategy(this, strategyParameters);
     }
 
     public final GridLine makeMove(){
