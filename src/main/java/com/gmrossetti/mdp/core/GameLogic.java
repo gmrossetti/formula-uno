@@ -16,21 +16,21 @@ public class GameLogic {
         for (CarDriver carDriver : gameState.getCarDriversStillPlaying()) {
             if(!gameState.isRaceActive()) return; // prevents making moves after HumanPlayer lost
 
+            GridLine driverTrace = null;
+
             if (carDriver instanceof HumanCarDriver humanCarDriver) {
-                GridLine driverTrace = humanCarDriver.makeMove(move);
-                boolean isMoveValid = DriverMoveValidator.isMoveValid(driverTrace, gameState.getCircuit());
-
-                updateGameState(carDriver, isMoveValid);
+                driverTrace = humanCarDriver.makeMove(move);
             } else if (carDriver instanceof BotCarDriver botCarDriver) {
-                GridLine driverTrace = botCarDriver.makeMove();
-                boolean isMoveValid = DriverMoveValidator.isMoveValid(driverTrace, gameState.getCircuit());
-
-                updateGameState(carDriver, isMoveValid);
+                driverTrace = botCarDriver.makeMove();
             }
+
+            updateGameState(carDriver, driverTrace);
         }
     }
 
-    private void updateGameState(CarDriver carDriver, boolean isMoveValid){
+    private void updateGameState(CarDriver carDriver, GridLine driverTrace){
+        boolean isMoveValid = DriverMoveValidator.isMoveValid(driverTrace, gameState.getCircuit());
+
         if(!isMoveValid){
             gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver,"OFFTRACK"));
             return;
@@ -39,5 +39,8 @@ public class GameLogic {
         if(!carDriver.hasActiveWaypoint()){
             gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver));
         }
+
+        gameState.getCircuit().getGridPoint(driverTrace.getStart()).setOccupiedBy(null);
+        gameState.getCircuit().getGridPoint(driverTrace.getEnd()).setOccupiedBy(carDriver.getCar());
     }
 }
