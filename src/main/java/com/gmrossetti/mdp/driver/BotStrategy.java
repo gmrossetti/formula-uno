@@ -104,63 +104,30 @@ public class BotStrategy {
 
     private MoveCandidate selectBestMove(SpeedAction speedAction, List<MoveCandidate> brakes,
                                          List<MoveCandidate> neutrals, List<MoveCandidate> gas){
-        if(speedAction == SpeedAction.BRAKE){
-            if(!brakes.isEmpty()){
-                brakes.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
 
-                return brakes.get(0);
-            }
+        brakes.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+        neutrals.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+        gas.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
 
-            if(!neutrals.isEmpty()){
-                neutrals.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
+        List<List<MoveCandidate>> prioritizedMoves;
 
-                return neutrals.get(0);
-            }
-
-            if(!gas.isEmpty()){
-                gas.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
-
-                return gas.get(0);
-            }
+        switch (speedAction) {
+            case BRAKE:
+                prioritizedMoves = Arrays.asList(brakes, neutrals, gas);
+                break;
+            case NEUTRAL:
+                prioritizedMoves = Arrays.asList(neutrals, brakes, gas);
+                break;
+            case GAS:
+                prioritizedMoves = Arrays.asList(gas, neutrals, brakes);
+                break;
+            default:
+                return null;
         }
 
-        if(speedAction == SpeedAction.NEUTRAL){
-            if(!neutrals.isEmpty()){
-                neutrals.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
-
-                return neutrals.get(0);
-            }
-
-            if(!brakes.isEmpty()){
-                brakes.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
-
-                return brakes.get(0);
-            }
-
-            if(!gas.isEmpty()){
-                gas.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
-
-                return gas.get(0);
-            }
-        }
-
-        if(speedAction == SpeedAction.GAS){
-            if(!gas.isEmpty()){
-                gas.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
-
-                return gas.get(0);
-            }
-
-            if(!neutrals.isEmpty()){
-                neutrals.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
-
-                return neutrals.get(0);
-            }
-
-            if(!brakes.isEmpty()){
-                brakes.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget));
-
-                return brakes.get(0);
+        for (List<MoveCandidate> moveList : prioritizedMoves) {
+            if (!moveList.isEmpty()) {
+                return moveList.get(0);
             }
         }
 
