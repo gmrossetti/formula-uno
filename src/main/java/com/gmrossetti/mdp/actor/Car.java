@@ -1,6 +1,5 @@
 package com.gmrossetti.mdp.actor;
 
-import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 
 import java.util.*;
