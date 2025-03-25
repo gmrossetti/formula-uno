@@ -2,9 +2,7 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
-import com.gmrossetti.mdp.driver.BotCarDriver;
-import com.gmrossetti.mdp.driver.HumanCarDriver;
-import com.gmrossetti.mdp.driver.StrategyParameters;
+import com.gmrossetti.mdp.driver.*;
 import com.gmrossetti.mdp.parser.GameParseObject;
 import com.gmrossetti.mdp.parser.GameParser;
 import com.gmrossetti.mdp.view.GameView;
@@ -71,7 +69,11 @@ public class GameManager {
 
             Car botCar = new Car(gameState.getCircuit().getRaceStartPoint());
 
-            gameState.addCarDriver(new BotCarDriver(botCar,gameState.getCircuit(),strategyParameters));
+            IStrategy strategy = new BotStrategy(strategyParameters);
+
+            BotCarDriver botCarDriver = new BotCarDriver(botCar,gameState.getCircuit(), strategy);
+
+            gameState.addCarDriver(botCarDriver);
         }
     }
 

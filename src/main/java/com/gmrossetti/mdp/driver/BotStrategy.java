@@ -1,6 +1,7 @@
 package com.gmrossetti.mdp.driver;
 
 import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.core.DriverMoveValidator;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
@@ -9,9 +10,7 @@ import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 
 import java.util.*;
 
-public class BotStrategy {
-    private final BotCarDriver carDriver;
-
+public class BotStrategy implements IStrategy {
     enum SpeedAction {
         BRAKE,
         NEUTRAL,
@@ -23,16 +22,15 @@ public class BotStrategy {
     private final double accelerateDistance;
 
 
-    public BotStrategy(BotCarDriver carDriver, StrategyParameters strategyParameters){
-        this.carDriver = carDriver;
-
+    public BotStrategy(StrategyParameters strategyParameters){
         minVelocity = StrategyParametersScaler.getMinVelocity(strategyParameters);
         deviationThreshold = StrategyParametersScaler.getDeviationThreshold(strategyParameters);
         brakeDistance = StrategyParametersScaler.getBrakeDistance(strategyParameters);
         accelerateDistance = StrategyParametersScaler.getAccelerateDistance(strategyParameters);
     }
 
-    public CarDriver.Move chooseBestMove(){
+    @Override
+    public CarDriver.Move chooseBestMove(CarDriver carDriver, Circuit circuit){
         final Map<CarDriver.Move, GridPoint> movesPoints = carDriver.getMovesPoints();
 
         final GridPoint currentPos = carDriver.getCar().getPosition();
@@ -68,21 +66,21 @@ public class BotStrategy {
         List<MoveCandidate> neutralCandidates = moveCandidates.subList(3,6);
         List<MoveCandidate> gasCandidates = moveCandidates.subList(6,9);
 
-        List<MoveCandidate> brakeCandidatesFiltered = filterOutUnusableGP(brakeCandidates);
-        List<MoveCandidate> neutralCandidatesFiltered = filterOutUnusableGP(neutralCandidates);
-        List<MoveCandidate> gasCandidatesFiltered = filterOutUnusableGP(gasCandidates);
+        List<MoveCandidate> brakeCandidatesFiltered = filterOutUnusableGP(brakeCandidates, carDriver, circuit);
+        List<MoveCandidate> neutralCandidatesFiltered = filterOutUnusableGP(neutralCandidates, carDriver, circuit);
+        List<MoveCandidate> gasCandidatesFiltered = filterOutUnusableGP(gasCandidates, carDriver, circuit);
 
-        SpeedAction speedAction = findSpeedAction();
+        SpeedAction speedAction = findSpeedAction(carDriver);
 
         MoveCandidate bestMoveCandidate = selectBestMove(speedAction, brakeCandidatesFiltered, neutralCandidatesFiltered, gasCandidatesFiltered);
 
         return (bestMoveCandidate == null) ? CarDriver.Move.BL : bestMoveCandidate.getMove();
     }
 
-    private SpeedAction findSpeedAction(){
+    private SpeedAction findSpeedAction(CarDriver carDriver){
         Car car = carDriver.getCar();
 
-        final Point median = getMedian();
+        final Point median = getMedian(carDriver);
 
         GridPoint pivot = car.getPivot();
         GridPoint target = carDriver.waypointTarget.getCenter();
@@ -144,7 +142,7 @@ public class BotStrategy {
         return null;
     }
 
-    private Point getMedian(){
+    private Point getMedian(CarDriver carDriver){
         final Waypoint currentWaypoint = carDriver.waypointTarget;
         final Waypoint previousWaypoint = carDriver.waypointTarget.getPrevious();
 
@@ -153,7 +151,7 @@ public class BotStrategy {
         return waypoint2waypoint.getMedianPoint();
     }
 
-    private List<MoveCandidate> filterOutUnusableGP(List<MoveCandidate> moveCandidatesToFilter){
+    private List<MoveCandidate> filterOutUnusableGP(List<MoveCandidate> moveCandidatesToFilter, CarDriver carDriver, Circuit circuit){
         List<MoveCandidate> moveCandidatesModified = new ArrayList<>(moveCandidatesToFilter);
 
         Iterator<MoveCandidate> it = moveCandidatesModified.iterator();
@@ -165,7 +163,7 @@ public class BotStrategy {
                 continue;
             }
 
-            final boolean isIpoteticMoveValid = DriverMoveValidator.isMoveValid(new GridLine(carDriver.getCar().getPosition(), moveCandidate.getMovePoint()), carDriver.getCircuit());
+            final boolean isIpoteticMoveValid = DriverMoveValidator.isMoveValid(new GridLine(carDriver.getCar().getPosition(), moveCandidate.getMovePoint()), circuit);
 
             if(!isIpoteticMoveValid){
                 it.remove();

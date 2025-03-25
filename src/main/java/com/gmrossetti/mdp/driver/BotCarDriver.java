@@ -2,7 +2,6 @@ package com.gmrossetti.mdp.driver;
 
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
-import com.gmrossetti.mdp.core.DriverMoveValidator;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 
 public class BotCarDriver extends CarDriver{
@@ -11,13 +10,12 @@ public class BotCarDriver extends CarDriver{
     }
     final Circuit circuit;
 
-    final BotStrategy botStrategy;
-    public BotCarDriver(Car car, Circuit circuit, StrategyParameters strategyParameters) {
+    final IStrategy strategy;
+    public BotCarDriver(Car car, Circuit circuit, IStrategy strategy) {
         super(car, circuit.getWaypointsHead());
 
         this.circuit = circuit;
-
-        botStrategy = new BotStrategy(this, strategyParameters);
+        this.strategy = strategy;
     }
 
     public final GridLine makeMove(){
@@ -27,6 +25,6 @@ public class BotCarDriver extends CarDriver{
     }
 
     private Move getNextMove(){
-        return botStrategy.chooseBestMove();
+        return strategy.chooseBestMove(this, circuit);
     }
 }
