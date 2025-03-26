@@ -32,12 +32,12 @@ public class GameLogic {
         boolean isMoveValid = DriverMoveValidator.isMoveValid(driverTrace, gameState.getCircuit());
 
         if(!isMoveValid){
-            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver,"OFFTRACK"));
+            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver,true, "OFFTRACK"));
             return;
         }
 
         if(!carDriver.hasActiveWaypoint()){
-            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver));
+            gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver, false, ""));
         }
 
         gameState.getCircuit().getGridPoint(driverTrace.getStart()).setOccupiedBy(null);
