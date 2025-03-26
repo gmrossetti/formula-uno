@@ -62,18 +62,12 @@ public class GameManager {
 
         gameLoop.start();
 
-        Car car = new Car(gameState.getCircuit().getRaceStartPoint());
-        HumanCarDriver humanCarDriver = new HumanCarDriver(car, gameState.getCircuit());
-
+        HumanCarDriver humanCarDriver = HumanCarDriverFactory.build(circuit);
         gameState.addCarDriver(humanCarDriver);
 
         for (StrategyParameters strategyParameters:
                 gameParserObject.getStrategyParameters()) {
-            Car botCar = new Car(gameState.getCircuit().getRaceStartPoint());
-            IStrategy strategy = StrategyFactory.buildStrategy(strategyParameters);
-
-            BotCarDriver botCarDriver = new BotCarDriver(botCar,gameState.getCircuit(), strategy);
-
+            BotCarDriver botCarDriver = BotCarDriverFactory.build(circuit, strategyParameters);
             gameState.addCarDriver(botCarDriver);
         }
     }

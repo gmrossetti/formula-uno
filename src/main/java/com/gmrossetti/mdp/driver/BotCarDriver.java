@@ -12,7 +12,7 @@ public class BotCarDriver extends CarDriver{
     final Circuit circuit;
 
     final IStrategy strategy;
-    public BotCarDriver(Car car, Circuit circuit, IStrategy strategy) {
+    BotCarDriver(Car car, Circuit circuit, IStrategy strategy) {
         super(car, circuit.getWaypointsHead());
 
         this.circuit = circuit;
