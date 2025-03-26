@@ -14,19 +14,19 @@ public class StrategyParametersScaler {
     public static final double ACCELERATE_DISTANCE_B = 8.0;
 
     public static double getMinVelocity(StrategyParameters strategyParameters) {
-        return scale(strategyParameters.getMinVelocity(), MIN_VELOCITY_A, MIN_VELOCITY_B);
+        return scale(strategyParameters.minVelocity(), MIN_VELOCITY_A, MIN_VELOCITY_B);
     }
 
     public static double getDeviationThreshold(StrategyParameters strategyParameters) {
-        return scale(strategyParameters.getDeviationThreshold(),DEVIATION_THRESHOLD_A,DEVIATION_THRESHOLD_B);
+        return scale(strategyParameters.deviationThreshold(),DEVIATION_THRESHOLD_A,DEVIATION_THRESHOLD_B);
     }
 
     public static double getBrakeDistance(StrategyParameters strategyParameters) {
-        return scale(strategyParameters.getBrakeDistance(), BRAKE_DISTANCE_A, BRAKE_DISTANCE_B);
+        return scale(strategyParameters.brakeDistance(), BRAKE_DISTANCE_A, BRAKE_DISTANCE_B);
     }
 
     public static double getAccelerateDistance(StrategyParameters strategyParameters) {
-        return scale(strategyParameters.getAccelerateDistance(), ACCELERATE_DISTANCE_A, ACCELERATE_DISTANCE_B);
+        return scale(strategyParameters.accelerateDistance(), ACCELERATE_DISTANCE_A, ACCELERATE_DISTANCE_B);
     }
 
     private static double scale(double value, double rangeStart, double rangeEnd) {
