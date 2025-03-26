@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.parser;
 
-import com.gmrossetti.mdp.driver.StrategyParameters;
+import com.gmrossetti.mdp.strategy.StrategyParameters;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 

@@ -15,7 +15,8 @@ abstract public class CarDriver {
         return car;
     }
 
-    protected Waypoint waypointTarget;
+    // TODO: togliere public
+    public Waypoint waypointTarget;
 
     private final Car car;
 

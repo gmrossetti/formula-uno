@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.parser;
 
 import com.gmrossetti.mdp.actor.Circuit;
-import com.gmrossetti.mdp.driver.StrategyParameters;
+import com.gmrossetti.mdp.strategy.StrategyParameters;
 
 import java.io.IOException;
 import java.util.ArrayList;

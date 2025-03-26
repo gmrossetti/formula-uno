@@ -1,9 +1,5 @@
 package com.gmrossetti.mdp.parser;
 
-import com.gmrossetti.mdp.driver.StrategyParameters;
-import com.gmrossetti.mdp.entity.cartesian.GridPoint;
-import com.gmrossetti.mdp.entity.waypoint.BoundaryWaypoint;
-import com.gmrossetti.mdp.entity.waypoint.MidWaypoint;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
