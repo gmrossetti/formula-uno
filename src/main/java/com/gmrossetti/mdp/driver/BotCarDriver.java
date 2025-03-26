@@ -3,6 +3,7 @@ package com.gmrossetti.mdp.driver;
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
+import com.gmrossetti.mdp.strategy.IStrategy;
 
 public class BotCarDriver extends CarDriver{
     public Circuit getCircuit() {

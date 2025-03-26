@@ -5,6 +5,9 @@ import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.*;
 import com.gmrossetti.mdp.parser.GameParseObject;
 import com.gmrossetti.mdp.parser.GameParser;
+import com.gmrossetti.mdp.strategy.IStrategy;
+import com.gmrossetti.mdp.strategy.StrategyFactory;
+import com.gmrossetti.mdp.strategy.StrategyParameters;
 import com.gmrossetti.mdp.view.GameView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -65,11 +68,9 @@ public class GameManager {
         gameState.addCarDriver(humanCarDriver);
 
         for (StrategyParameters strategyParameters:
-            gameParserObject.getStrategyParameters()) {
-
+                gameParserObject.getStrategyParameters()) {
             Car botCar = new Car(gameState.getCircuit().getRaceStartPoint());
-
-            IStrategy strategy = new BotStrategy(strategyParameters);
+            IStrategy strategy = StrategyFactory.buildStrategy(strategyParameters);
 
             BotCarDriver botCarDriver = new BotCarDriver(botCar,gameState.getCircuit(), strategy);
 

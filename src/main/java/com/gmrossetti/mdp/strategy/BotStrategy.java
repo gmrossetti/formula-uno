@@ -1,8 +1,10 @@
-package com.gmrossetti.mdp.driver;
+package com.gmrossetti.mdp.strategy;
 
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.core.DriverMoveValidator;
+import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.entity.cartesian.Point;
@@ -10,7 +12,7 @@ import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 
 import java.util.*;
 
-public class BotStrategy implements IStrategy {
+class BotStrategy implements IStrategy {
     enum SpeedAction {
         BRAKE,
         NEUTRAL,
