@@ -17,11 +17,11 @@ public class Leaderboard {
     }
 
     public boolean containsCarDriver(CarDriver carDriver){
-        return entries.stream().anyMatch(leaderboardEntry -> leaderboardEntry.getCarDriver().equals(carDriver));
+        return entries.stream().anyMatch(leaderboardEntry -> leaderboardEntry.carDriver().equals(carDriver));
     }
 
     public LeaderboardEntry getLeaderboardEntry(CarDriver carDriver){
-        LeaderboardEntry result = entries.stream().filter(leaderboardEntry -> leaderboardEntry.getCarDriver().equals(carDriver))
+        LeaderboardEntry result = entries.stream().filter(leaderboardEntry -> leaderboardEntry.carDriver().equals(carDriver))
                 .findFirst().orElse(null);
 
         if(result == null) throw new NoSuchElementException("carDriver provided not found.");
@@ -39,7 +39,7 @@ public class Leaderboard {
         for (LeaderboardEntry leaderboardEntry:
              entries) {
 
-            if(leaderboardEntry.getCarDriver().equals(carDriver)){
+            if(leaderboardEntry.carDriver().equals(carDriver)){
                 return positionCnt;
             }
 
