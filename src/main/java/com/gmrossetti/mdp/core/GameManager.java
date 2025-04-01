@@ -87,6 +87,8 @@ public class GameManager {
 
         LeaderboardEntry humanCarDriverLeaderboardEntry = leaderBoard.getLeaderboardEntry(gameState.getHumanCarDriver());
 
+        // TODO: fix -> se Human arriva in terza posizione, la scritta appare ma il gioco non viene resettato
+
         String title;
         String message;
 
