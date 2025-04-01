@@ -1,5 +1,8 @@
 package com.gmrossetti.mdp.strategy;
 
+import com.gmrossetti.mdp.strategy.concrete.AdvancedStrategy;
+import com.gmrossetti.mdp.strategy.concrete.BasicStrategy;
+
 public final class StrategyFactory {
 
     /* TODO: add dynamic strategyType support
