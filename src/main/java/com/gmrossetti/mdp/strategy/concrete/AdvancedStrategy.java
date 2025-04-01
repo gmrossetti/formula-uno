@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.strategy;
+package com.gmrossetti.mdp.strategy.concrete;
 
 import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
@@ -8,10 +8,12 @@ import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.entity.cartesian.Point;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
+import com.gmrossetti.mdp.strategy.StrategyParameters;
+import com.gmrossetti.mdp.strategy.StrategyParametersScaler;
 
 import java.util.*;
 
-class AdvancedStrategy extends Strategy {
+public class AdvancedStrategy extends Strategy {
     private enum SpeedAction {
         BRAKE, NEUTRAL, GAS
     }
