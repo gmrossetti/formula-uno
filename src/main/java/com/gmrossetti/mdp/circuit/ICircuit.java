@@ -4,7 +4,6 @@ import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ICircuit {
