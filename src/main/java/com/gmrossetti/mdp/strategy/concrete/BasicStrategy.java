@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
-import com.gmrossetti.mdp.actor.ICircuit;
+import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;

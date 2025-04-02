@@ -14,4 +14,6 @@ module com.gmrossetti.mdp {
     opens com.gmrossetti.mdp.entity.cartesian to javafx.fxml;
     exports com.gmrossetti.mdp.entity.waypoint;
     opens com.gmrossetti.mdp.entity.waypoint to javafx.fxml;
+    exports com.gmrossetti.mdp.circuit;
+    opens com.gmrossetti.mdp.circuit to javafx.fxml;
 }

@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.actor.ICircuit;
+import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 import javafx.scene.layout.Pane;

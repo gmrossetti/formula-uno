@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.driver.CarDriver;
-import com.gmrossetti.mdp.actor.ICircuit;
+import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
 
 import java.util.*;

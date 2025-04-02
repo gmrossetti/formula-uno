@@ -1,11 +1,9 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.actor.ICircuit;
+import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.driver.*;
 import com.gmrossetti.mdp.parser.GameParseObject;
 import com.gmrossetti.mdp.parser.GameParser;
-import com.gmrossetti.mdp.strategy.IStrategy;
-import com.gmrossetti.mdp.strategy.StrategyFactory;
 import com.gmrossetti.mdp.strategy.StrategyParameters;
 import com.gmrossetti.mdp.view.GameView;
 import javafx.application.Platform;
