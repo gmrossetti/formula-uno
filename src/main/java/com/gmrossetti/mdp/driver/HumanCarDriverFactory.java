@@ -1,8 +1,8 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.actor.IPawn;
+import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.actor.PawnFactory;
+import com.gmrossetti.mdp.pawn.PawnFactory;
 
 public class HumanCarDriverFactory {
     private static final int MAX_INSTANCE_COUNT = 1;

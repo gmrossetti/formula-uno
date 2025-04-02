@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.actor.IPawn;
+import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;

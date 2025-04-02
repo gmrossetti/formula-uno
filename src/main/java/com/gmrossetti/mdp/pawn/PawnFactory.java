@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.actor;
+package com.gmrossetti.mdp.pawn;
 
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 

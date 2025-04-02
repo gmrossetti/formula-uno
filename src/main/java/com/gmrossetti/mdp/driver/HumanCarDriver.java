@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.actor.IPawn;
+import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 

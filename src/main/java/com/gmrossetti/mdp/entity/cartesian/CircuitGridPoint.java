@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.entity.cartesian;
 
-import com.gmrossetti.mdp.actor.IPawn;
+import com.gmrossetti.mdp.pawn.IPawn;
 
 public class CircuitGridPoint extends GridPoint {
     public enum GridPointType {

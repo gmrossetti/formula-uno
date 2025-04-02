@@ -1,13 +1,11 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.actor.IPawn;
+import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 abstract public class CarDriver {
