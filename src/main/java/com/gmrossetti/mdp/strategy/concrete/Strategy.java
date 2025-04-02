@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
-import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.core.DriverMoveValidator;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 abstract class Strategy implements IStrategy {
 
-    protected static double calculateTrajectoryDeviation(Car car, GridPoint target, GridPoint pivot) {
+    protected static double calculateTrajectoryDeviation(IPawn car, GridPoint target, GridPoint pivot) {
         GridLine toTarget = new GridLine(car.getPosition(), target);
         GridLine toPivot = new GridLine(car.getPosition(), pivot);
 

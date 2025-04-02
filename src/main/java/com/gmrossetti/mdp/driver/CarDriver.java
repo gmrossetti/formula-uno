@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
@@ -11,20 +11,20 @@ import java.util.List;
 import java.util.Map;
 
 abstract public class CarDriver {
-    public Car getCar() {
+    public IPawn getCar() {
         return car;
     }
 
     // TODO: togliere public
     public Waypoint waypointTarget;
 
-    private final Car car;
+    private final IPawn car;
 
     public enum Move {
         TL, TM, TR, CL, CM, CR, BL, BM, BR
     }
 
-    public CarDriver(Car car, Waypoint waypointHead){
+    public CarDriver(IPawn car, Waypoint waypointHead){
         this.car = car;
         this.waypointTarget = waypointHead.getNext();
     }

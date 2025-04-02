@@ -1,11 +1,11 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 
 public class HumanCarDriver extends CarDriver {
-    HumanCarDriver(Car car,  Circuit circuit) {
+    HumanCarDriver(IPawn car,  Circuit circuit) {
         super(car, circuit.getWaypointsHead());
     }
 

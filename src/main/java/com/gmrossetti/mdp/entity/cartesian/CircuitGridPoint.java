@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.entity.cartesian;
 
-import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.actor.IPawn;
 
 public class CircuitGridPoint extends GridPoint {
     public enum GridPointType {
@@ -8,7 +8,7 @@ public class CircuitGridPoint extends GridPoint {
         INSIDE,   // Dentro la mappa
     }
     public final GridPointType type;
-    private Car occupiedBy;
+    private IPawn occupiedBy;
 
     public CircuitGridPoint(int x, int y, GridPointType type) {
         super(x, y);
@@ -16,7 +16,7 @@ public class CircuitGridPoint extends GridPoint {
         this.occupiedBy = null;
     }
 
-    public CircuitGridPoint(int x, int y, GridPointType type, Car occupiedBy) {
+    public CircuitGridPoint(int x, int y, GridPointType type, IPawn occupiedBy) {
         super(x, y);
         this.type = type;
         this.occupiedBy = occupiedBy;
@@ -31,7 +31,7 @@ public class CircuitGridPoint extends GridPoint {
     public boolean isOccupied() {
         return this.occupiedBy != null;
     }
-    public void setOccupiedBy(Car occupiedBy) {
+    public void setOccupiedBy(IPawn occupiedBy) {
         this.occupiedBy = occupiedBy;
     }
     public boolean isWalkable() {

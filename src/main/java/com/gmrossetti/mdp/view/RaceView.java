@@ -2,7 +2,7 @@ package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.core.GameState;
 import com.gmrossetti.mdp.driver.CarDriver;
-import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -38,7 +38,7 @@ public class RaceView extends StackPane {
                 color = Color.MAGENTA;
             }
 
-            Car car = carDriver.getCar();
+            IPawn car = carDriver.getCar();
             CarView carView = new CarView(car, color);
 
             this.carViews.add(carView);
@@ -49,7 +49,7 @@ public class RaceView extends StackPane {
     }
 
     public void update(GameState gameState){
-        ArrayList<Car> cars = new ArrayList<>();
+        ArrayList<IPawn> cars = new ArrayList<>();
         ArrayList<CarDriver> carDrivers = new ArrayList<>();
 
         for (CarDriver carDriver:
@@ -60,7 +60,7 @@ public class RaceView extends StackPane {
 
         // Aggiorna le auto esistenti senza ricrearle
         for (int i = 0; i < cars.size(); i++) {
-            Car car = cars.get(i);
+            IPawn car = cars.get(i);
 
             // Se l'auto esiste già nella view, aggiorniamo solo la posizione
             if (i < this.carViews.size()) {
