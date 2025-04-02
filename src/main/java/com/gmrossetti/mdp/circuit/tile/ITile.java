@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.circuit;
+package com.gmrossetti.mdp.circuit.tile;
 
 import com.gmrossetti.mdp.cartesian.GridPoint;
 import com.gmrossetti.mdp.pawn.IPawn;

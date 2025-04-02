@@ -1,5 +1,7 @@
 package com.gmrossetti.mdp.circuit;
 
+import com.gmrossetti.mdp.circuit.tile.ITile;
+import com.gmrossetti.mdp.circuit.tile.Tile;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import com.gmrossetti.mdp.cartesian.GridPoint;
 
