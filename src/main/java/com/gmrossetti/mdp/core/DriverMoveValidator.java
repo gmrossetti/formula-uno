@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriverMoveValidator {
-    public static boolean isMoveValid(GridLine driverTrace, Circuit circuit) {
+    public static boolean isMoveValid(GridLine driverTrace, ICircuit circuit) {
         if (driverTrace.isDegenerate()) {
             return true; // Mossa nulla, nessun effetto
         }
