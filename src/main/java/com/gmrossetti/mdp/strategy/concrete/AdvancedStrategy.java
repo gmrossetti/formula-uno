@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
-import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
@@ -58,7 +58,7 @@ public class AdvancedStrategy extends Strategy {
 
 
     private SpeedAction determineSpeedAction(CarDriver carDriver) {
-        Car car = carDriver.getCar();
+        IPawn car = carDriver.getCar();
         GridPoint pivot = car.getPivot();
         GridPoint target = carDriver.waypointTarget.getCenter();
         double deviation = calculateTrajectoryDeviation(car, target, pivot);

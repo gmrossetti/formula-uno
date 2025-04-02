@@ -1,7 +1,8 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.actor.Car;
+import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.PawnFactory;
 
 public class HumanCarDriverFactory {
     private static final int MAX_INSTANCE_COUNT = 1;
@@ -10,7 +11,7 @@ public class HumanCarDriverFactory {
         if(instanceCount >= MAX_INSTANCE_COUNT)
             throw new IllegalStateException("Cannot build more than " + MAX_INSTANCE_COUNT + " HumanCarDriver instances.");
 
-        Car car = new Car(circuit.getRaceStartPoint());
+        IPawn car = PawnFactory.buildPawn(circuit.getRaceStartPoint());
         HumanCarDriver humanCarDriver = new HumanCarDriver(car, circuit);
 
         instanceCount++;

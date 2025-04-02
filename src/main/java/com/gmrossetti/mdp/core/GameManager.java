@@ -1,6 +1,5 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.actor.Car;
 import com.gmrossetti.mdp.actor.Circuit;
 import com.gmrossetti.mdp.driver.*;
 import com.gmrossetti.mdp.parser.GameParseObject;

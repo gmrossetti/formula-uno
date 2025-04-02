@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.view;
 
+import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
-import com.gmrossetti.mdp.actor.Car;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,7 +20,7 @@ public class CarView extends Pane {
     private final Rectangle pivotRect;
     private final Group trailSegments;
 
-    public CarView(Car car, Color color){
+    public CarView(IPawn car, Color color){
         shape = new Rectangle(-RECT_WIDTH/2.d,-RECT_HEIGHT/2.d,RECT_WIDTH,RECT_HEIGHT);
         shape.setFill(color);
         shape.setRotate(45);
@@ -43,7 +43,7 @@ public class CarView extends Pane {
         this.getChildren().add(trailSegments);
     }
 
-    public void update(Car car){
+    public void update(IPawn car){
         shape.setTranslateX(car.getPosition().x * SPACING);
         shape.setTranslateY(car.getPosition().y * SPACING);
 
@@ -51,7 +51,7 @@ public class CarView extends Pane {
         updatePivotPoint(car);
     }
 
-    private void updateTrailSegments(Car car){
+    private void updateTrailSegments(IPawn car){
 
         trailSegments.getChildren().clear();
 
@@ -73,7 +73,7 @@ public class CarView extends Pane {
         }
     }
 
-    private void updatePivotPoint(Car car){
+    private void updatePivotPoint(IPawn car){
         pivotRect.setTranslateX(car.getPivot().x * SPACING);
         pivotRect.setTranslateY(car.getPivot().y * SPACING);
     }
