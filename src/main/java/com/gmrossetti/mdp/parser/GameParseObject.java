@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.parser;
 
-import com.gmrossetti.mdp.actor.CircuitFactory;
-import com.gmrossetti.mdp.actor.ICircuit;
+import com.gmrossetti.mdp.circuit.CircuitFactory;
+import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.strategy.StrategyParameters;
 
 import java.io.IOException;
