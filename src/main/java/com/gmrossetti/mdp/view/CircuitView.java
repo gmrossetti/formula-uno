@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
+import com.gmrossetti.mdp.circuit.ITile;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import javafx.scene.layout.Pane;
 
@@ -23,12 +23,12 @@ public class CircuitView extends Pane {
         for (int y = 0; y < circuit.getGridWidth(); y++) {
             for (int x = 0; x < circuit.getGridHeight(); x++){
 
-                CircuitGridPoint circuitGridPoint = circuit.getGridPoint(y,x);
+                ITile tile = circuit.getTile(y,x);
 
-                GridPointView gridPointView = new GridPointView(circuitGridPoint);
+                GridPointView gridPointView = new GridPointView(tile);
 
-                gridPointView.setTranslateX(this.SPACING * circuitGridPoint.x);
-                gridPointView.setTranslateY(this.SPACING * circuitGridPoint.y);
+                gridPointView.setTranslateX(this.SPACING * tile.getGridPoint().x);
+                gridPointView.setTranslateY(this.SPACING * tile.getGridPoint().y);
 
                 this.getChildren().add(gridPointView);
             }

@@ -11,7 +11,7 @@ public class HumanCarDriverFactory {
         if(instanceCount >= MAX_INSTANCE_COUNT)
             throw new IllegalStateException("Cannot build more than " + MAX_INSTANCE_COUNT + " HumanCarDriver instances.");
 
-        IPawn car = PawnFactory.buildPawn(circuit.getRaceStartPoint());
+        IPawn car = PawnFactory.buildPawn(circuit.getRaceStartPoint().getGridPoint());
         HumanCarDriver humanCarDriver = new HumanCarDriver(car, circuit);
 
         instanceCount++;

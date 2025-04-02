@@ -1,23 +1,15 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
+import com.gmrossetti.mdp.circuit.ITile;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class GridPointView extends Circle {
-    public GridPointView(CircuitGridPoint circuitGridPoint){
-        super(0, 0, 3, getColorFormGridPointType(circuitGridPoint));
+    public GridPointView(ITile tile){
+        super(0, 0, 3, getColorFormGridPointType(tile));
     }
 
-    private static Color getColorFormGridPointType(CircuitGridPoint circuitGridPoint){
-        Color color;
-
-        switch(circuitGridPoint.type){
-            case INSIDE -> color = Color.web("#ADD8E6");
-            case OUTSIDE -> color = Color.web("#FF4500");
-            default -> throw new RuntimeException();
-        }
-
-        return color;
+    private static Color getColorFormGridPointType(ITile tile){
+        return tile.isOnTrack() ? Color.web("#ADD8E6") : Color.web("#FF4500");
     }
 }
