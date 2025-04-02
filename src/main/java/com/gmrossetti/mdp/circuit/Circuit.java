@@ -1,18 +1,17 @@
 package com.gmrossetti.mdp.circuit;
 
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
-import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.cartesian.GridPoint;
 
 import java.util.*;
 
 class Circuit implements ICircuit {
-    private final CircuitGridPoint[][] grid;
-    private final CircuitGridPoint raceStartCircuitGridPoint;
+    private final ITile[][] grid;
+    private final ITile raceStartCircuitGridPoint;
     private final List<Waypoint> waypoints;
     private final Waypoint waypointsHead;
 
-    public Circuit(CircuitGridPoint[][] grid, List<Waypoint> waypoints){
+    public Circuit(ITile[][] grid, List<Waypoint> waypoints){
         this.grid = grid;
         this.waypoints = waypoints;
 
@@ -20,7 +19,7 @@ class Circuit implements ICircuit {
 
         GridPoint raceStartGridPoint = this.waypointsHead.getCenter();
 
-        this.raceStartCircuitGridPoint = this.toCircuitGridPoint(raceStartGridPoint);
+        this.raceStartCircuitGridPoint = getTile(raceStartGridPoint);
     }
 
     private static Waypoint generateWaypointLinkedList(List<Waypoint> waypoints){
@@ -44,20 +43,31 @@ class Circuit implements ICircuit {
         return waypoints;
     }
     @Override
-    public CircuitGridPoint getGridPoint(int x, int y) {
+    public ITile getTile(int x, int y) {
         try {
-            CircuitGridPoint circuitGridPoint = this.grid[y][x];
-            return new CircuitGridPoint(circuitGridPoint);
+            ITile tile = this.grid[y][x];
+            return new Tile(tile);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new CircuitGridPoint(x, y, CircuitGridPoint.GridPointType.OUTSIDE);
+            return new Tile(new GridPoint(x, y),false,null);
         }
     }
     @Override
-    public CircuitGridPoint getGridPoint(GridPoint gp){
-        return this.getGridPoint(gp.x,gp.y);
+    public ITile getTile(GridPoint gp){
+        return this.getTile(gp.x,gp.y);
     }
     @Override
-    public CircuitGridPoint getRaceStartPoint(){
+    public List<ITile> getTile(List<GridPoint> gps) {
+        List<ITile> tiles = new ArrayList<>();
+
+        for (GridPoint gp:
+                gps) {
+            tiles.add(this.getTile(gp));
+        }
+
+        return tiles;
+    }
+    @Override
+    public ITile getRaceStartPoint(){
         return this.raceStartCircuitGridPoint;
     }
     @Override
@@ -67,23 +77,6 @@ class Circuit implements ICircuit {
     @Override
     public int getGridHeight(){
         return this.grid.length;
-    }
-    @Override
-    public List<CircuitGridPoint> toCircuitGridPoint(List<GridPoint> points) {
-        if (points == null) {
-            throw new IllegalArgumentException("Points collection cannot be null");
-        }
-
-        List<CircuitGridPoint> result = new ArrayList<>(points.size());
-        points.forEach(p -> result.add(new CircuitGridPoint(this.getGridPoint(p))));
-        return result;
-    }
-    @Override
-    public CircuitGridPoint toCircuitGridPoint(GridPoint point) {
-        if (point == null) {
-            throw new IllegalArgumentException("Point cannot be null");
-        }
-        return new CircuitGridPoint(this.getGridPoint(point));
     }
     @Override
     public Waypoint getWaypointsHead() {

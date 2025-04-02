@@ -40,7 +40,7 @@ public class GameLogic {
             gameState.getLeaderboard().addEntry(new LeaderboardEntry(carDriver, false, ""));
         }
 
-        gameState.getCircuit().getGridPoint(driverTrace.getStart()).setOccupiedBy(null);
-        gameState.getCircuit().getGridPoint(driverTrace.getEnd()).setOccupiedBy(carDriver.getCar());
+        gameState.getCircuit().getTile(driverTrace.getStart()).setOccupiedBy(null);
+        gameState.getCircuit().getTile(driverTrace.getEnd()).setOccupiedBy(carDriver.getCar());
     }
 }

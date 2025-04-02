@@ -1,6 +1,5 @@
 package com.gmrossetti.mdp.circuit;
 
-import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.cartesian.GridPoint;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 
@@ -8,12 +7,11 @@ import java.util.List;
 
 public interface ICircuit {
     List<Waypoint> getWaypoints();
-    CircuitGridPoint getGridPoint(int x, int y);
-    CircuitGridPoint getGridPoint(GridPoint gp);
-    CircuitGridPoint getRaceStartPoint();
+    ITile getTile(int x, int y);
+    ITile getTile(GridPoint gp);
+    List<ITile> getTile(List<GridPoint> gps);
+    ITile getRaceStartPoint();
     int getGridWidth();
     int getGridHeight();
-    List<CircuitGridPoint> toCircuitGridPoint(List<GridPoint> points);
-    CircuitGridPoint toCircuitGridPoint(GridPoint point);
     Waypoint getWaypointsHead();
 }

@@ -1,7 +1,5 @@
 package com.gmrossetti.mdp.parser;
 
-import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gmrossetti.mdp.cartesian.GridPoint;
+import com.gmrossetti.mdp.circuit.ITile;
+import com.gmrossetti.mdp.circuit.Tile;
 import com.gmrossetti.mdp.circuit.waypoint.BoundaryWaypoint;
 import com.gmrossetti.mdp.circuit.waypoint.MidWaypoint;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
@@ -21,7 +21,7 @@ import org.json.JSONTokener;
 public class CircuitParser {
     final static int SUPPORTED_IMG_WIDTH = 60;
     final static int SUPPORTED_IMG_HEIGHT = 45;
-    public static CircuitGridPoint[][] parseImageToGrid(String circuitName) throws IOException {
+    public static ITile[][] parseImageToGrid(String circuitName) throws IOException {
         final String basePath = "/com/gmrossetti/mdp/circuits/";
         final String imgFileExtension = ".gif";
 
@@ -32,20 +32,20 @@ public class CircuitParser {
         if(!validateImgs(imgBase))
             throw new RuntimeException("Circuit file format not valid!");
 
-        CircuitGridPoint[][] grid = new CircuitGridPoint[SUPPORTED_IMG_HEIGHT][SUPPORTED_IMG_WIDTH];
+        ITile[][] grid = new ITile[SUPPORTED_IMG_HEIGHT][SUPPORTED_IMG_WIDTH];
 
         for (int y = 0; y < SUPPORTED_IMG_HEIGHT; y++) {
             for (int x = 0; x < SUPPORTED_IMG_WIDTH; x++) {
                 // Ottieni il colore del pixel (RGB)
                 Color colorBase = new Color(imgBase.getRGB(x, y));
 
-                CircuitGridPoint.GridPointType type = CircuitGridPoint.GridPointType.OUTSIDE;
+                boolean isOnTrack = false;
 
                 if (colorBase.equals(Color.WHITE)) {
-                    type = CircuitGridPoint.GridPointType.INSIDE;
+                    isOnTrack = true;
                 }
 
-                grid[y][x] = new CircuitGridPoint(x,y,type);
+                grid[y][x] = new Tile(new GridPoint(x,y),isOnTrack);
             }
         }
 
