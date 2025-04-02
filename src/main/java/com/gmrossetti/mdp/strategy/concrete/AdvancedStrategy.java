@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
@@ -31,7 +31,7 @@ public class AdvancedStrategy extends Strategy {
     }
 
     @Override
-    public CarDriver.Move chooseBestMove(CarDriver carDriver, Circuit circuit) {
+    public CarDriver.Move chooseBestMove(CarDriver carDriver, ICircuit circuit) {
         final Map<CarDriver.Move, GridPoint> movesPoints = carDriver.getMovesPoints();
         final GridPoint currentPosition = carDriver.getCar().getPosition();
         final Waypoint currentWaypoint = carDriver.waypointTarget;
@@ -76,7 +76,7 @@ public class AdvancedStrategy extends Strategy {
 
     private static CarDriver.Move selectBestMove(SpeedAction speedAction, List<MoveCandidate> brakes,
                                           List<MoveCandidate> neutrals, List<MoveCandidate> gas,
-                                          CarDriver carDriver, Circuit circuit) {
+                                          CarDriver carDriver, ICircuit circuit) {
 
         List<List<MoveCandidate>> prioritizedMoves = switch (speedAction) {
             case BRAKE -> List.of(brakes, neutrals, gas);

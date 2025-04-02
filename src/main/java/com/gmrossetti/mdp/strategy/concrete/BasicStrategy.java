@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
@@ -19,7 +19,7 @@ public class BasicStrategy extends Strategy {
     }
 
     @Override
-    public CarDriver.Move chooseBestMove(CarDriver carDriver, Circuit circuit) {
+    public CarDriver.Move chooseBestMove(CarDriver carDriver, ICircuit circuit) {
         final Waypoint currentWaypoint = carDriver.waypointTarget;
 
         if (!currentWaypoint.hasPrevious()) {

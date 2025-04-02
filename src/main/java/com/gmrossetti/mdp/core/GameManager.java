@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.driver.*;
 import com.gmrossetti.mdp.parser.GameParseObject;
 import com.gmrossetti.mdp.parser.GameParser;
@@ -47,7 +47,7 @@ public class GameManager {
 
         GameParseObject gameParserObject = GameParser.parseGameConfigJson("game-config1");
 
-        Circuit circuit = gameParserObject.getCircuit();
+        ICircuit circuit = gameParserObject.getCircuit();
 
         gameState = new GameState(circuit);
 

@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.core.DriverMoveValidator;
 import com.gmrossetti.mdp.driver.CarDriver;
@@ -33,7 +33,7 @@ abstract class Strategy implements IStrategy {
         return new GridLine(previousWaypoint.getCenter(), currentWaypoint.getCenter()).getMedianPoint();
     }
 
-    protected static List<MoveCandidate> filterValidMoves(List<MoveCandidate> moveCandidates, CarDriver carDriver, Circuit circuit) {
+    protected static List<MoveCandidate> filterValidMoves(List<MoveCandidate> moveCandidates, CarDriver carDriver, ICircuit circuit) {
         return moveCandidates.stream()
                 .filter(mc -> !(carDriver.getCar().isStationary() && carDriver.getCar().getPosition().equals(mc.getMovePoint())))
                 .filter(mc -> DriverMoveValidator.isMoveValid(new GridLine(carDriver.getCar().getPosition(), mc.getMovePoint()), circuit))

@@ -1,6 +1,7 @@
 package com.gmrossetti.mdp.parser;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.CircuitFactory;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.strategy.StrategyParameters;
 
 import java.io.IOException;
@@ -8,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameParseObject {
-    private final Circuit circuit;
+    private final ICircuit circuit;
     private final List<StrategyParameters> strategyParameters;
 
     public GameParseObject(String circuitName, List<String> botStrategiesNames) throws IOException {
-        this.circuit = new Circuit(circuitName);
+        this.circuit = CircuitFactory.buildCircuit(circuitName);
 
         this.strategyParameters = new ArrayList<>();
 
@@ -22,7 +23,7 @@ public class GameParseObject {
         }
     }
 
-    public Circuit getCircuit() {
+    public ICircuit getCircuit() {
         return circuit;
     }
 

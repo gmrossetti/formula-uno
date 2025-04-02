@@ -1,18 +1,18 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.actor.IPawn;
 import com.gmrossetti.mdp.entity.cartesian.GridLine;
 import com.gmrossetti.mdp.strategy.IStrategy;
 
 public class BotCarDriver extends CarDriver{
-    public Circuit getCircuit() {
+    public ICircuit getCircuit() {
         return circuit;
     }
-    final Circuit circuit;
+    final ICircuit circuit;
 
     final IStrategy strategy;
-    BotCarDriver(IPawn car, Circuit circuit, IStrategy strategy) {
+    BotCarDriver(IPawn car, ICircuit circuit, IStrategy strategy) {
         super(car, circuit.getWaypointsHead());
 
         this.circuit = circuit;

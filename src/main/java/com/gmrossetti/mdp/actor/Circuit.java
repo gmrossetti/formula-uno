@@ -1,31 +1,22 @@
 package com.gmrossetti.mdp.actor;
 
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
-import com.gmrossetti.mdp.parser.CircuitParser;
 import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.cartesian.GridPoint;
 
-import java.io.IOException;
 import java.util.*;
 
-public class Circuit {
+class Circuit implements ICircuit {
     private final CircuitGridPoint[][] grid;
     private final CircuitGridPoint raceStartCircuitGridPoint;
-
-    public List<Waypoint> getWaypoints() {
-        return waypoints;
-    }
 
     private final List<Waypoint> waypoints;
     private final Waypoint waypointsHead;
 
-    public Circuit(String circuitName){
-        try {
-            this.grid = CircuitParser.parseImageToGrid(circuitName);
-            this.waypoints = CircuitParser.parseWaypointsJson(circuitName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public Circuit(CircuitGridPoint[][] grid, List<Waypoint> waypoints){
+
+        this.grid = grid;
+        this.waypoints = waypoints;
 
         this.waypointsHead = generateWaypointLinkedList(waypoints);
 
@@ -50,6 +41,11 @@ public class Circuit {
         return head;
     }
 
+    @Override
+    public List<Waypoint> getWaypoints() {
+        return waypoints;
+    }
+    @Override
     public CircuitGridPoint getGridPoint(int x, int y) {
         try {
             CircuitGridPoint circuitGridPoint = this.grid[y][x];
@@ -58,23 +54,23 @@ public class Circuit {
             return new CircuitGridPoint(x, y, CircuitGridPoint.GridPointType.OUTSIDE);
         }
     }
-
+    @Override
     public CircuitGridPoint getGridPoint(GridPoint gp){
         return this.getGridPoint(gp.x,gp.y);
     }
-
+    @Override
     public CircuitGridPoint getRaceStartPoint(){
         return this.raceStartCircuitGridPoint;
     }
-
+    @Override
     public int getGridWidth(){
         return this.grid[0].length;
     }
-
+    @Override
     public int getGridHeight(){
         return this.grid.length;
     }
-
+    @Override
     public List<CircuitGridPoint> toCircuitGridPoint(List<GridPoint> points) {
         if (points == null) {
             throw new IllegalArgumentException("Points collection cannot be null");
@@ -84,14 +80,14 @@ public class Circuit {
         points.forEach(p -> result.add(new CircuitGridPoint(this.getGridPoint(p))));
         return result;
     }
-
+    @Override
     public CircuitGridPoint toCircuitGridPoint(GridPoint point) {
         if (point == null) {
             throw new IllegalArgumentException("Point cannot be null");
         }
         return new CircuitGridPoint(this.getGridPoint(point));
     }
-
+    @Override
     public Waypoint getWaypointsHead() {
         return waypointsHead;
     }

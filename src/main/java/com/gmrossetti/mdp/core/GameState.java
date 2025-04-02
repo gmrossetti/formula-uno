@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.driver.CarDriver;
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
 
 import java.util.*;
@@ -12,8 +12,8 @@ public class GameState {
         return !getCarDriversStillPlaying().isEmpty() && getCarDriversStillPlaying().contains(getHumanCarDriver()) ||
                 getLeaderboard().isEmpty();
     }
-    private final Circuit circuit;
-    public Circuit getCircuit() {
+    private final ICircuit circuit;
+    public ICircuit getCircuit() {
         return circuit;
     }
 
@@ -36,7 +36,7 @@ public class GameState {
                 .collect(Collectors.toSet());
     }
 
-    public GameState(Circuit circuit) {
+    public GameState(ICircuit circuit) {
         this.circuit = circuit;
         carDrivers = new HashSet<>();
         leaderboard = new Leaderboard();

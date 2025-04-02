@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.actor.Circuit;
+import com.gmrossetti.mdp.actor.ICircuit;
 import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
 import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 import javafx.scene.layout.Pane;
@@ -14,7 +14,7 @@ public class CircuitView extends Pane {
 
     private ArrayList<WaypointView> waypointsViews;
 
-    public CircuitView(Circuit circuit) {
+    public CircuitView(ICircuit circuit) {
         WIDTH = (circuit.getGridWidth() - 1) * SPACING;
         HEIGHT = (circuit.getGridHeight() - 1) * SPACING;
 
