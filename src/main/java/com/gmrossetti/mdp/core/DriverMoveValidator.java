@@ -3,7 +3,7 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.cartesian.GridPoint;
-import com.gmrossetti.mdp.circuit.ITile;
+import com.gmrossetti.mdp.circuit.tile.ITile;
 
 import java.util.List;
 

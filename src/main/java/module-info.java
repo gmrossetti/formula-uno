@@ -16,4 +16,6 @@ module com.gmrossetti.mdp {
     opens com.gmrossetti.mdp.circuit.waypoint to javafx.fxml;
     exports com.gmrossetti.mdp.circuit;
     opens com.gmrossetti.mdp.circuit to javafx.fxml;
+    exports com.gmrossetti.mdp.circuit.tile;
+    opens com.gmrossetti.mdp.circuit.tile to javafx.fxml;
 }

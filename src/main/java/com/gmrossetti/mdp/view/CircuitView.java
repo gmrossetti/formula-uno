@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.circuit.ITile;
+import com.gmrossetti.mdp.circuit.tile.ITile;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import javafx.scene.layout.Pane;
 

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gmrossetti.mdp.cartesian.GridPoint;
-import com.gmrossetti.mdp.circuit.ITile;
-import com.gmrossetti.mdp.circuit.Tile;
+import com.gmrossetti.mdp.circuit.tile.ITile;
+import com.gmrossetti.mdp.circuit.tile.Tile;
 import com.gmrossetti.mdp.circuit.waypoint.BoundaryWaypoint;
 import com.gmrossetti.mdp.circuit.waypoint.MidWaypoint;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;

@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.view;
 
-import com.gmrossetti.mdp.circuit.ITile;
+import com.gmrossetti.mdp.circuit.tile.ITile;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 

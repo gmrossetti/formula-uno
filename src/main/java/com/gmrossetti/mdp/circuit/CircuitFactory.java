@@ -1,5 +1,6 @@
 package com.gmrossetti.mdp.circuit;
 
+import com.gmrossetti.mdp.circuit.tile.ITile;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import com.gmrossetti.mdp.parser.CircuitParser;
 
