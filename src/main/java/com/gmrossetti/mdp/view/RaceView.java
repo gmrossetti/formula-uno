@@ -2,7 +2,7 @@ package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.core.GameState;
 import com.gmrossetti.mdp.driver.CarDriver;
-import com.gmrossetti.mdp.actor.IPawn;
+import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;

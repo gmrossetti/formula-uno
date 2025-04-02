@@ -6,8 +6,8 @@ module com.gmrossetti.mdp {
 
     opens com.gmrossetti.mdp to javafx.fxml;
     exports com.gmrossetti.mdp;
-    exports com.gmrossetti.mdp.actor;
-    opens com.gmrossetti.mdp.actor to javafx.fxml;
+    exports com.gmrossetti.mdp.pawn;
+    opens com.gmrossetti.mdp.pawn to javafx.fxml;
     exports com.gmrossetti.mdp.parser;
     opens com.gmrossetti.mdp.parser to javafx.fxml;
     exports com.gmrossetti.mdp.entity.cartesian;
