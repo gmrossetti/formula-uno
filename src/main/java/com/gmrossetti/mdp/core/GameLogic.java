@@ -3,7 +3,7 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.driver.BotCarDriver;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.HumanCarDriver;
-import com.gmrossetti.mdp.entity.cartesian.GridLine;
+import com.gmrossetti.mdp.cartesian.GridLine;
 
 public class GameLogic {
     private final GameState gameState;

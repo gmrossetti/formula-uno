@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.pawn;
 
-import com.gmrossetti.mdp.entity.cartesian.GridPoint;
+import com.gmrossetti.mdp.cartesian.GridPoint;
 
 import java.util.*;
 

@@ -1,9 +1,9 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
-import com.gmrossetti.mdp.entity.cartesian.GridLine;
-import com.gmrossetti.mdp.entity.cartesian.GridPoint;
+import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
+import com.gmrossetti.mdp.cartesian.GridLine;
+import com.gmrossetti.mdp.cartesian.GridPoint;
 
 import java.util.ArrayList;
 import java.util.List;

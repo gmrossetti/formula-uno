@@ -1,8 +1,8 @@
 package com.gmrossetti.mdp.circuit;
 
-import com.gmrossetti.mdp.entity.waypoint.Waypoint;
-import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
-import com.gmrossetti.mdp.entity.cartesian.GridPoint;
+import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
+import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
+import com.gmrossetti.mdp.cartesian.GridPoint;
 
 import java.util.*;
 

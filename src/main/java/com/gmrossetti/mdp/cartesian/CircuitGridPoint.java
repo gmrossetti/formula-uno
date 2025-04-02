@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.entity.cartesian;
+package com.gmrossetti.mdp.cartesian;
 
 import com.gmrossetti.mdp.pawn.IPawn;
 

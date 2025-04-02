@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.driver;
 
-import com.gmrossetti.mdp.entity.cartesian.GridPoint;
+import com.gmrossetti.mdp.cartesian.GridPoint;
 
 public class MoveCandidate {
     private final GridPoint movePoint;
