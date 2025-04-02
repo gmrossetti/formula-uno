@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.parser;
 
-import com.gmrossetti.mdp.entity.cartesian.CircuitGridPoint;
+import com.gmrossetti.mdp.cartesian.CircuitGridPoint;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,10 +10,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gmrossetti.mdp.entity.cartesian.GridPoint;
-import com.gmrossetti.mdp.entity.waypoint.BoundaryWaypoint;
-import com.gmrossetti.mdp.entity.waypoint.MidWaypoint;
-import com.gmrossetti.mdp.entity.waypoint.Waypoint;
+import com.gmrossetti.mdp.cartesian.GridPoint;
+import com.gmrossetti.mdp.circuit.waypoint.BoundaryWaypoint;
+import com.gmrossetti.mdp.circuit.waypoint.MidWaypoint;
+import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;

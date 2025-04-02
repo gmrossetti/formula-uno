@@ -5,10 +5,10 @@ import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.core.DriverMoveValidator;
 import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
-import com.gmrossetti.mdp.entity.cartesian.GridLine;
-import com.gmrossetti.mdp.entity.cartesian.GridPoint;
-import com.gmrossetti.mdp.entity.cartesian.Point;
-import com.gmrossetti.mdp.entity.waypoint.Waypoint;
+import com.gmrossetti.mdp.cartesian.GridLine;
+import com.gmrossetti.mdp.cartesian.GridPoint;
+import com.gmrossetti.mdp.cartesian.Point;
+import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import com.gmrossetti.mdp.strategy.IStrategy;
 
 import java.util.ArrayList;
