@@ -5,6 +5,7 @@ import com.gmrossetti.mdp.entity.waypoint.Waypoint;
 import com.gmrossetti.mdp.parser.CircuitParser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class CircuitFactory {

@@ -9,12 +9,10 @@ import java.util.*;
 class Circuit implements ICircuit {
     private final CircuitGridPoint[][] grid;
     private final CircuitGridPoint raceStartCircuitGridPoint;
-
     private final List<Waypoint> waypoints;
     private final Waypoint waypointsHead;
 
     public Circuit(CircuitGridPoint[][] grid, List<Waypoint> waypoints){
-
         this.grid = grid;
         this.waypoints = waypoints;
 
