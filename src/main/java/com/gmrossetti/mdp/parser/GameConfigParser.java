@@ -49,7 +49,7 @@ public class GameConfigParser {
             JSONObject jsonBot = (JSONObject) bot;
             int quantity = jsonBot.getInt("qty");
             StrategyType strategyType = StrategyType.fromValue(jsonBot.getString("strategy"));
-            JSONObject strategyParams = jsonBot.has("strategyParams") ? jsonBot.getJSONObject("strategyParams") : null;
+            JSONObject strategyParams = jsonBot.has("params") ? jsonBot.getJSONObject("params") : null;
 
             StrategyParameters strategyParameters = parseStrategyParameters(strategyParams);
 
@@ -67,10 +67,21 @@ public class GameConfigParser {
         double brakeDistance = getParameter(strategyParams, "brakeDistance");
         double accelerateDistance = getParameter(strategyParams, "accelerateDistance");
 
+        validateParamValues(minVelocity, deviationThreshold, brakeDistance, accelerateDistance);
+
         return new StrategyParameters(minVelocity, deviationThreshold, brakeDistance, accelerateDistance);
     }
 
+    private static void validateParamValues(double... paramValues){
+        for (double paramValue : paramValues) {
+            System.out.println(paramValue);
+            if(paramValue < 0.0 || paramValue > 1.0){
+                throw new IllegalArgumentException("All strategy params must be decimal numbers between 0 and 1");
+            }
+        }
+    }
+
     private static double getParameter(JSONObject strategyParams, String key) {
-        return strategyParams != null && strategyParams.has(key) ? strategyParams.getDouble(key) : PARAM_DEFAULT_VALUE;
+        return (strategyParams != null && strategyParams.has(key)) ? strategyParams.getDouble(key) : PARAM_DEFAULT_VALUE;
     }
 }
