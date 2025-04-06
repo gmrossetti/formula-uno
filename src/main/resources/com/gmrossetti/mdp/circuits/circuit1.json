@@ -12,17 +12,17 @@
       {
         "type": "MID",
         "center": { "x": 47, "y": 5 },
-        "radius": 5
+        "radius": 4
       },
       {
         "type": "MID",
         "center": { "x": 53, "y": 11 },
-        "radius": 5
+        "radius": 4
       },
       {
         "type": "MID",
         "center": { "x": 49, "y": 18 },
-        "radius": 5
+        "radius": 4
       },
       {
         "type": "MID",
@@ -62,7 +62,7 @@
       {
         "type": "MID",
         "center": { "x": 8, "y": 5 },
-        "radius": 5
+        "radius": 4
       },
       {
         "type": "BOUNDARY",
