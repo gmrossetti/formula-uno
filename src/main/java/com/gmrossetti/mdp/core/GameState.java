@@ -60,4 +60,11 @@ public class GameState {
 
         carDrivers.add(carDriver);
     }
+
+    public void addCarDriver(List<? extends CarDriver> carDrivers){
+        for (CarDriver carDriver:
+                carDrivers) {
+            addCarDriver(carDriver);
+        }
+    }
 }

@@ -6,11 +6,12 @@ import com.gmrossetti.mdp.pawn.PawnFactory;
 import com.gmrossetti.mdp.strategy.IStrategy;
 import com.gmrossetti.mdp.strategy.StrategyFactory;
 import com.gmrossetti.mdp.strategy.StrategyParameters;
+import com.gmrossetti.mdp.strategy.StrategyType;
 
 public class BotCarDriverFactory {
-    public static BotCarDriver build(ICircuit circuit, StrategyParameters strategyParameters){
+    public static BotCarDriver build(ICircuit circuit, StrategyType strategyType, StrategyParameters strategyParameters){
         IPawn botCar = PawnFactory.buildPawn(circuit.getRaceStartPoint().getGridPoint());
-        IStrategy strategy = StrategyFactory.buildStrategy(strategyParameters);
+        IStrategy strategy = StrategyFactory.buildStrategy(strategyType, strategyParameters);
 
         return new BotCarDriver(botCar, circuit, strategy);
     }

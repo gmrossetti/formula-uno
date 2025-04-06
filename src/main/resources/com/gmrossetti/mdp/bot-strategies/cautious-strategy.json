@@ -1,6 +1,0 @@
-{
-  "minVelocity": 0.5,
-  "deviationThreshold": 0.5,
-  "brakeDistance": 0.5,
-  "accelerateDistance": 0.5
-}

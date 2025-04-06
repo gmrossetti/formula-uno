@@ -2,9 +2,8 @@ package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.driver.*;
-import com.gmrossetti.mdp.parser.GameParseObject;
-import com.gmrossetti.mdp.parser.GameParser;
-import com.gmrossetti.mdp.strategy.StrategyParameters;
+import com.gmrossetti.mdp.parser.GameConfigObject;
+import com.gmrossetti.mdp.parser.GameConfigParser;
 import com.gmrossetti.mdp.view.GameView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -43,11 +42,13 @@ public class GameManager {
 
     public void init(){
 
-        GameParseObject gameParserObject = GameParser.parseGameConfigJson("game-config1");
+        GameConfigObject gameConfigObject = GameConfigParser.parse("game-config2");
 
-        ICircuit circuit = gameParserObject.getCircuit();
+        ICircuit circuit = gameConfigObject.circuit();
 
         gameState = new GameState(circuit);
+
+        gameState.addCarDriver(gameConfigObject.botCarDrivers());
 
         view = new GameView(gameState);
 
@@ -61,12 +62,6 @@ public class GameManager {
 
         HumanCarDriver humanCarDriver = HumanCarDriverFactory.build(circuit);
         gameState.addCarDriver(humanCarDriver);
-
-        for (StrategyParameters strategyParameters:
-                gameParserObject.getStrategyParameters()) {
-            BotCarDriver botCarDriver = BotCarDriverFactory.build(circuit, strategyParameters);
-            gameState.addCarDriver(botCarDriver);
-        }
     }
 
     public void reset(){
