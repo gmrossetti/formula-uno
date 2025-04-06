@@ -18,11 +18,6 @@ public class Tile implements ITile {
         this.isOnTrack = isOnTrack;
         this.occupiedBy = occupiedBy;
     }
-    public Tile(ITile tile){
-        this.gridPoint = tile.getGridPoint();
-        this.isOnTrack = tile.isOnTrack();
-        this.occupiedBy = tile.getOccupiedBy();
-    }
     @Override
     public GridPoint getGridPoint() {
         return gridPoint;

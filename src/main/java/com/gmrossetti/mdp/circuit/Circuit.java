@@ -47,8 +47,7 @@ class Circuit implements ICircuit {
     @Override
     public ITile getTile(int x, int y) {
         try {
-            ITile tile = this.grid[y][x];
-            return new Tile(tile);
+            return this.grid[y][x];
         } catch (ArrayIndexOutOfBoundsException e) {
             return new Tile(new GridPoint(x, y),false,null);
         }
