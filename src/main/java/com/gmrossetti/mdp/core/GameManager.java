@@ -42,7 +42,7 @@ public class GameManager {
 
     public void init(){
 
-        GameConfigObject gameConfigObject = GameConfigParser.parse("game-config2");
+        GameConfigObject gameConfigObject = GameConfigParser.parse("game-config1");
 
         ICircuit circuit = gameConfigObject.circuit();
 

@@ -1,7 +1,22 @@
 {
   "circuitName": "circuit1",
-  "botStrategies": [
-    { "strategyName": "aggressive-strategy" },
-    { "strategyName": "cautious-strategy" }
+  "bots": [
+    {
+      "qty": 2,
+      "strategy": "advanced-strategy",
+      "params": {
+        "minVelocity": 0.5,
+        "deviationThreshold": 0.3,
+        "brakeDistance": 0.4,
+        "accelerateDistance": 0.5
+      }
+    },
+    {
+      "qty": 3,
+      "strategy": "basic-strategy",
+      "params": {
+        "minVelocity": 0.5
+      }
+    }
   ]
 }
