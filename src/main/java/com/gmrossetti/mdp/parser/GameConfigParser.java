@@ -14,70 +14,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameConfigParser {
+    private static final String BASE_PATH = "/com/gmrossetti/mdp/";
+    private static final String FILE_EXTENSION = ".json";
+    private static final double PARAM_DEFAULT_VALUE = 0.5;
+
     public static GameConfigObject parse(String gameConfigName) {
-        final String basePath = "/com/gmrossetti/mdp/";
-        final String fileExtension = ".json";
-
-        InputStream inputStream = CircuitParser.class.getResourceAsStream(basePath + gameConfigName + fileExtension);
-
-        if(inputStream == null) {
-            throw new RuntimeException("GameConfig file not found: " + basePath + gameConfigName + fileExtension);
-        }
-
-        try {
-            JSONTokener tokener = new JSONTokener(inputStream);
-
-            JSONObject jsonObject = new JSONObject(tokener);
-
+        try (InputStream inputStream = getGameConfigInputStream(gameConfigName)) {
+            JSONObject jsonObject = new JSONObject(new JSONTokener(inputStream));
             String circuitName = jsonObject.getString("circuitName");
 
-            // TODO: add Parser Layer between CircuitFactory and GameConfigParser
-
-            final ICircuit circuit = CircuitFactory.buildCircuit(circuitName);
-
-            JSONArray bots = jsonObject.getJSONArray("bots");
-
-            List<BotCarDriver> botCarDrivers = new ArrayList<>();
-
-            for(Object bot:
-                    bots){
-                JSONObject jsonBot = (JSONObject) bot;
-
-                int quantity = (int) jsonBot.get("qty");
-                final String strategyName = (String) jsonBot.get("strategy");
-
-                final StrategyType strategyType = StrategyType.fromValue(strategyName);
-
-                final JSONObject strategyParams = jsonBot.has("strategyParams") ?
-                        jsonBot.getJSONObject("params") : null;
-
-                final double minVelocity = strategyParams != null && strategyParams.has("minVelocity") ?
-                        strategyParams.getDouble("minVelocity") : 0.5;
-
-                final double deviationThreshold = strategyParams != null && strategyParams.has("deviationThreshold") ?
-                        strategyParams.getDouble("deviationThreshold") : 0.5;
-
-                final double brakeDistance = strategyParams != null && strategyParams.has("brakeDistance") ?
-                        strategyParams.getDouble("brakeDistance") : 0.5;
-
-                final double accelerateDistance = strategyParams != null && strategyParams.has("accelerateDistance") ?
-                        strategyParams.getDouble("accelerateDistance") : 0.5;
-
-                final StrategyParameters strategyParameters = new StrategyParameters(
-                            minVelocity, deviationThreshold, brakeDistance, accelerateDistance
-                        );
-
-                for (int i = 0; i < quantity; i++) {
-                    final BotCarDriver botCarDriver = BotCarDriverFactory.build(circuit, strategyType, strategyParameters);
-
-                    botCarDrivers.add(botCarDriver);
-                }
-            }
+            ICircuit circuit = CircuitFactory.buildCircuit(circuitName);
+            List<BotCarDriver> botCarDrivers = parseBots(jsonObject, circuit);
 
             return new GameConfigObject(circuit, botCarDrivers);
+
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Error parsing the game config: " + e.getMessage(), e);
         }
+    }
+
+    private static InputStream getGameConfigInputStream(String gameConfigName) {
+        InputStream inputStream = CircuitParser.class.getResourceAsStream(BASE_PATH + gameConfigName + FILE_EXTENSION);
+        if (inputStream == null) {
+            throw new RuntimeException("GameConfig file not found: " + BASE_PATH + gameConfigName + FILE_EXTENSION);
+        }
+        return inputStream;
+    }
+
+    private static List<BotCarDriver> parseBots(JSONObject jsonObject, ICircuit circuit) {
+        JSONArray bots = jsonObject.getJSONArray("bots");
+        List<BotCarDriver> botCarDrivers = new ArrayList<>();
+
+        for (Object bot : bots) {
+            JSONObject jsonBot = (JSONObject) bot;
+            int quantity = jsonBot.getInt("qty");
+            StrategyType strategyType = StrategyType.fromValue(jsonBot.getString("strategy"));
+            JSONObject strategyParams = jsonBot.has("strategyParams") ? jsonBot.getJSONObject("strategyParams") : null;
+
+            StrategyParameters strategyParameters = parseStrategyParameters(strategyParams);
+
+            for (int i = 0; i < quantity; i++) {
+                botCarDrivers.add(BotCarDriverFactory.build(circuit, strategyType, strategyParameters));
+            }
+        }
+
+        return botCarDrivers;
+    }
+
+    private static StrategyParameters parseStrategyParameters(JSONObject strategyParams) {
+        double minVelocity = getParameter(strategyParams, "minVelocity");
+        double deviationThreshold = getParameter(strategyParams, "deviationThreshold");
+        double brakeDistance = getParameter(strategyParams, "brakeDistance");
+        double accelerateDistance = getParameter(strategyParams, "accelerateDistance");
+
+        return new StrategyParameters(minVelocity, deviationThreshold, brakeDistance, accelerateDistance);
+    }
+
+    private static double getParameter(JSONObject strategyParams, String key) {
+        return strategyParams != null && strategyParams.has(key) ? strategyParams.getDouble(key) : PARAM_DEFAULT_VALUE;
     }
 }
