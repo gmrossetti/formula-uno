@@ -1,6 +1,5 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.IDriver;
 
 import java.util.LinkedList;

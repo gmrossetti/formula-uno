@@ -8,7 +8,7 @@ import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract public class CarDriver implements IDriver {
+abstract class CarDriver implements IDriver {
     public IPawn getCar() {
         return car;
     }
@@ -18,19 +18,39 @@ abstract public class CarDriver implements IDriver {
 
     private final IPawn car;
 
-    public enum Move {
-        TL, TM, TR, CL, CM, CR, BL, BM, BR
-    }
-
     public CarDriver(IPawn car, Waypoint waypointHead){
         this.car = car;
         this.waypointTarget = waypointHead.getNext();
     }
-
+    @Override
     public boolean hasActiveWaypoint(){
         return waypointTarget != null;
     }
-    protected final GridLine processMove(CarDriver.Move move){
+    @Override
+    public Waypoint getWaypointTarget(){
+        return waypointTarget;
+    }
+    @Override
+    public final Map<Move,GridPoint> getMovesPoints(){
+        final Map<Move,GridPoint> movesPoint = new HashMap<>();
+
+        GridPoint pivot = this.car.getPivot();
+
+        movesPoint.put(Move.TL, new GridPoint(pivot.x - 1, pivot.y - 1));
+        movesPoint.put(Move.TM, new GridPoint(pivot.x, pivot.y - 1));
+        movesPoint.put(Move.TR, new GridPoint(pivot.x + 1, pivot.y - 1));
+
+        movesPoint.put(Move.CL, new GridPoint(pivot.x - 1, pivot.y));
+        movesPoint.put(Move.CM, new GridPoint(pivot.x, pivot.y));
+        movesPoint.put(Move.CR, new GridPoint(pivot.x + 1, pivot.y));
+
+        movesPoint.put(Move.BL, new GridPoint(pivot.x - 1, pivot.y + 1));
+        movesPoint.put(Move.BM, new GridPoint(pivot.x, pivot.y + 1));
+        movesPoint.put(Move.BR, new GridPoint(pivot.x + 1, pivot.y + 1));
+
+        return movesPoint;
+    }
+    protected final GridLine processMove(Move move){
         if(!hasActiveWaypoint()){
             throw new IllegalStateException("CarDriver has no waypoints left");
         }
@@ -50,25 +70,5 @@ abstract public class CarDriver implements IDriver {
         }
 
         return trace;
-    }
-
-    public final Map<CarDriver.Move,GridPoint> getMovesPoints(){
-        final Map<CarDriver.Move,GridPoint> movesPoint = new HashMap<>();
-
-        GridPoint pivot = this.car.getPivot();
-
-        movesPoint.put(CarDriver.Move.TL, new GridPoint(pivot.x - 1, pivot.y - 1));
-        movesPoint.put(CarDriver.Move.TM, new GridPoint(pivot.x, pivot.y - 1));
-        movesPoint.put(CarDriver.Move.TR, new GridPoint(pivot.x + 1, pivot.y - 1));
-
-        movesPoint.put(CarDriver.Move.CL, new GridPoint(pivot.x - 1, pivot.y));
-        movesPoint.put(CarDriver.Move.CM, new GridPoint(pivot.x, pivot.y));
-        movesPoint.put(CarDriver.Move.CR, new GridPoint(pivot.x + 1, pivot.y));
-
-        movesPoint.put(CarDriver.Move.BL, new GridPoint(pivot.x - 1, pivot.y + 1));
-        movesPoint.put(CarDriver.Move.BM, new GridPoint(pivot.x, pivot.y + 1));
-        movesPoint.put(CarDriver.Move.BR, new GridPoint(pivot.x + 1, pivot.y + 1));
-
-        return movesPoint;
     }
 }

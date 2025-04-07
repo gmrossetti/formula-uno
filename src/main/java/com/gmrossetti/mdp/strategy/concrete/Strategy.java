@@ -1,9 +1,10 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
+import com.gmrossetti.mdp.driver.IDriver;
+import com.gmrossetti.mdp.driver.Move;
 import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.core.DriverMoveValidator;
-import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.cartesian.GridPoint;
@@ -33,14 +34,14 @@ abstract class Strategy implements IStrategy {
         return new GridLine(previousWaypoint.getCenter(), currentWaypoint.getCenter()).getMedianPoint();
     }
 
-    protected static List<MoveCandidate> filterValidMoves(List<MoveCandidate> moveCandidates, CarDriver carDriver, ICircuit circuit) {
+    protected static List<MoveCandidate> filterValidMoves(List<MoveCandidate> moveCandidates, IDriver driver, ICircuit circuit) {
         return moveCandidates.stream()
-                .filter(mc -> !(carDriver.getCar().isStationary() && carDriver.getCar().getPosition().equals(mc.getMovePoint())))
-                .filter(mc -> DriverMoveValidator.isMoveValid(new GridLine(carDriver.getCar().getPosition(), mc.getMovePoint()), circuit))
+                .filter(mc -> !(driver.getCar().isStationary() && driver.getCar().getPosition().equals(mc.getMovePoint())))
+                .filter(mc -> DriverMoveValidator.isMoveValid(new GridLine(driver.getCar().getPosition(), mc.getMovePoint()), circuit))
                 .toList();
     }
 
-    protected static List<MoveCandidate> generateMoveCandidates(Map<CarDriver.Move, GridPoint> movesPoints,
+    protected static List<MoveCandidate> generateMoveCandidates(Map<Move, GridPoint> movesPoints,
                                                               GridPoint currentPos, GridPoint target, Point median) {
         List<MoveCandidate> moveCandidates = new ArrayList<>();
 

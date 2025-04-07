@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.core.InputHandler;
-import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.Move;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -19,12 +19,12 @@ public class ControlsView extends GridPane {
     }
 
     private void populateGrid(){
-        CarDriver.Move[] moves = CarDriver.Move.values();
+        Move[] moves = Move.values();
 
         int moveIndex = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                CarDriver.Move move = moves[moveIndex++];
+                Move move = moves[moveIndex++];
 
                 Button btn = createButton(move);
 
@@ -39,7 +39,7 @@ public class ControlsView extends GridPane {
         this.setStyle("-fx-padding: 20px;");
     }
 
-    private static Button createButton(CarDriver.Move move) {
+    private static Button createButton(Move move) {
         Button btn = new Button(getIconFromMove(move));
 
         btn.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
@@ -49,20 +49,20 @@ public class ControlsView extends GridPane {
         return btn;
     }
 
-    private static String getIconFromMove(CarDriver.Move move){
-        Map<CarDriver.Move,String> moveIcon = new HashMap<>();
+    private static String getIconFromMove(Move move){
+        Map<Move,String> moveIcon = new HashMap<>();
 
-        moveIcon.put(CarDriver.Move.BL, "↙");
-        moveIcon.put(CarDriver.Move.BM, "↓");
-        moveIcon.put(CarDriver.Move.BR, "↘");
+        moveIcon.put(Move.BL, "↙");
+        moveIcon.put(Move.BM, "↓");
+        moveIcon.put(Move.BR, "↘");
 
-        moveIcon.put(CarDriver.Move.CL, "←");
-        moveIcon.put(CarDriver.Move.CM, "○");
-        moveIcon.put(CarDriver.Move.CR, "→");
+        moveIcon.put(Move.CL, "←");
+        moveIcon.put(Move.CM, "○");
+        moveIcon.put(Move.CR, "→");
 
-        moveIcon.put(CarDriver.Move.TL, "↖");
-        moveIcon.put(CarDriver.Move.TM, "↑");
-        moveIcon.put(CarDriver.Move.TR, "↗");
+        moveIcon.put(Move.TL, "↖");
+        moveIcon.put(Move.TM, "↑");
+        moveIcon.put(Move.TR, "↗");
 
         return moveIcon.get(move);
     }

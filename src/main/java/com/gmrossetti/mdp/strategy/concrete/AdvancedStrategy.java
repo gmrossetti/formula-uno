@@ -1,8 +1,9 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
+import com.gmrossetti.mdp.driver.IDriver;
+import com.gmrossetti.mdp.driver.Move;
 import com.gmrossetti.mdp.pawn.IPawn;
-import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.cartesian.GridPoint;
@@ -31,13 +32,13 @@ public class AdvancedStrategy extends Strategy {
     }
 
     @Override
-    public CarDriver.Move chooseBestMove(CarDriver carDriver, ICircuit circuit) {
-        final Map<CarDriver.Move, GridPoint> movesPoints = carDriver.getMovesPoints();
-        final GridPoint currentPosition = carDriver.getCar().getPosition();
-        final Waypoint currentWaypoint = carDriver.waypointTarget;
+    public Move chooseBestMove(IDriver IDriver, ICircuit circuit) {
+        final Map<Move, GridPoint> movesPoints = IDriver.getMovesPoints();
+        final GridPoint currentPosition = IDriver.getCar().getPosition();
+        final Waypoint currentWaypoint = IDriver.getWaypointTarget();
 
         if (!currentWaypoint.hasPrevious()) {
-            throw new IllegalStateException("CarDriver must be initialized with the second waypoint");
+            throw new IllegalStateException("IDriver must be initialized with the second waypoint");
         }
 
         final Waypoint previousWaypoint = currentWaypoint.getPrevious();
@@ -50,20 +51,20 @@ public class AdvancedStrategy extends Strategy {
         List<MoveCandidate> neutralCandidates = moveCandidates.subList(3, 6);
         List<MoveCandidate> gasCandidates = moveCandidates.subList(6, 9);
 
-        SpeedAction speedAction = determineSpeedAction(carDriver);
+        SpeedAction speedAction = determineSpeedAction(IDriver);
 
-        return selectBestMove(speedAction, brakeCandidates, neutralCandidates, gasCandidates, carDriver, circuit);
+        return selectBestMove(speedAction, brakeCandidates, neutralCandidates, gasCandidates, IDriver, circuit);
     }
 
 
 
-    private SpeedAction determineSpeedAction(CarDriver carDriver) {
-        IPawn car = carDriver.getCar();
+    private SpeedAction determineSpeedAction(IDriver IDriver) {
+        IPawn car = IDriver.getCar();
         GridPoint pivot = car.getPivot();
-        GridPoint target = carDriver.waypointTarget.getCenter();
+        GridPoint target = IDriver.getWaypointTarget().getCenter();
         double deviation = calculateTrajectoryDeviation(car, target, pivot);
         double distanceToTarget = pivot.distanceTo(target);
-        double medianDistance = getMedian(carDriver.waypointTarget).distanceTo(target);
+        double medianDistance = getMedian(IDriver.getWaypointTarget()).distanceTo(target);
 
         if ((distanceToTarget < medianDistance - brakeDistance || deviation > deviationThreshold) && car.getVelocityModule() > minVelocity) {
             return SpeedAction.BRAKE;
@@ -74,9 +75,9 @@ public class AdvancedStrategy extends Strategy {
         return SpeedAction.NEUTRAL;
     }
 
-    private static CarDriver.Move selectBestMove(SpeedAction speedAction, List<MoveCandidate> brakes,
+    private static Move selectBestMove(SpeedAction speedAction, List<MoveCandidate> brakes,
                                           List<MoveCandidate> neutrals, List<MoveCandidate> gas,
-                                          CarDriver carDriver, ICircuit circuit) {
+                                          IDriver IDriver, ICircuit circuit) {
 
         List<List<MoveCandidate>> prioritizedMoves = switch (speedAction) {
             case BRAKE -> List.of(brakes, neutrals, gas);
@@ -85,7 +86,7 @@ public class AdvancedStrategy extends Strategy {
         };
 
         for (List<MoveCandidate> moveList : prioritizedMoves) {
-            List<MoveCandidate> filteredMoves = filterValidMoves(moveList, carDriver, circuit);
+            List<MoveCandidate> filteredMoves = filterValidMoves(moveList, IDriver, circuit);
             if (!filteredMoves.isEmpty()) {
                 return filteredMoves.stream()
                         .min(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget))
@@ -94,6 +95,6 @@ public class AdvancedStrategy extends Strategy {
             }
         }
 
-        return CarDriver.Move.BL;
+        return Move.BL;
     }
 }

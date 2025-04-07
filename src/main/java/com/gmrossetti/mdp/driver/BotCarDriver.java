@@ -18,13 +18,12 @@ class BotCarDriver extends CarDriver{
         this.circuit = circuit;
         this.strategy = strategy;
     }
-
+    @Override
     public final GridLine makeMove(){
         Move move = getNextMove();
 
         return super.processMove(move);
     }
-
     private Move getNextMove(){
         return strategy.chooseBestMove(this, circuit);
     }

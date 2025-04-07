@@ -1,7 +1,8 @@
 package com.gmrossetti.mdp.strategy.concrete;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.IDriver;
+import com.gmrossetti.mdp.driver.Move;
 import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.cartesian.GridPoint;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
@@ -19,8 +20,8 @@ public class BasicStrategy extends Strategy {
     }
 
     @Override
-    public CarDriver.Move chooseBestMove(CarDriver carDriver, ICircuit circuit) {
-        final Waypoint currentWaypoint = carDriver.waypointTarget;
+    public Move chooseBestMove(IDriver carDriver, ICircuit circuit) {
+        final Waypoint currentWaypoint = carDriver.getWaypointTarget();
 
         if (!currentWaypoint.hasPrevious()) {
             throw new IllegalStateException("CarDriver must be initialized with the second waypoint");
@@ -29,10 +30,10 @@ public class BasicStrategy extends Strategy {
         final GridPoint target = currentWaypoint.getCenter();
 
         final List<MoveCandidate> filteredValidMoves = filterValidMoves(generateMoveCandidates(carDriver.getMovesPoints(),
-                carDriver.getCar().getPosition(),target,getMedian(carDriver.waypointTarget)), carDriver, circuit);
+                carDriver.getCar().getPosition(),target,getMedian(carDriver.getWaypointTarget())), carDriver, circuit);
 
         if(filteredValidMoves.isEmpty()){
-            return CarDriver.Move.BL;
+            return Move.BL;
         }
 
         if (carDriver.getCar().getVelocityModule() > maxVelocity){
