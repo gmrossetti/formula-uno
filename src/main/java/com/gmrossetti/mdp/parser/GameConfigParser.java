@@ -2,8 +2,8 @@ package com.gmrossetti.mdp.parser;
 
 import com.gmrossetti.mdp.circuit.CircuitFactory;
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.driver.BotCarDriver;
-import com.gmrossetti.mdp.driver.BotCarDriverFactory;
+import com.gmrossetti.mdp.driver.BotDriverFactory;
+import com.gmrossetti.mdp.driver.IDriver;
 import com.gmrossetti.mdp.strategy.StrategyParameters;
 import com.gmrossetti.mdp.strategy.StrategyType;
 import org.json.JSONArray;
@@ -24,7 +24,7 @@ public class GameConfigParser {
             String circuitName = jsonObject.getString("circuitName");
 
             ICircuit circuit = CircuitFactory.buildCircuit(circuitName);
-            List<BotCarDriver> botCarDrivers = parseBots(jsonObject, circuit);
+            List<IDriver> botCarDrivers = parseBots(jsonObject, circuit);
 
             return new GameConfigObject(circuit, botCarDrivers);
 
@@ -41,9 +41,16 @@ public class GameConfigParser {
         return inputStream;
     }
 
-    private static List<BotCarDriver> parseBots(JSONObject jsonObject, ICircuit circuit) {
+    /**
+     * Parses the bots from the JSON object.
+     *
+     * @param jsonObject The JSON object containing the bot configuration.
+     * @param circuit    The circuit to which the bots belong.
+     * @return A list of BotCarDriver objects representing the bots.
+     */
+    private static List<IDriver> parseBots(JSONObject jsonObject, ICircuit circuit) {
         JSONArray bots = jsonObject.getJSONArray("bots");
-        List<BotCarDriver> botCarDrivers = new ArrayList<>();
+        List<IDriver> drivers = new ArrayList<>();
 
         for (Object bot : bots) {
             JSONObject jsonBot = (JSONObject) bot;
@@ -54,11 +61,11 @@ public class GameConfigParser {
             StrategyParameters strategyParameters = parseStrategyParameters(strategyParams);
 
             for (int i = 0; i < quantity; i++) {
-                botCarDrivers.add(BotCarDriverFactory.build(circuit, strategyType, strategyParameters));
+                drivers.add(BotDriverFactory.build(circuit, strategyType, strategyParameters));
             }
         }
 
-        return botCarDrivers;
+        return drivers;
     }
 
     private static StrategyParameters parseStrategyParameters(JSONObject strategyParams) {

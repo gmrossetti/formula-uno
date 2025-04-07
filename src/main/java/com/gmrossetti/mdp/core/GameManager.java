@@ -60,8 +60,8 @@ public class GameManager {
 
         gameLoop.start();
 
-        HumanCarDriver humanCarDriver = HumanCarDriverFactory.build(circuit);
-        gameState.addCarDriver(humanCarDriver);
+//        IDriver humanCarDriver = HumanDriverFactory.build(circuit);
+//        gameState.addCarDriver(humanCarDriver);
     }
 
     public void reset(){

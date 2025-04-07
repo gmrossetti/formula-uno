@@ -2,6 +2,7 @@ package com.gmrossetti.mdp.driver;
 
 import com.gmrossetti.mdp.cartesian.GridPoint;
 
+// TODO: refactor in Record class
 public class MoveCandidate {
     private final GridPoint movePoint;
 

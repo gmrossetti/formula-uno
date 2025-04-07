@@ -2,8 +2,8 @@ package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.core.GameState;
 import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.IDriver;
 import com.gmrossetti.mdp.pawn.IPawn;
-import com.gmrossetti.mdp.driver.HumanCarDriver;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -27,18 +27,18 @@ public class RaceView extends StackPane {
 
         this.setStyle("-fx-padding: 20px;");
 
-        for (CarDriver carDriver:
+        for (IDriver driver:
                 gameState.getCarDrivers()) {
 
             Color color;
 
-            if(carDriver instanceof HumanCarDriver){
+            if(driver.equals(gameState.getHumanCarDriver())){
                 color = Color.YELLOW;
             } else {
                 color = Color.MAGENTA;
             }
 
-            IPawn car = carDriver.getCar();
+            IPawn car = driver.getCar();
             CarView carView = new CarView(car, color);
 
             this.carViews.add(carView);
@@ -50,12 +50,12 @@ public class RaceView extends StackPane {
 
     public void update(GameState gameState){
         ArrayList<IPawn> cars = new ArrayList<>();
-        ArrayList<CarDriver> carDrivers = new ArrayList<>();
+        ArrayList<IDriver> drivers = new ArrayList<>();
 
-        for (CarDriver carDriver:
+        for (IDriver driver:
                 gameState.getCarDrivers()) {
-            carDrivers.add(carDriver);
-            cars.add(carDriver.getCar());
+            drivers.add(driver);
+            cars.add(driver.getCar());
         }
 
         // Aggiorna le auto esistenti senza ricrearle
@@ -69,7 +69,7 @@ public class RaceView extends StackPane {
                 // Se ci sono nuove auto, le creiamo e aggiungiamo alla lista
                 Color color;
 
-                if(carDrivers.get(i) instanceof HumanCarDriver){
+                if(drivers.get(i).equals(gameState.getHumanCarDriver())){
                     color = Color.YELLOW;
                 } else {
                     color = Color.MAGENTA;

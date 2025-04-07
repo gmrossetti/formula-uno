@@ -15,7 +15,7 @@ public class GameLoop extends AnimationTimer {
     public void handle(long l) {
         // aggiornamento stato tramite logica
         if(InputHandler.getInstance().hasMove()){
-            gameLogic.nextStep(InputHandler.getInstance().popMove());
+            gameLogic.nextStep();
 
             GameManager.getInstance().checkIfGameEnded();
         }
