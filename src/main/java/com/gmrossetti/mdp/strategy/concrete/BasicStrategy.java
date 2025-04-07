@@ -20,8 +20,8 @@ public class BasicStrategy extends Strategy {
     }
 
     @Override
-    public Move chooseBestMove(IDriver carDriver, ICircuit circuit) {
-        final Waypoint currentWaypoint = carDriver.getWaypointTarget();
+    public Move chooseBestMove(IDriver driver, ICircuit circuit) {
+        final Waypoint currentWaypoint = driver.getWaypointTarget();
 
         if (!currentWaypoint.hasPrevious()) {
             throw new IllegalStateException("CarDriver must be initialized with the second waypoint");
@@ -29,14 +29,14 @@ public class BasicStrategy extends Strategy {
 
         final GridPoint target = currentWaypoint.getCenter();
 
-        final List<MoveCandidate> filteredValidMoves = filterValidMoves(generateMoveCandidates(carDriver.getMovesPoints(),
-                carDriver.getCar().getPosition(),target,getMedian(carDriver.getWaypointTarget())), carDriver, circuit);
+        final List<MoveCandidate> filteredValidMoves = filterValidMoves(generateMoveCandidates(driver.getMovesPoints(),
+                driver.getCar().getPosition(),target,getMedian(driver.getWaypointTarget())), driver, circuit);
 
         if(filteredValidMoves.isEmpty()){
             return Move.BL;
         }
 
-        if (carDriver.getCar().getVelocityModule() > maxVelocity){
+        if (driver.getCar().getVelocityModule() > maxVelocity){
             return filteredValidMoves.stream()
                     .min(Comparator.comparingDouble(MoveCandidate::getDistanceToCurrent))
                     .orElseThrow().getMove();

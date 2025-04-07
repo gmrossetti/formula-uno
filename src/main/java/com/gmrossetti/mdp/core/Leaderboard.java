@@ -16,21 +16,21 @@ public class Leaderboard {
         return entries.isEmpty();
     }
 
-    public boolean containsCarDriver(IDriver carDriver){
-        return entries.stream().anyMatch(leaderboardEntry -> leaderboardEntry.driver().equals(carDriver));
+    public boolean containsDriver(IDriver driver){
+        return entries.stream().anyMatch(leaderboardEntry -> leaderboardEntry.driver().equals(driver));
     }
 
-    public LeaderboardEntry getLeaderboardEntry(IDriver carDriver){
-        LeaderboardEntry result = entries.stream().filter(leaderboardEntry -> leaderboardEntry.driver().equals(carDriver))
+    public LeaderboardEntry getLeaderboardEntry(IDriver driver){
+        LeaderboardEntry result = entries.stream().filter(leaderboardEntry -> leaderboardEntry.driver().equals(driver))
                 .findFirst().orElse(null);
 
-        if(result == null) throw new NoSuchElementException("carDriver provided not found.");
+        if(result == null) throw new NoSuchElementException("driver provided not found.");
 
         return result;
     }
 
-    public int getPosition(IDriver carDriver) {
-        if(getLeaderboardEntry(carDriver).isDisqualified()){
+    public int getPosition(IDriver driver) {
+        if(getLeaderboardEntry(driver).isDisqualified()){
             throw new RuntimeException("Cannot call getPosition on a disqualified CarDriver.");
         }
 
@@ -39,7 +39,7 @@ public class Leaderboard {
         for (LeaderboardEntry leaderboardEntry:
              entries) {
 
-            if(leaderboardEntry.driver().equals(carDriver)){
+            if(leaderboardEntry.driver().equals(driver)){
                 return positionCnt;
             }
 

@@ -11,7 +11,7 @@ public class GameState {
     final IDriver humanDriver;
 
     public boolean isRaceActive() {
-        return !getCarDriversStillPlaying().isEmpty() && getCarDriversStillPlaying().contains(getHumanCarDriver()) ||
+        return !getDriversStillPlaying().isEmpty() && getDriversStillPlaying().contains(getHumanDriver()) ||
                 getLeaderboard().isEmpty();
     }
     private final ICircuit circuit;
@@ -19,7 +19,7 @@ public class GameState {
         return circuit;
     }
 
-    final private Set<IDriver> carDrivers;
+    final private Set<IDriver> drivers;
 
     public Leaderboard getLeaderboard() {
         return leaderboard;
@@ -27,42 +27,44 @@ public class GameState {
 
     final private Leaderboard leaderboard;
 
-    public Set<IDriver> getCarDrivers() {
-        return carDrivers;
+    public Set<IDriver> getDrivers() {
+        return drivers;
     }
 
-    public Set<IDriver> getCarDriversStillPlaying() {
-        return carDrivers.stream()
+    public Set<IDriver> getDriversStillPlaying() {
+        return drivers.stream()
                 .filter(IDriver::hasActiveWaypoint)
-                .filter(carDriver -> !leaderboard.containsCarDriver(carDriver))
+                .filter(drivers -> !leaderboard.containsDriver(drivers))
                 .collect(Collectors.toSet());
     }
 
     public GameState(ICircuit circuit) {
         this.circuit = circuit;
-        carDrivers = new HashSet<>();
+        drivers = new HashSet<>();
         leaderboard = new Leaderboard();
 
+        // TODO: pass all drivers to the constructor
+
         humanDriver = HumanDriverFactory.build(circuit);
-        carDrivers.add(humanDriver);
+        drivers.add(humanDriver);
     }
 
-    public IDriver getHumanCarDriver() {
+    public IDriver getHumanDriver() {
         return humanDriver;
     }
 
-    public void addCarDriver(IDriver driver){
+    public void addDriver(IDriver driver){
         if(!isRaceActive()){
             throw new IllegalStateException("Race ended.");
         }
 
-        carDrivers.add(driver);
+        drivers.add(driver);
     }
 
-    public void addCarDriver(List<IDriver> drivers){
+    public void addDriver(List<IDriver> drivers){
         for (IDriver driver:
                 drivers) {
-            addCarDriver(driver);
+            addDriver(driver);
         }
     }
 }

@@ -11,7 +11,7 @@ public class GameLogic {
     }
 
     public void nextStep(){
-        for (IDriver driver : gameState.getCarDriversStillPlaying()) {
+        for (IDriver driver : gameState.getDriversStillPlaying()) {
             if(!gameState.isRaceActive()) return; // prevents making moves after HumanPlayer lost
 
             final GridLine driverTrace = driver.makeMove();
