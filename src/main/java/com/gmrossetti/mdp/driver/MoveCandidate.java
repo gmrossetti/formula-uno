@@ -6,16 +6,16 @@ import com.gmrossetti.mdp.cartesian.GridPoint;
 public class MoveCandidate {
     private final GridPoint movePoint;
 
-    public CarDriver.Move getMove() {
+    public Move getMove() {
         return move;
     }
 
-    private final CarDriver.Move move;
+    private final Move move;
     private final double distanceToCurrent;
     private final double distanceToTarget;
     private final double distanceToMedian;
 
-    public MoveCandidate(CarDriver.Move move, GridPoint movePoint, double distanceToCurrent, double distanceToTarget, double distanceToMedian) {
+    public MoveCandidate(Move move, GridPoint movePoint, double distanceToCurrent, double distanceToTarget, double distanceToMedian) {
         this.move = move;
         this.movePoint = movePoint;
         this.distanceToCurrent = distanceToCurrent;

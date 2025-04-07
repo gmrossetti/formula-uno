@@ -1,10 +1,10 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.Move;
 
 public class InputHandler {
     private static InputHandler instance;
-    private CarDriver.Move lastMove = null;
+    private Move lastMove = null;
 
     private InputHandler() {} // Costruttore privato
 
@@ -15,12 +15,12 @@ public class InputHandler {
         return instance;
     }
 
-    public void stashInput(CarDriver.Move move){
+    public void stashInput(Move move){
         this.lastMove = move;
     }
 
-    public CarDriver.Move popMove() {
-        CarDriver.Move moveToReturn = this.lastMove;
+    public Move popMove() {
+        Move moveToReturn = this.lastMove;
 
         this.lastMove = null;
 

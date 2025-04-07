@@ -1,6 +1,5 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.driver.IDriver;
 
@@ -15,9 +14,7 @@ public class GameLogic {
         for (IDriver driver : gameState.getCarDriversStillPlaying()) {
             if(!gameState.isRaceActive()) return; // prevents making moves after HumanPlayer lost
 
-            GridLine driverTrace = null;
-
-            driverTrace = driver.makeMove();
+            final GridLine driverTrace = driver.makeMove();
 
             updateGameState(driver, driverTrace);
         }

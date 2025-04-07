@@ -13,10 +13,6 @@ class HumanCarDriver extends CarDriver {
         this.inputHandler = inputHandler;
     }
 
-    public final GridLine makeMove(Move move){
-        return super.processMove(move);
-    }
-
     @Override
     public GridLine makeMove() {
         if(!inputHandler.hasMove()){
