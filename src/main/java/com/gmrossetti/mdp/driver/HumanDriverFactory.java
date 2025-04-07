@@ -11,13 +11,13 @@ public class HumanDriverFactory {
 
     public static IDriver build(ICircuit circuit){
         if(instanceCount >= MAX_HUMAN_INSTANCE_COUNT)
-            throw new IllegalStateException("Cannot build more than " + MAX_HUMAN_INSTANCE_COUNT + " HumanCarDriver instances.");
+            throw new IllegalStateException("Cannot build more than " + MAX_HUMAN_INSTANCE_COUNT + " HumanDriver instances.");
 
         IPawn car = PawnFactory.buildPawn(circuit.getRaceStartPoint().getGridPoint());
-        HumanCarDriver humanCarDriver = new HumanCarDriver(car, InputHandler.getInstance(), circuit);
+        HumanDriver humanDriver = new HumanDriver(car, InputHandler.getInstance(), circuit);
 
         instanceCount++;
 
-        return humanCarDriver;
+        return humanDriver;
     }
 }

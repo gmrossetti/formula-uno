@@ -27,11 +27,11 @@ public class RaceView extends StackPane {
         this.setStyle("-fx-padding: 20px;");
 
         for (IDriver driver:
-                gameState.getCarDrivers()) {
+                gameState.getDrivers()) {
 
             Color color;
 
-            if(driver.equals(gameState.getHumanCarDriver())){
+            if(driver.equals(gameState.getHumanDriver())){
                 color = Color.YELLOW;
             } else {
                 color = Color.MAGENTA;
@@ -52,7 +52,7 @@ public class RaceView extends StackPane {
         ArrayList<IDriver> drivers = new ArrayList<>();
 
         for (IDriver driver:
-                gameState.getCarDrivers()) {
+                gameState.getDrivers()) {
             drivers.add(driver);
             cars.add(driver.getCar());
         }
@@ -68,7 +68,7 @@ public class RaceView extends StackPane {
                 // Se ci sono nuove auto, le creiamo e aggiungiamo alla lista
                 Color color;
 
-                if(drivers.get(i).equals(gameState.getHumanCarDriver())){
+                if(drivers.get(i).equals(gameState.getHumanDriver())){
                     color = Color.YELLOW;
                 } else {
                     color = Color.MAGENTA;

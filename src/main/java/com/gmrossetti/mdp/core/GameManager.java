@@ -48,7 +48,7 @@ public class GameManager {
 
         gameState = new GameState(circuit);
 
-        gameState.addCarDriver(gameConfigObject.botCarDrivers());
+        gameState.addDriver(gameConfigObject.botCarDrivers());
 
         view = new GameView(gameState);
 
@@ -59,9 +59,6 @@ public class GameManager {
         gameLoop = new GameLoop(gameLogic, renderer);
 
         gameLoop.start();
-
-//        IDriver humanCarDriver = HumanDriverFactory.build(circuit);
-//        gameState.addCarDriver(humanCarDriver);
     }
 
     public void reset(){
@@ -77,7 +74,7 @@ public class GameManager {
 
         Leaderboard leaderBoard = gameState.getLeaderboard();
 
-        LeaderboardEntry humanCarDriverLeaderboardEntry = leaderBoard.getLeaderboardEntry(gameState.getHumanCarDriver());
+        LeaderboardEntry humanCarDriverLeaderboardEntry = leaderBoard.getLeaderboardEntry(gameState.getHumanDriver());
 
         // TODO: fix -> se Human arriva in terza posizione, la scritta appare ma il gioco non viene resettato
 
@@ -89,7 +86,7 @@ public class GameManager {
             message = "Sei uscito dalla pista!";
         } else {
             title = "Complimenti!";
-            message = "Hai concluso la gara in " + leaderBoard.getPosition(gameState.getHumanCarDriver()) + "^ posizione!";
+            message = "Hai concluso la gara in " + leaderBoard.getPosition(gameState.getHumanDriver()) + "^ posizione!";
         }
 
         message += "\nIl gioco è stato resettato.";

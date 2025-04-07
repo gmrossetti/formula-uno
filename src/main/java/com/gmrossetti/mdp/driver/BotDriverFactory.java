@@ -13,6 +13,6 @@ public class BotDriverFactory {
         IPawn botCar = PawnFactory.buildPawn(circuit.getRaceStartPoint().getGridPoint());
         IStrategy strategy = StrategyFactory.buildStrategy(strategyType, strategyParameters);
 
-        return new BotCarDriver(botCar, circuit, strategy);
+        return new BotDriver(botCar, circuit, strategy);
     }
 }
