@@ -1,5 +1,5 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.IDriver;
 
-public record LeaderboardEntry(CarDriver carDriver, boolean isDisqualified, String annotations) {}
+public record LeaderboardEntry(IDriver driver, boolean isDisqualified, String annotations) {}

@@ -1,6 +1,7 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.driver.CarDriver;
+import com.gmrossetti.mdp.driver.IDriver;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -16,12 +17,12 @@ public class Leaderboard {
         return entries.isEmpty();
     }
 
-    public boolean containsCarDriver(CarDriver carDriver){
-        return entries.stream().anyMatch(leaderboardEntry -> leaderboardEntry.carDriver().equals(carDriver));
+    public boolean containsCarDriver(IDriver carDriver){
+        return entries.stream().anyMatch(leaderboardEntry -> leaderboardEntry.driver().equals(carDriver));
     }
 
-    public LeaderboardEntry getLeaderboardEntry(CarDriver carDriver){
-        LeaderboardEntry result = entries.stream().filter(leaderboardEntry -> leaderboardEntry.carDriver().equals(carDriver))
+    public LeaderboardEntry getLeaderboardEntry(IDriver carDriver){
+        LeaderboardEntry result = entries.stream().filter(leaderboardEntry -> leaderboardEntry.driver().equals(carDriver))
                 .findFirst().orElse(null);
 
         if(result == null) throw new NoSuchElementException("carDriver provided not found.");
@@ -29,7 +30,7 @@ public class Leaderboard {
         return result;
     }
 
-    public int getPosition(CarDriver carDriver) {
+    public int getPosition(IDriver carDriver) {
         if(getLeaderboardEntry(carDriver).isDisqualified()){
             throw new RuntimeException("Cannot call getPosition on a disqualified CarDriver.");
         }
@@ -39,7 +40,7 @@ public class Leaderboard {
         for (LeaderboardEntry leaderboardEntry:
              entries) {
 
-            if(leaderboardEntry.carDriver().equals(carDriver)){
+            if(leaderboardEntry.driver().equals(carDriver)){
                 return positionCnt;
             }
 

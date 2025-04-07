@@ -5,7 +5,7 @@ import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.strategy.IStrategy;
 
-public class BotCarDriver extends CarDriver{
+class BotCarDriver extends CarDriver{
     public ICircuit getCircuit() {
         return circuit;
     }

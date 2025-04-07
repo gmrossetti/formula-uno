@@ -8,7 +8,7 @@ import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract public class CarDriver {
+abstract public class CarDriver implements IDriver {
     public IPawn getCar() {
         return car;
     }
@@ -30,7 +30,6 @@ abstract public class CarDriver {
     public boolean hasActiveWaypoint(){
         return waypointTarget != null;
     }
-
     protected final GridLine processMove(CarDriver.Move move){
         if(!hasActiveWaypoint()){
             throw new IllegalStateException("CarDriver has no waypoints left");

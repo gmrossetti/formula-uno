@@ -1,13 +1,15 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.driver.CarDriver;
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.driver.HumanCarDriver;
+import com.gmrossetti.mdp.driver.HumanDriverFactory;
+import com.gmrossetti.mdp.driver.IDriver;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameState {
+    final IDriver humanDriver;
+
     public boolean isRaceActive() {
         return !getCarDriversStillPlaying().isEmpty() && getCarDriversStillPlaying().contains(getHumanCarDriver()) ||
                 getLeaderboard().isEmpty();
@@ -17,7 +19,7 @@ public class GameState {
         return circuit;
     }
 
-    final private Set<CarDriver> carDrivers;
+    final private Set<IDriver> carDrivers;
 
     public Leaderboard getLeaderboard() {
         return leaderboard;
@@ -25,13 +27,13 @@ public class GameState {
 
     final private Leaderboard leaderboard;
 
-    public Set<CarDriver> getCarDrivers() {
+    public Set<IDriver> getCarDrivers() {
         return carDrivers;
     }
 
-    public Set<CarDriver> getCarDriversStillPlaying() {
+    public Set<IDriver> getCarDriversStillPlaying() {
         return carDrivers.stream()
-                .filter(CarDriver::hasActiveWaypoint)
+                .filter(IDriver::hasActiveWaypoint)
                 .filter(carDriver -> !leaderboard.containsCarDriver(carDriver))
                 .collect(Collectors.toSet());
     }
@@ -40,31 +42,27 @@ public class GameState {
         this.circuit = circuit;
         carDrivers = new HashSet<>();
         leaderboard = new Leaderboard();
+
+        humanDriver = HumanDriverFactory.build(circuit);
+        carDrivers.add(humanDriver);
     }
 
-    public HumanCarDriver getHumanCarDriver() {
-        for (CarDriver carDriver:
-                getCarDrivers()) {
-            if(carDriver instanceof HumanCarDriver){
-                return (HumanCarDriver) carDriver;
-            }
-        }
-
-        return null;
+    public IDriver getHumanCarDriver() {
+        return humanDriver;
     }
 
-    public void addCarDriver(CarDriver carDriver){
+    public void addCarDriver(IDriver driver){
         if(!isRaceActive()){
             throw new IllegalStateException("Race ended.");
         }
 
-        carDrivers.add(carDriver);
+        carDrivers.add(driver);
     }
 
-    public void addCarDriver(List<? extends CarDriver> carDrivers){
-        for (CarDriver carDriver:
-                carDrivers) {
-            addCarDriver(carDriver);
+    public void addCarDriver(List<IDriver> drivers){
+        for (IDriver driver:
+                drivers) {
+            addCarDriver(driver);
         }
     }
 }

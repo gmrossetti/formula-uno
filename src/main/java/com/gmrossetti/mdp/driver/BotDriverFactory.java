@@ -8,8 +8,8 @@ import com.gmrossetti.mdp.strategy.StrategyFactory;
 import com.gmrossetti.mdp.strategy.StrategyParameters;
 import com.gmrossetti.mdp.strategy.StrategyType;
 
-public class BotCarDriverFactory {
-    public static BotCarDriver build(ICircuit circuit, StrategyType strategyType, StrategyParameters strategyParameters){
+public class BotDriverFactory {
+    public static IDriver build(ICircuit circuit, StrategyType strategyType, StrategyParameters strategyParameters){
         IPawn botCar = PawnFactory.buildPawn(circuit.getRaceStartPoint().getGridPoint());
         IStrategy strategy = StrategyFactory.buildStrategy(strategyType, strategyParameters);
 
