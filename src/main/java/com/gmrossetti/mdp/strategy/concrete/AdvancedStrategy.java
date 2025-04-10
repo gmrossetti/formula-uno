@@ -45,7 +45,7 @@ public class AdvancedStrategy extends Strategy {
         final Point medianPoint = new GridLine(previousWaypoint.getCenter(), currentWaypoint.getCenter()).getMedianPoint();
 
         List<MoveCandidate> moveCandidates = generateMoveCandidates(movesPoints, currentPosition, currentWaypoint.getCenter(), medianPoint);
-        moveCandidates.sort(Comparator.comparingDouble(MoveCandidate::getDistanceToCurrent));
+        moveCandidates.sort(Comparator.comparingDouble(MoveCandidate::distanceToCurrent));
 
         List<MoveCandidate> brakeCandidates = moveCandidates.subList(0, 3);
         List<MoveCandidate> neutralCandidates = moveCandidates.subList(3, 6);
@@ -89,9 +89,9 @@ public class AdvancedStrategy extends Strategy {
             List<MoveCandidate> filteredMoves = filterValidMoves(moveList, IDriver, circuit);
             if (!filteredMoves.isEmpty()) {
                 return filteredMoves.stream()
-                        .min(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget))
+                        .min(Comparator.comparingDouble(MoveCandidate::distanceToTarget))
                         .orElseThrow()
-                        .getMove();
+                        .move();
             }
         }
 
