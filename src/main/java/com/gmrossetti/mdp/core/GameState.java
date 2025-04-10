@@ -3,6 +3,7 @@ package com.gmrossetti.mdp.core;
 import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.driver.HumanDriverFactory;
 import com.gmrossetti.mdp.driver.IDriver;
+import com.gmrossetti.mdp.leaderboard.Leaderboard;
 
 import java.util.*;
 import java.util.stream.Collectors;

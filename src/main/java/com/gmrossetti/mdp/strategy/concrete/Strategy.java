@@ -4,7 +4,7 @@ import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.driver.IDriver;
 import com.gmrossetti.mdp.driver.Move;
 import com.gmrossetti.mdp.pawn.IPawn;
-import com.gmrossetti.mdp.core.DriverMoveValidator;
+import com.gmrossetti.mdp.driver.DriverMoveValidator;
 import com.gmrossetti.mdp.driver.MoveCandidate;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.cartesian.GridPoint;
