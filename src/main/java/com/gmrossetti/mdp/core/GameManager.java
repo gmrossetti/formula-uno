@@ -1,7 +1,8 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.driver.*;
+import com.gmrossetti.mdp.leaderboard.Leaderboard;
+import com.gmrossetti.mdp.leaderboard.LeaderboardEntry;
 import com.gmrossetti.mdp.parser.GameConfigObject;
 import com.gmrossetti.mdp.parser.GameConfigParser;
 import com.gmrossetti.mdp.view.GameView;
