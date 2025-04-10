@@ -1,7 +1,6 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
-import com.gmrossetti.mdp.driver.HumanDriverFactory;
 import com.gmrossetti.mdp.driver.IDriver;
 import com.gmrossetti.mdp.leaderboard.Leaderboard;
 
@@ -20,7 +19,7 @@ public class GameState {
         return circuit;
     }
 
-    final private Set<IDriver> drivers;
+    final private List<IDriver> drivers;
 
     public Leaderboard getLeaderboard() {
         return leaderboard;
@@ -28,44 +27,30 @@ public class GameState {
 
     final private Leaderboard leaderboard;
 
-    public Set<IDriver> getDrivers() {
+    public List<IDriver> getDrivers() {
         return drivers;
     }
 
-    public Set<IDriver> getDriversStillPlaying() {
+    public List<IDriver> getDriversStillPlaying() {
         return drivers.stream()
                 .filter(IDriver::hasActiveWaypoint)
                 .filter(drivers -> !leaderboard.containsDriver(drivers))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
-    public GameState(ICircuit circuit) {
+    public GameState(ICircuit circuit, IDriver humanDriver, Collection<IDriver> botDrivers) {
         this.circuit = circuit;
-        drivers = new HashSet<>();
+        drivers = new ArrayList<>();
         leaderboard = new Leaderboard();
 
-        // TODO: pass all drivers to the constructor
-
-        humanDriver = HumanDriverFactory.build(circuit);
+        // aggiunge il driver umano per primo in modo da garantire che sia il primo a scegliere la mossa
+        this.humanDriver = humanDriver;
         drivers.add(humanDriver);
+
+        drivers.addAll(botDrivers);
     }
 
     public IDriver getHumanDriver() {
         return humanDriver;
-    }
-
-    public void addDriver(IDriver driver){
-        if(!isRaceActive()){
-            throw new IllegalStateException("Race ended.");
-        }
-
-        drivers.add(driver);
-    }
-
-    public void addDriver(List<IDriver> drivers){
-        for (IDriver driver:
-                drivers) {
-            addDriver(driver);
-        }
     }
 }

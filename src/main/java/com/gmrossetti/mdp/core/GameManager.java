@@ -1,6 +1,7 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
+import com.gmrossetti.mdp.driver.HumanDriverFactory;
 import com.gmrossetti.mdp.leaderboard.Leaderboard;
 import com.gmrossetti.mdp.leaderboard.LeaderboardEntry;
 import com.gmrossetti.mdp.parser.GameConfigObject;
@@ -47,9 +48,7 @@ public class GameManager {
 
         ICircuit circuit = gameConfigObject.circuit();
 
-        gameState = new GameState(circuit);
-
-        gameState.addDriver(gameConfigObject.botCarDrivers());
+        gameState = new GameState(circuit, HumanDriverFactory.build(circuit), gameConfigObject.botCarDrivers());
 
         view = new GameView(gameState);
 
