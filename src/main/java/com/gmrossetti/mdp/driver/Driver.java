@@ -13,9 +13,7 @@ abstract class Driver implements IDriver {
         return car;
     }
 
-    // TODO: togliere public
-    public Waypoint waypointTarget;
-
+    private Waypoint waypointTarget;
     private final IPawn car;
 
     public Driver(IPawn car, Waypoint waypointHead){

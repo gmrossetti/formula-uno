@@ -38,12 +38,12 @@ public class BasicStrategy extends Strategy {
 
         if (driver.getCar().getVelocityModule() > maxVelocity){
             return filteredValidMoves.stream()
-                    .min(Comparator.comparingDouble(MoveCandidate::getDistanceToCurrent))
-                    .orElseThrow().getMove();
+                    .min(Comparator.comparingDouble(MoveCandidate::distanceToCurrent))
+                    .orElseThrow().move();
         }
 
         return filteredValidMoves.stream()
-                .min(Comparator.comparingDouble(MoveCandidate::getDistanceToTarget))
-                .orElseThrow().getMove();
+                .min(Comparator.comparingDouble(MoveCandidate::distanceToTarget))
+                .orElseThrow().move();
     }
 }
