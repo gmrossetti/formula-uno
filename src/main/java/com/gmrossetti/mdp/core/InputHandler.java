@@ -1,6 +1,6 @@
 package com.gmrossetti.mdp.core;
 
-import com.gmrossetti.mdp.driver.Move;
+import com.gmrossetti.mdp.driver.move.Move;
 
 public class InputHandler {
     private static InputHandler instance;

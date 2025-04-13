@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.view;
 
 import com.gmrossetti.mdp.core.InputHandler;
-import com.gmrossetti.mdp.driver.Move;
+import com.gmrossetti.mdp.driver.move.Move;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
