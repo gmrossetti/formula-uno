@@ -1,6 +1,7 @@
 package com.gmrossetti.mdp.driver;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
+import com.gmrossetti.mdp.driver.move.Move;
 import com.gmrossetti.mdp.pawn.IPawn;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.strategy.IStrategy;

@@ -1,4 +1,4 @@
-package com.gmrossetti.mdp.driver;
+package com.gmrossetti.mdp.driver.move;
 
 import com.gmrossetti.mdp.circuit.ICircuit;
 import com.gmrossetti.mdp.cartesian.GridLine;

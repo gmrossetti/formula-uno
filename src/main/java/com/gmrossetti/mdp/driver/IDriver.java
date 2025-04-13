@@ -3,6 +3,7 @@ package com.gmrossetti.mdp.driver;
 import com.gmrossetti.mdp.cartesian.GridLine;
 import com.gmrossetti.mdp.cartesian.GridPoint;
 import com.gmrossetti.mdp.circuit.waypoint.Waypoint;
+import com.gmrossetti.mdp.driver.move.Move;
 import com.gmrossetti.mdp.pawn.IPawn;
 
 import java.util.Map;

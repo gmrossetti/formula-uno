@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.core;
 
 import com.gmrossetti.mdp.cartesian.GridLine;
-import com.gmrossetti.mdp.driver.DriverMoveValidator;
+import com.gmrossetti.mdp.driver.move.DriverMoveValidator;
 import com.gmrossetti.mdp.driver.IDriver;
 import com.gmrossetti.mdp.leaderboard.LeaderboardEntry;
 
