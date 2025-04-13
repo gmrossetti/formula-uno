@@ -68,29 +68,12 @@ public class GameManager {
         gameScene.setRoot(view);
     }
 
-    public void checkIfGameEnded() {
+    public void ifGameEndedShowResults() {
         if(gameState.isRaceActive()) return;
 
         gameLoop.stop();
 
-        Leaderboard leaderBoard = gameState.getLeaderboard();
-
-        LeaderboardEntry humanCarDriverLeaderboardEntry = leaderBoard.getLeaderboardEntry(gameState.getHumanDriver());
-
-        String title;
-        String message;
-
-        if(humanCarDriverLeaderboardEntry.isDisqualified()){
-            title = "Squalificato!";
-            message = "Sei uscito dalla pista!";
-        } else {
-            title = "Complimenti!";
-            message = "Hai concluso la gara in " + leaderBoard.getPosition(gameState.getHumanDriver()) + "^ posizione!";
-        }
-
-        message += "\nIl gioco è stato resettato.";
-
-        RaceResult raceResult = new RaceResult(title, message);
+        RaceResult raceResult = new RaceResult(gameState);
 
         raceResult.show();
         reset();

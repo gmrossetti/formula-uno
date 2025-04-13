@@ -17,7 +17,7 @@ public class GameLoop extends AnimationTimer {
         if(InputHandler.getInstance().hasMove()){
             gameLogic.nextStep();
 
-            GameManager.getInstance().checkIfGameEnded();
+            GameManager.getInstance().ifGameEndedShowResults();
         }
 
         renderer.update();
