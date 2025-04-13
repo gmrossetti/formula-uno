@@ -7,6 +7,7 @@ import com.gmrossetti.mdp.leaderboard.LeaderboardEntry;
 import com.gmrossetti.mdp.parser.GameConfigObject;
 import com.gmrossetti.mdp.parser.GameConfigParser;
 import com.gmrossetti.mdp.view.GameView;
+import com.gmrossetti.mdp.view.RaceResult;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
@@ -89,19 +90,9 @@ public class GameManager {
 
         message += "\nIl gioco è stato resettato.";
 
-        showAlert(title, message);
+        RaceResult raceResult = new RaceResult(title, message);
+
+        raceResult.show();
         reset();
-    }
-
-    public void showAlert(String title, String message){
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle(title);
-        dialog.setHeaderText(message);
-
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-
-        dialog.initStyle(StageStyle.UNDECORATED);
-
-        Platform.runLater(dialog::showAndWait);
     }
 }
