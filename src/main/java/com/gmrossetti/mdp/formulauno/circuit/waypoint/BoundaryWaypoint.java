@@ -5,13 +5,27 @@ import com.gmrossetti.mdp.formulauno.cartesian.GridPoint;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a boundary waypoint in the circuit.
+ * A boundary waypoint is defined by its center point, width, height, and type (START or FINISH).
+ * It also calculates the grid points within its range based on its dimensions.
+ */
 public class BoundaryWaypoint extends Waypoint {
+    /**
+     * The type of the boundary waypoint, either START or FINISH.
+     */
     private final Type type;
 
+    /**
+     * The width of the boundary waypoint.
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * The height of the boundary waypoint.
+     */
     public int getHeight() {
         return height;
     }
@@ -28,6 +42,14 @@ public class BoundaryWaypoint extends Waypoint {
         FINISH
     }
 
+    /**
+     * Constructor for creating a BoundaryWaypoint.
+     *
+     * @param center The center point of the boundary waypoint.
+     * @param width  The width of the boundary waypoint.
+     * @param height The height of the boundary waypoint.
+     * @param type   The type of the boundary waypoint (START or FINISH).
+     */
     public BoundaryWaypoint(GridPoint center, int width, int height, Type type){
         super(center);
 
