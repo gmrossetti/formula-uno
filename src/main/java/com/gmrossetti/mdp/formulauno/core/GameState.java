@@ -12,17 +12,12 @@ import java.util.stream.Collectors;
  * It contains information about the circuit, drivers, and leaderboard.
  */
 public class GameState {
-    /**
-     * Returns the human driver of the game.
-     *
-     * @return The human driver.
-     */
     final IDriver humanDriver;
 
     /**
-     * Returns the human driver of the game.
+     * Checks if Human Driver is still in game.
      *
-     * @return The human driver.
+     * @return true if human is still playing, false otherwise.
      */
     public boolean isRaceActive() {
         return !getDriversStillPlaying().isEmpty() && getDriversStillPlaying().contains(getHumanDriver()) ||
@@ -39,11 +34,6 @@ public class GameState {
         return circuit;
     }
 
-    /**
-     * Returns the circuit of the game.
-     *
-     * @return The circuit.
-     */
     final private List<IDriver> drivers;
 
     /**
@@ -97,6 +87,11 @@ public class GameState {
         drivers.addAll(botDrivers);
     }
 
+    /**
+     * Returns the human driver.
+     *
+     * @return The human driver.
+     */
     public IDriver getHumanDriver() {
         return humanDriver;
     }

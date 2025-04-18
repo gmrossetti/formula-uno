@@ -11,9 +11,7 @@ public class InputHandler {
     private Move lastMove = null;
 
     /**
-     * Retrieves the singleton instance of the InputHandler.
-     *
-     * @return the singleton instance of InputHandler
+     * Private constructor to prevent instantiation.
      */
     private InputHandler() {} // Costruttore privato
 
