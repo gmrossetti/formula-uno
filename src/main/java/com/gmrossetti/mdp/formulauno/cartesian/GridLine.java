@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Provides methods to calculate properties such as slope, median point, and
  * intersections with the grid.
  */
-public class GridLine implements ProperGridLine {
+public class GridLine {
     
     /** The starting point of the grid line. */
     private final GridPoint start;
@@ -79,7 +79,6 @@ public class GridLine implements ProperGridLine {
      *
      * @return the slope of the grid line in degrees
      */
-    @Override
     public double getSlopeCoefficientToDegrees() {
         final double m = this.getSlopeCoefficient();
 
@@ -95,7 +94,6 @@ public class GridLine implements ProperGridLine {
      * @return the slope coefficient of the grid line
      * @throws UnsupportedOperationException if the grid line is degenerate
      */
-    @Override
     public double getSlopeCoefficient(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
 
@@ -111,7 +109,6 @@ public class GridLine implements ProperGridLine {
      * @return a set of intersection points as {@link Point} objects
      * @throws UnsupportedOperationException if the grid line is degenerate
      */
-    @Override
     public Set<Point> getLineIntersectionsWithGrid() {
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
 
@@ -155,7 +152,6 @@ public class GridLine implements ProperGridLine {
      * @return a list of nearest grid points sorted by distance from the start point
      * @throws UnsupportedOperationException if the grid line is degenerate
      */
-    @Override
     public List<GridPoint> getNearestGridPointsOnIntersections(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
 
@@ -167,11 +163,9 @@ public class GridLine implements ProperGridLine {
             intersectionGridPoints.addAll(intersectionPoint.getNearestDiscretePoints());
         }
 
-        List<GridPoint> sortedByDistanceGridPoints = intersectionGridPoints.stream()
+        return intersectionGridPoints.stream()
                 .sorted(Comparator.comparingDouble(p -> p.distanceTo(this.start)))
                 .collect(Collectors.toList());
-
-        return sortedByDistanceGridPoints;
     }
 
     /**
