@@ -32,10 +32,10 @@ public class DriverTest {
 
         assertNotNull(driver, "Driver should be created successfully");
 
-        GridPoint prevPos = driver.getCar().getPosition();
+        GridPoint prevPos = driver.getPawn().getPosition();
 
         // Add specific assertions to test the functionality of the Driver
         driver.makeMove();
-        assertNotSame(driver.getCar().getPosition(), prevPos, "Driver should have moved after calling move()");
+        assertNotSame(driver.getPawn().getPosition(), prevPos, "Driver should have moved after calling move()");
     }
 }

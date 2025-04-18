@@ -10,15 +10,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 abstract class Driver implements IDriver {
-    public IPawn getCar() {
-        return car;
+    public IPawn getPawn() {
+        return pawn;
     }
 
     private Waypoint waypointTarget;
-    private final IPawn car;
+    private final IPawn pawn;
 
-    public Driver(IPawn car, Waypoint waypointHead){
-        this.car = car;
+    public Driver(IPawn pawn, Waypoint waypointHead){
+        this.pawn = pawn;
         this.waypointTarget = waypointHead.getNext();
     }
     @Override
@@ -33,7 +33,7 @@ abstract class Driver implements IDriver {
     public final Map<Move, GridPoint> getMovesPoints(){
         final Map<Move,GridPoint> movesPoint = new HashMap<>();
 
-        GridPoint pivot = this.car.getPivot();
+        GridPoint pivot = this.pawn.getPivot();
 
         movesPoint.put(Move.TL, new GridPoint(pivot.x - 1, pivot.y - 1));
         movesPoint.put(Move.TM, new GridPoint(pivot.x, pivot.y - 1));
@@ -56,9 +56,9 @@ abstract class Driver implements IDriver {
 
         GridPoint point2reach = getMovesPoints().get(move);
 
-        final GridLine trace = new GridLine(this.car.getPosition(),point2reach);
+        final GridLine trace = new GridLine(this.pawn.getPosition(),point2reach);
 
-        this.car.move(point2reach);
+        this.pawn.move(point2reach);
 
         if(waypointTarget.isWithinRange(trace)){
             System.out.println("Waypoint " +  waypointTarget + " raggiunto.");

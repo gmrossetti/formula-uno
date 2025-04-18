@@ -37,7 +37,7 @@ public class RaceView extends StackPane {
                 color = Color.MAGENTA;
             }
 
-            IPawn car = driver.getCar();
+            IPawn car = driver.getPawn();
             CarView carView = new CarView(car, color);
 
             this.carViews.add(carView);
@@ -54,7 +54,7 @@ public class RaceView extends StackPane {
         for (IDriver driver:
                 gameState.getDrivers()) {
             drivers.add(driver);
-            cars.add(driver.getCar());
+            cars.add(driver.getPawn());
         }
 
         // Aggiorna le auto esistenti senza ricrearle
