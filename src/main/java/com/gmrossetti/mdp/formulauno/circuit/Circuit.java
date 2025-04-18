@@ -7,12 +7,22 @@ import com.gmrossetti.mdp.formulauno.cartesian.GridPoint;
 
 import java.util.*;
 
+/**
+ * Represents a circuit composed of tiles and waypoints.
+ * The circuit is defined by a grid of tiles and a list of waypoints.
+ */
 class Circuit implements ICircuit {
     private final ITile[][] grid;
     private final ITile raceStartCircuitGridPoint;
     private final List<Waypoint> waypoints;
     private final Waypoint waypointsHead;
 
+    /**
+     * Constructor for creating a Circuit.
+     *
+     * @param grid      The grid of tiles representing the circuit.
+     * @param waypoints The list of waypoints in the circuit.
+     */
     public Circuit(ITile[][] grid, List<Waypoint> waypoints){
         this.grid = grid;
         this.waypoints = waypoints;
@@ -24,6 +34,13 @@ class Circuit implements ICircuit {
         this.raceStartCircuitGridPoint = getTile(raceStartGridPoint);
     }
 
+    /**
+     * Generates a linked list of waypoints from the given list of waypoints.
+     * The first waypoint in the list becomes the head of the linked list.
+     *
+     * @param waypoints The list of waypoints to be converted into a linked list.
+     * @return The head of the linked list of waypoints.
+     */
     private static Waypoint generateWaypointLinkedList(List<Waypoint> waypoints){
         List<Waypoint> waypointsCopy = new ArrayList<>(waypoints);
 

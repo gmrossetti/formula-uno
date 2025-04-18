@@ -7,6 +7,10 @@ import com.gmrossetti.mdp.formulauno.parser.CircuitParser;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Factory class for creating a circuit.
+ * The circuit is built by parsing an image and a JSON file.
+ */
 public final class CircuitFactory {
     public static ICircuit buildCircuit(String circuitName){
         try {
