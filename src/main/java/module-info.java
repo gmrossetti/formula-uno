@@ -1,21 +1,21 @@
-module com.gmrossetti.mdp {
+module com.gmrossetti.mdp.formulauno {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
     requires org.json;
 
-    opens com.gmrossetti.mdp to javafx.fxml;
-    exports com.gmrossetti.mdp;
-    exports com.gmrossetti.mdp.pawn;
-    opens com.gmrossetti.mdp.pawn to javafx.fxml;
-    exports com.gmrossetti.mdp.parser;
-    opens com.gmrossetti.mdp.parser to javafx.fxml;
-    exports com.gmrossetti.mdp.cartesian;
-    opens com.gmrossetti.mdp.cartesian to javafx.fxml;
-    exports com.gmrossetti.mdp.circuit.waypoint;
-    opens com.gmrossetti.mdp.circuit.waypoint to javafx.fxml;
-    exports com.gmrossetti.mdp.circuit;
-    opens com.gmrossetti.mdp.circuit to javafx.fxml;
-    exports com.gmrossetti.mdp.circuit.tile;
-    opens com.gmrossetti.mdp.circuit.tile to javafx.fxml;
+    opens com.gmrossetti.mdp.formulauno to javafx.fxml;
+    exports com.gmrossetti.mdp.formulauno;
+    exports com.gmrossetti.mdp.formulauno.pawn;
+    opens com.gmrossetti.mdp.formulauno.pawn to javafx.fxml;
+    exports com.gmrossetti.mdp.formulauno.parser;
+    opens com.gmrossetti.mdp.formulauno.parser to javafx.fxml;
+    exports com.gmrossetti.mdp.formulauno.cartesian;
+    opens com.gmrossetti.mdp.formulauno.cartesian to javafx.fxml;
+    exports com.gmrossetti.mdp.formulauno.circuit.waypoint;
+    opens com.gmrossetti.mdp.formulauno.circuit.waypoint to javafx.fxml;
+    exports com.gmrossetti.mdp.formulauno.circuit;
+    opens com.gmrossetti.mdp.formulauno.circuit to javafx.fxml;
+    exports com.gmrossetti.mdp.formulauno.circuit.tile;
+    opens com.gmrossetti.mdp.formulauno.circuit.tile to javafx.fxml;
 }
