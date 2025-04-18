@@ -19,17 +19,19 @@ public class CarView extends Pane {
     private final Shape shape;
     private final Rectangle pivotRect;
     private final Group trailSegments;
+    private final Color colorOpaque;
+    private final Color colorSemiTransparent;
 
     public CarView(IPawn car, Color color){
+        this.colorOpaque = color;
+        this.colorSemiTransparent = new Color(color.getRed(), color.getGreen(), color.getBlue(), 0.5);
+
         shape = new Rectangle(-RECT_WIDTH/2.d,-RECT_HEIGHT/2.d,RECT_WIDTH,RECT_HEIGHT);
-        shape.setFill(color);
+        shape.setFill(colorOpaque);
         shape.setRotate(45);
 
         pivotRect = new Rectangle(-RECT_WIDTH/2.d,-RECT_HEIGHT/2.d,RECT_WIDTH,RECT_HEIGHT);
-
-        Color pivotColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), 0.5);
-
-        pivotRect.setFill(pivotColor);
+        pivotRect.setFill(colorSemiTransparent);
         pivotRect.setRotate(45);
 
         trailSegments = new Group();
@@ -66,7 +68,7 @@ public class CarView extends Pane {
             GridPoint gpB = carTrail.get(i);
 
             Line trailSegment = new Line(gpA.x * SPACING, gpA.y * SPACING, gpB.x * SPACING, gpB.y * SPACING);
-            trailSegment.setStroke(Color.YELLOW);
+            trailSegment.setStroke(colorSemiTransparent);
             trailSegment.setStrokeWidth(2);
 
             trailSegments.getChildren().add(trailSegment);
