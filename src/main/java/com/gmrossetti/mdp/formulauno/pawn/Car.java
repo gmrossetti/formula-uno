@@ -2,11 +2,22 @@ package com.gmrossetti.mdp.formulauno.pawn;
 
 import com.gmrossetti.mdp.formulauno.cartesian.GridPoint;
 
-import java.util.*;
+import java.util.List;
+import java.util.LinkedList;
 
+/**
+ * Represents a car pawn in the game.
+ * It implements the IPawn interface and provides methods to manage the car's position, trail, and velocity.
+ */
 class Car implements IPawn {
     private GridPoint position;
     private final List<GridPoint> trail;
+
+    /**
+     * Constructor to create a Car object with an initial position.
+     *
+     * @param position The initial position of the car as a GridPoint.
+     */
     public Car(GridPoint position) {
         this.position = position;
         this.trail = new LinkedList<>();
