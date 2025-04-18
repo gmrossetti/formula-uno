@@ -10,7 +10,6 @@ import com.gmrossetti.mdp.formulauno.cartesian.GridLine;
 import com.gmrossetti.mdp.formulauno.cartesian.GridPoint;
 import com.gmrossetti.mdp.formulauno.circuit.waypoint.Waypoint;
 import com.gmrossetti.mdp.formulauno.strategy.StrategyParameters;
-import com.gmrossetti.mdp.formulauno.strategy.StrategyParametersScaler;
 
 import java.util.*;
 
@@ -25,10 +24,10 @@ public class AdvancedStrategy extends Strategy {
     private final double accelerateDistance;
 
     public AdvancedStrategy(StrategyParameters strategyParameters) {
-        this.minVelocity = StrategyParametersScaler.getMinVelocity(strategyParameters);
-        this.deviationThreshold = StrategyParametersScaler.getDeviationThreshold(strategyParameters);
-        this.brakeDistance = StrategyParametersScaler.getBrakeDistance(strategyParameters);
-        this.accelerateDistance = StrategyParametersScaler.getAccelerateDistance(strategyParameters);
+        this.minVelocity = strategyParameters.getScaledMinVelocity();
+        this.deviationThreshold = strategyParameters.getScaledDeviationThreshold();
+        this.brakeDistance = strategyParameters.getScaledBrakeDistance();
+        this.accelerateDistance = strategyParameters.getScaledAccelerateDistance();
     }
 
     @Override
