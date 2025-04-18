@@ -56,6 +56,6 @@ public class GameLogic {
         }
 
         gameState.getCircuit().getTile(driverTrace.getStart()).setOccupiedBy(null);
-        gameState.getCircuit().getTile(driverTrace.getEnd()).setOccupiedBy(driver.getCar());
+        gameState.getCircuit().getTile(driverTrace.getEnd()).setOccupiedBy(driver.getPawn());
     }
 }

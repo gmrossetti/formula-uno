@@ -36,8 +36,8 @@ abstract class Strategy implements IStrategy {
 
     protected static List<MoveCandidate> filterValidMoves(List<MoveCandidate> moveCandidates, IDriver driver, ICircuit circuit) {
         return moveCandidates.stream()
-                .filter(mc -> !(driver.getCar().isStationary() && driver.getCar().getPosition().equals(mc.movePoint())))
-                .filter(mc -> DriverMoveValidator.isMoveValid(new GridLine(driver.getCar().getPosition(), mc.movePoint()), circuit))
+                .filter(mc -> !(driver.getPawn().isStationary() && driver.getPawn().getPosition().equals(mc.movePoint())))
+                .filter(mc -> DriverMoveValidator.isMoveValid(new GridLine(driver.getPawn().getPosition(), mc.movePoint()), circuit))
                 .toList();
     }
 

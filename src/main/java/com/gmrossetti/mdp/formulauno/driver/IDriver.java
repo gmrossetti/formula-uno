@@ -10,16 +10,16 @@ import java.util.Map;
 
 /**
  * The IDriver interface represents a driver in the Formula Uno game.
- * It provides methods to get the car, check for active waypoints,
+ * It provides methods to get the pawn, check for active waypoints,
  * retrieve the target waypoint, make a move, and get move points.
  */
 public interface IDriver {
     /**
-     * Gets the car associated with this driver.
+     * Gets the pawn associated with this driver.
      *
-     * @return The car of the driver.
+     * @return The pawn of the driver.
      */
-    IPawn getCar();
+    IPawn getPawn();
 
     /**
      * Checks if the driver has an active waypoint.

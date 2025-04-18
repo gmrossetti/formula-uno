@@ -30,13 +30,13 @@ public class BasicStrategy extends Strategy {
         final GridPoint target = currentWaypoint.getCenter();
 
         final List<MoveCandidate> filteredValidMoves = filterValidMoves(generateMoveCandidates(driver.getMovesPoints(),
-                driver.getCar().getPosition(),target,getMedian(driver.getWaypointTarget())), driver, circuit);
+                driver.getPawn().getPosition(),target,getMedian(driver.getWaypointTarget())), driver, circuit);
 
         if(filteredValidMoves.isEmpty()){
             return Move.BL;
         }
 
-        if (driver.getCar().getVelocityModule() > maxVelocity){
+        if (driver.getPawn().getVelocityModule() > maxVelocity){
             return filteredValidMoves.stream()
                     .min(Comparator.comparingDouble(MoveCandidate::distanceToCurrent))
                     .orElseThrow().move();

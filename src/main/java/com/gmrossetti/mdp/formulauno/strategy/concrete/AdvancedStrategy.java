@@ -34,7 +34,7 @@ public class AdvancedStrategy extends Strategy {
     @Override
     public Move chooseBestMove(IDriver IDriver, ICircuit circuit) {
         final Map<Move, GridPoint> movesPoints = IDriver.getMovesPoints();
-        final GridPoint currentPosition = IDriver.getCar().getPosition();
+        final GridPoint currentPosition = IDriver.getPawn().getPosition();
         final Waypoint currentWaypoint = IDriver.getWaypointTarget();
 
         if (!currentWaypoint.hasPrevious()) {
@@ -59,7 +59,7 @@ public class AdvancedStrategy extends Strategy {
 
 
     private SpeedAction determineSpeedAction(IDriver IDriver) {
-        IPawn car = IDriver.getCar();
+        IPawn car = IDriver.getPawn();
         GridPoint pivot = car.getPivot();
         GridPoint target = IDriver.getWaypointTarget().getCenter();
         double deviation = calculateTrajectoryDeviation(car, target, pivot);
