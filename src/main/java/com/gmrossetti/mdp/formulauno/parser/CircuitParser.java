@@ -18,12 +18,23 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+/**
+ * CircuitParser class that handles the parsing of circuit images and waypoints from JSON files.
+ * It provides methods to parse images into a grid of tiles and to parse waypoints from JSON data.
+ */
 public class CircuitParser {
     final static String BASE_PATH = "/com/gmrossetti/mdp/formulauno/circuits/";
     final static String IMG_FILE_EXT = ".gif";
     final static int SUPPORTED_IMG_WIDTH = 60;
     final static int SUPPORTED_IMG_HEIGHT = 45;
 
+    /**
+     * Parses a circuit image into a grid of tiles.
+     *
+     * @param circuitName The name of the circuit (without file extension).
+     * @return A 2D array of ITile representing the circuit grid.
+     * @throws IOException If an error occurs while reading the image file.
+     */
     public static ITile[][] parseImageToGrid(String circuitName) throws IOException {
         InputStream inputStream = CircuitParser.class.getResourceAsStream(BASE_PATH + circuitName + IMG_FILE_EXT);
 
@@ -52,6 +63,12 @@ public class CircuitParser {
         return grid;
     }
 
+    /**
+     * Parses waypoints from a JSON file.
+     *
+     * @param circuitName The name of the circuit (without file extension).
+     * @return A list of Waypoint objects representing the parsed waypoints.
+     */
     public static List<Waypoint> parseWaypointsJson(String circuitName){
         InputStream inputStream = CircuitParser.class.getResourceAsStream(BASE_PATH + circuitName + ".json");
 
@@ -103,7 +120,13 @@ public class CircuitParser {
         }
     }
 
-    public static boolean validateImgs(BufferedImage imgBase){
+    /**
+     * Validates the dimensions of the circuit image.
+     *
+     * @param imgBase The BufferedImage representing the circuit image.
+     * @return True if the image dimensions are valid, false otherwise.
+     */
+    private static boolean validateImgs(BufferedImage imgBase){
         final int imgBaseWidth = imgBase.getWidth();
         final int imgBaseHeight = imgBase.getHeight();
 
