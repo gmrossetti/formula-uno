@@ -13,7 +13,16 @@ import com.gmrossetti.mdp.formulauno.strategy.StrategyParameters;
 
 import java.util.*;
 
+/**
+ * AdvancedStrategy is a concrete implementation of the Strategy class.
+ * It provides an advanced strategy for choosing the best move for a driver on a circuit.
+ * The strategy considers the driver's current velocity, trajectory deviation, and distance to the target waypoint
+ * to determine the best move.
+ */
 public class AdvancedStrategy extends Strategy {
+    /**
+     * Enum representing the possible speed actions for the driver.
+     */
     private enum SpeedAction {
         BRAKE, NEUTRAL, GAS
     }
@@ -23,6 +32,11 @@ public class AdvancedStrategy extends Strategy {
     private final double brakeDistance;
     private final double accelerateDistance;
 
+    /**
+     * Constructor for AdvancedStrategy.
+     *
+     * @param strategyParameters The parameters required to configure the strategy.
+     */
     public AdvancedStrategy(StrategyParameters strategyParameters) {
         this.minVelocity = strategyParameters.getScaledMinVelocity();
         this.deviationThreshold = strategyParameters.getScaledDeviationThreshold();
@@ -30,11 +44,20 @@ public class AdvancedStrategy extends Strategy {
         this.accelerateDistance = strategyParameters.getScaledAccelerateDistance();
     }
 
+    /**
+     * Chooses the best move for the given driver on the specified circuit.
+     * The strategy considers the driver's current velocity, trajectory deviation, and distance to the target waypoint
+     * to determine the best move.
+     *
+     * @param driver The driver for whom to choose the best move.
+     * @param circuit The circuit on which the driver is racing.
+     * @return The best move for the driver on the circuit.
+     */
     @Override
-    public Move chooseBestMove(IDriver IDriver, ICircuit circuit) {
-        final Map<Move, GridPoint> movesPoints = IDriver.getMovesPoints();
-        final GridPoint currentPosition = IDriver.getPawn().getPosition();
-        final Waypoint currentWaypoint = IDriver.getWaypointTarget();
+    public Move chooseBestMove(IDriver driver, ICircuit circuit) {
+        final Map<Move, GridPoint> movesPoints = driver.getMovesPoints();
+        final GridPoint currentPosition = driver.getPawn().getPosition();
+        final Waypoint currentWaypoint = driver.getWaypointTarget();
 
         if (!currentWaypoint.hasPrevious()) {
             throw new IllegalStateException("IDriver must be initialized with the second waypoint");
@@ -50,20 +73,24 @@ public class AdvancedStrategy extends Strategy {
         List<MoveCandidate> neutralCandidates = moveCandidates.subList(3, 6);
         List<MoveCandidate> gasCandidates = moveCandidates.subList(6, 9);
 
-        SpeedAction speedAction = determineSpeedAction(IDriver);
+        SpeedAction speedAction = determineSpeedAction(driver);
 
-        return selectBestMove(speedAction, brakeCandidates, neutralCandidates, gasCandidates, IDriver, circuit);
+        return selectBestMove(speedAction, brakeCandidates, neutralCandidates, gasCandidates, driver, circuit);
     }
 
-
-
-    private SpeedAction determineSpeedAction(IDriver IDriver) {
-        IPawn car = IDriver.getPawn();
+    /**
+     * Determines the speed action (BRAKE, NEUTRAL, GAS) based on the driver's current state and trajectory.
+     *
+     * @param driver The driver for whom to determine the speed action.
+     * @return The determined speed action.
+     */
+    private SpeedAction determineSpeedAction(IDriver driver) {
+        IPawn car = driver.getPawn();
         GridPoint pivot = car.getPivot();
-        GridPoint target = IDriver.getWaypointTarget().getCenter();
+        GridPoint target = driver.getWaypointTarget().getCenter();
         double deviation = calculateTrajectoryDeviation(car, target, pivot);
         double distanceToTarget = pivot.distanceTo(target);
-        double medianDistance = getMedian(IDriver.getWaypointTarget()).distanceTo(target);
+        double medianDistance = getMedian(driver.getWaypointTarget()).distanceTo(target);
 
         if ((distanceToTarget < medianDistance - brakeDistance || deviation > deviationThreshold) && car.getVelocityModule() > minVelocity) {
             return SpeedAction.BRAKE;
@@ -74,6 +101,17 @@ public class AdvancedStrategy extends Strategy {
         return SpeedAction.NEUTRAL;
     }
 
+    /**
+     * Selects the best move based on the speed action and the available move candidates.
+     *
+     * @param speedAction The determined speed action (BRAKE, NEUTRAL, GAS).
+     * @param brakes      The list of brake move candidates.
+     * @param neutrals    The list of neutral move candidates.
+     * @param gas         The list of gas move candidates.
+     * @param IDriver     The driver for whom to select the best move.
+     * @param circuit     The circuit on which the driver is racing.
+     * @return The selected best move for the driver.
+     */
     private static Move selectBestMove(SpeedAction speedAction, List<MoveCandidate> brakes,
                                           List<MoveCandidate> neutrals, List<MoveCandidate> gas,
                                           IDriver IDriver, ICircuit circuit) {
@@ -94,6 +132,7 @@ public class AdvancedStrategy extends Strategy {
             }
         }
 
+        // If no valid moves are found, return a default move (e.g., BL)
         return Move.BL;
     }
 }
