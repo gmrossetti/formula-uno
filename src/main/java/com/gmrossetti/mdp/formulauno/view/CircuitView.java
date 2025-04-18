@@ -7,6 +7,10 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
+/**
+ * CircuitView is a JavaFX Pane that represents a racing circuit.
+ * It displays the grid points and waypoints of the circuit.
+ */
 public class CircuitView extends Pane {
     public final int SPACING = 17;
     public final int WIDTH;
@@ -14,6 +18,11 @@ public class CircuitView extends Pane {
 
     private ArrayList<WaypointView> waypointsViews;
 
+    /**
+     * Constructor for CircuitView.
+     *
+     * @param circuit The ICircuit object representing the circuit.
+     */
     public CircuitView(ICircuit circuit) {
         WIDTH = (circuit.getGridWidth() - 1) * SPACING;
         HEIGHT = (circuit.getGridHeight() - 1) * SPACING;
@@ -25,12 +34,12 @@ public class CircuitView extends Pane {
 
                 ITile tile = circuit.getTile(y,x);
 
-                GridPointView gridPointView = new GridPointView(tile);
+                TileView tileView = new TileView(tile);
 
-                gridPointView.setTranslateX(this.SPACING * tile.getGridPoint().x);
-                gridPointView.setTranslateY(this.SPACING * tile.getGridPoint().y);
+                tileView.setTranslateX(this.SPACING * tile.getGridPoint().x);
+                tileView.setTranslateY(this.SPACING * tile.getGridPoint().y);
 
-                this.getChildren().add(gridPointView);
+                this.getChildren().add(tileView);
             }
         }
 

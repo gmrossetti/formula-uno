@@ -11,6 +11,10 @@ import javafx.scene.shape.Shape;
 
 import java.util.List;
 
+/**
+ * CarView is a JavaFX Pane that represents a car in a racing game.
+ * It displays the car's position, trail, and pivot point.
+ */
 public class CarView extends Pane {
     public final int SPACING = 17;
     public final int RECT_WIDTH = 13;
@@ -22,6 +26,12 @@ public class CarView extends Pane {
     private final Color colorOpaque;
     private final Color colorSemiTransparent;
 
+    /**
+     * Constructor for CarView.
+     *
+     * @param car   The IPawn object representing the car.
+     * @param color The color of the car.
+     */
     public CarView(IPawn car, Color color){
         this.colorOpaque = color;
         this.colorSemiTransparent = new Color(color.getRed(), color.getGreen(), color.getBlue(), 0.5);
@@ -45,27 +55,37 @@ public class CarView extends Pane {
         this.getChildren().add(trailSegments);
     }
 
-    public void update(IPawn car){
-        shape.setTranslateX(car.getPosition().x * SPACING);
-        shape.setTranslateY(car.getPosition().y * SPACING);
+    /**
+     * Updates the position of the car and its trail segments.
+     *
+     * @param pawn The IPawn object representing the car.
+     */
+    public void update(IPawn pawn){
+        shape.setTranslateX(pawn.getPosition().x * SPACING);
+        shape.setTranslateY(pawn.getPosition().y * SPACING);
 
-        updateTrailSegments(car);
-        updatePivotPoint(car);
+        updateTrailSegments(pawn);
+        updatePivotPoint(pawn);
     }
 
-    private void updateTrailSegments(IPawn car){
+    /**
+     * Updates the trail segments of the car.
+     *
+     * @param pawn The IPawn object representing the car.
+     */
+    private void updateTrailSegments(IPawn pawn){
 
         trailSegments.getChildren().clear();
 
-        final List<GridPoint> carTrail = car.getTrail();
+        final List<GridPoint> pawnTrail = pawn.getTrail();
 
-        if(carTrail.size() < 2) return;
+        if(pawnTrail.size() < 2) return;
 
-        for (int i = 0; i < carTrail.size(); i++) {
+        for (int i = 0; i < pawnTrail.size(); i++) {
             if(i == 0) continue;
 
-            GridPoint gpA = carTrail.get(i - 1);
-            GridPoint gpB = carTrail.get(i);
+            GridPoint gpA = pawnTrail.get(i - 1);
+            GridPoint gpB = pawnTrail.get(i);
 
             Line trailSegment = new Line(gpA.x * SPACING, gpA.y * SPACING, gpB.x * SPACING, gpB.y * SPACING);
             trailSegment.setStroke(colorSemiTransparent);
@@ -75,8 +95,13 @@ public class CarView extends Pane {
         }
     }
 
-    private void updatePivotPoint(IPawn car){
-        pivotRect.setTranslateX(car.getPivot().x * SPACING);
-        pivotRect.setTranslateY(car.getPivot().y * SPACING);
+    /**
+     * Updates the pivot point of the car.
+     *
+     * @param pawn The IPawn object representing the car.
+     */
+    private void updatePivotPoint(IPawn pawn){
+        pivotRect.setTranslateX(pawn.getPivot().x * SPACING);
+        pivotRect.setTranslateY(pawn.getPivot().y * SPACING);
     }
 }

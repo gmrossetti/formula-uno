@@ -8,6 +8,10 @@ import javafx.scene.layout.GridPane;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * ControlsView is a JavaFX GridPane that represents the control buttons for a racing game.
+ * It displays buttons for different moves and handles user input.
+ */
 public class ControlsView extends GridPane {
     final static int BTN_SIZE = 50;
     public ControlsView() {
@@ -18,6 +22,9 @@ public class ControlsView extends GridPane {
         populateGrid();
     }
 
+    /**
+     * Populates the grid with buttons representing different moves.
+     */
     private void populateGrid(){
         Move[] moves = Move.values();
 
@@ -39,6 +46,12 @@ public class ControlsView extends GridPane {
         this.setStyle("-fx-padding: 20px;");
     }
 
+    /**
+     * Creates a button for a given move.
+     *
+     * @param move The move to be represented by the button.
+     * @return A Button object representing the move.
+     */
     private static Button createButton(Move move) {
         Button btn = new Button(getIconFromMove(move));
 
@@ -49,6 +62,12 @@ public class ControlsView extends GridPane {
         return btn;
     }
 
+    /**
+     * Gets the icon representation of a move.
+     *
+     * @param move The move to be represented.
+     * @return A string representing the icon for the move.
+     */
     private static String getIconFromMove(Move move){
         Map<Move,String> moveIcon = new HashMap<>();
 

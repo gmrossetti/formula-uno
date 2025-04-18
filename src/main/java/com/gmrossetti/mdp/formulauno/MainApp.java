@@ -18,6 +18,7 @@ public class MainApp extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+        // Initialize the game manager and load the game scene
         final Scene gameScene = gameManager.getGameScene();
 
         primaryStage.setTitle("Formula 1");

@@ -9,10 +9,18 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
+/**
+ * RaceView is a JavaFX StackPane that represents the race track and the cars on it.
+ * It displays the circuit and the cars, and updates their positions based on the game state.
+ */
 public class RaceView extends StackPane {
     private CircuitView circuitView;
     private ArrayList<CarView> carViews = new ArrayList<>();
 
+    /**
+     * Constructor for RaceView.
+     * @param gameState The GameState object that contains the current state of the game.
+     */
     public RaceView(GameState gameState) {
         this.circuitView = new CircuitView(gameState.getCircuit());
 
@@ -47,6 +55,11 @@ public class RaceView extends StackPane {
         this.getChildren().addAll(this.carViews);
     }
 
+    /**
+     * Updates the RaceView with the current game state.
+     * It updates the positions of the cars and adds new cars if necessary.
+     * @param gameState The GameState object that contains the current state of the game.
+     */
     public void update(GameState gameState){
         ArrayList<IPawn> cars = new ArrayList<>();
         ArrayList<IDriver> drivers = new ArrayList<>();

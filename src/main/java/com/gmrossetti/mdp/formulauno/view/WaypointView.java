@@ -9,9 +9,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * WaypointView is a visual representation of a waypoint in the game.
+ * It extends Pane to allow for custom layout and styling of the waypoint.
+ * The waypoint can be either a MidWaypoint or a BoundaryWaypoint, and is displayed accordingly.
+ */
 public class WaypointView extends Pane {
     public final int SPACING = 17;
 
+    /**
+     * Constructor for WaypointView.
+     * @param waypoint The Waypoint object that this WaypointView represents.
+     */
     public WaypointView(Waypoint waypoint){
 
         if(waypoint instanceof MidWaypoint midWaypoint){
