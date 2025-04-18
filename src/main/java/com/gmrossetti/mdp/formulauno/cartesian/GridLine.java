@@ -6,23 +6,53 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a line segment in a Cartesian grid defined by two grid points.
+ * Provides methods to calculate properties such as slope, median point, and
+ * intersections with the grid.
+ */
 public class GridLine implements ProperGridLine {
+    
+    /** The starting point of the grid line. */
     private final GridPoint start;
 
+    /**
+     * Gets the starting point of the grid line.
+     *
+     * @return the starting point of the grid line
+     */
     public GridPoint getStart() {
         return start;
     }
 
+    /**
+     * Gets the ending point of the grid line.
+     *
+     * @return the ending point of the grid line
+     */
     public GridPoint getEnd() {
         return end;
     }
 
+    /** The ending point of the grid line. */
     private final GridPoint end;
 
+    /**
+     * Checks if the grid line is degenerate (i.e., the start and end points are the same).
+     *
+     * @return true if the grid line is degenerate, false otherwise
+     */
     public boolean isDegenerate() {
         return start.equals(end);
     }
 
+    /**
+     * Constructs a grid line with the specified start and end points.
+     *
+     * @param start the starting point of the grid line, must not be null
+     * @param end the ending point of the grid line, must not be null
+     * @throws IllegalArgumentException if either start or end is null
+     */
     public GridLine(GridPoint start, GridPoint end) {
         if (start == null || end == null) {
             throw new IllegalArgumentException("Grid points cannot be null");
@@ -32,6 +62,11 @@ public class GridLine implements ProperGridLine {
         this.end = end;
     }
 
+    /**
+     * Calculates the median point of the grid line.
+     *
+     * @return the median point of the grid line as a {@link Point}
+     */
     public Point getMedianPoint(){
         final double medianX = (double) (this.start.x + this.end.x) / 2;
         final double medianY = (double) (this.start.y + this.end.y) / 2;
@@ -39,6 +74,11 @@ public class GridLine implements ProperGridLine {
         return new Point(medianX,medianY);
     }
 
+    /**
+     * Calculates the slope of the grid line in degrees.
+     *
+     * @return the slope of the grid line in degrees
+     */
     @Override
     public double getSlopeCoefficientToDegrees() {
         final double m = this.getSlopeCoefficient();
@@ -49,6 +89,12 @@ public class GridLine implements ProperGridLine {
         return Math.toDegrees(Math.atan(m));
     }
 
+    /**
+     * Calculates the slope coefficient of the grid line.
+     *
+     * @return the slope coefficient of the grid line
+     * @throws UnsupportedOperationException if the grid line is degenerate
+     */
     @Override
     public double getSlopeCoefficient(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
@@ -59,7 +105,12 @@ public class GridLine implements ProperGridLine {
         return deltaY / deltaX;
     }
 
-    // Metodo che calcola i punti di intersezione intermedi
+    /**
+     * Calculates the intersection points of the grid line with the Cartesian grid.
+     *
+     * @return a set of intersection points as {@link Point} objects
+     * @throws UnsupportedOperationException if the grid line is degenerate
+     */
     @Override
     public Set<Point> getLineIntersectionsWithGrid() {
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
@@ -98,6 +149,12 @@ public class GridLine implements ProperGridLine {
         return intersectionPoints;
     }
 
+    /**
+     * Calculates the nearest grid points to the intersection points of the grid line.
+     *
+     * @return a list of nearest grid points sorted by distance from the start point
+     * @throws UnsupportedOperationException if the grid line is degenerate
+     */
     @Override
     public List<GridPoint> getNearestGridPointsOnIntersections(){
         if (isDegenerate()) throw new UnsupportedOperationException("Unsupported on degenerated GridLines");
@@ -106,8 +163,7 @@ public class GridLine implements ProperGridLine {
 
         Set<GridPoint> intersectionGridPoints = new HashSet<>();
 
-        for (Point intersectionPoint:
-                intersectionPoints) {
+        for (Point intersectionPoint : intersectionPoints) {
             intersectionGridPoints.addAll(intersectionPoint.getNearestDiscretePoints());
         }
 
@@ -118,6 +174,11 @@ public class GridLine implements ProperGridLine {
         return sortedByDistanceGridPoints;
     }
 
+    /**
+     * Returns a string representation of the grid line.
+     *
+     * @return a string representation of the grid line
+     */
     @Override
     public String toString(){
         return "GridLine [start: " + this.start + ", end: " + this.end + "]";
