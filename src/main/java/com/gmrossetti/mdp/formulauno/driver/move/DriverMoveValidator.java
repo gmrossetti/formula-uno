@@ -7,7 +7,18 @@ import com.gmrossetti.mdp.formulauno.circuit.tile.ITile;
 
 import java.util.List;
 
+/**
+ * DriverMoveValidator class that validates the moves of a driver.
+ * It checks if the move is valid based on the circuit and the driver's trace.
+ */
 public class DriverMoveValidator {
+    /**
+     * Validates the move of a driver.
+     *
+     * @param driverTrace The trace of the driver.
+     * @param circuit     The circuit the driver is racing on.
+     * @return True if the move is valid, false otherwise.
+     */
     public static boolean isMoveValid(GridLine driverTrace, ICircuit circuit) {
         if (driverTrace.isDegenerate()) {
             return true; // Mossa nulla, nessun effetto
