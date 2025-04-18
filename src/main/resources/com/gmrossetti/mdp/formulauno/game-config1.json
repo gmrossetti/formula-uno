@@ -2,7 +2,7 @@
   "circuitName": "circuit1",
   "bots": [
     {
-      "qty": 2,
+      "qty": 1,
       "strategy": "advanced-strategy",
       "params": {
         "minVelocity": 0.5,
@@ -15,7 +15,14 @@
       "qty": 3,
       "strategy": "basic-strategy",
       "params": {
-        "minVelocity": 0.5
+        "minVelocity": 0.45
+      }
+    },
+    {
+      "qty": 1,
+      "strategy": "basic-strategy",
+      "params": {
+        "minVelocity": 0.55
       }
     }
   ]

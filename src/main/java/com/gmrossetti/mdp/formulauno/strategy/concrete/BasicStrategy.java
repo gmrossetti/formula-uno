@@ -7,7 +7,6 @@ import com.gmrossetti.mdp.formulauno.driver.move.MoveCandidate;
 import com.gmrossetti.mdp.formulauno.cartesian.GridPoint;
 import com.gmrossetti.mdp.formulauno.circuit.waypoint.Waypoint;
 import com.gmrossetti.mdp.formulauno.strategy.StrategyParameters;
-import com.gmrossetti.mdp.formulauno.strategy.StrategyParametersScaler;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,8 +14,8 @@ import java.util.List;
 public class BasicStrategy extends Strategy {
     private final double maxVelocity;
 
-    public BasicStrategy(StrategyParameters strategyParameters) {
-        this.maxVelocity = StrategyParametersScaler.getMinVelocity(strategyParameters);
+    public BasicStrategy(final StrategyParameters strategyParameters) {
+        this.maxVelocity = strategyParameters.getScaledMinVelocity();
     }
 
     @Override
