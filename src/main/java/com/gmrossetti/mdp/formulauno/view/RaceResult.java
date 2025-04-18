@@ -7,7 +7,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.StageStyle;
 
+/**
+ * RaceResult is a custom JavaFX dialog that displays the race results
+ * for the human driver, including their position or disqualification status.
+ */
 public class RaceResult extends Dialog<Void> {
+    /**
+     * Constructor for RaceResult.
+     * @param gameState The GameState object that contains the current state of the game.
+     */
     public RaceResult(GameState gameState) {
         // Ottieni le informazioni necessarie
         Leaderboard leaderBoard = gameState.getLeaderboard();
@@ -21,6 +29,11 @@ public class RaceResult extends Dialog<Void> {
         configureDialog(title, message);
     }
 
+    /**
+     * Gets the title for the driver based on their status.
+     * @param humanCarDriverLeaderboardEntry The leaderboard entry for the human driver.
+     * @return The title string.
+     */
     private String getTitleForDriver(LeaderboardEntry humanCarDriverLeaderboardEntry) {
         if (humanCarDriverLeaderboardEntry.isDisqualified()) {
             return "Squalificato!";
@@ -29,6 +42,13 @@ public class RaceResult extends Dialog<Void> {
         }
     }
 
+    /**
+     * Gets the message for the driver based on their status and position.
+     * @param gameState The GameState object that contains the current state of the game.
+     * @param humanCarDriverLeaderboardEntry The leaderboard entry for the human driver.
+     * @param leaderBoard The leaderboard object.
+     * @return The message string.
+     */
     private String getMessageForDriver(GameState gameState, LeaderboardEntry humanCarDriverLeaderboardEntry, Leaderboard leaderBoard) {
         StringBuilder message = new StringBuilder();
 
@@ -44,6 +64,11 @@ public class RaceResult extends Dialog<Void> {
         return message.toString();
     }
 
+    /**
+     * Configures the dialog with the title and message.
+     * @param title The title of the dialog.
+     * @param message The message to be displayed in the dialog.
+     */
     private void configureDialog(String title, String message) {
         // Imposta il titolo e il messaggio nella finestra di dialogo
         setTitle(title);
