@@ -19,15 +19,15 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class CircuitParser {
+    final static String BASE_PATH = "/com/gmrossetti/mdp/formulauno/circuits/";
+    final static String IMG_FILE_EXT = ".gif";
     final static int SUPPORTED_IMG_WIDTH = 60;
     final static int SUPPORTED_IMG_HEIGHT = 45;
+
     public static ITile[][] parseImageToGrid(String circuitName) throws IOException {
-        final String basePath = "/com/gmrossetti/mdp/formulauno/circuits/";
-        final String imgFileExtension = ".gif";
+        InputStream inputStream = CircuitParser.class.getResourceAsStream(BASE_PATH + circuitName + IMG_FILE_EXT);
 
-        InputStream inputStream1 = CircuitParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
-
-        BufferedImage imgBase = ImageIO.read(inputStream1);
+        BufferedImage imgBase = ImageIO.read(inputStream);
 
         if(!validateImgs(imgBase))
             throw new RuntimeException("Circuit file format not valid!");
@@ -53,13 +53,10 @@ public class CircuitParser {
     }
 
     public static List<Waypoint> parseWaypointsJson(String circuitName){
-        final String basePath = "/com/gmrossetti/mdp/formulauno/circuits/";
-        final String imgFileExtension = ".json";
-
-        InputStream inputStream1 = CircuitParser.class.getResourceAsStream(basePath + circuitName + imgFileExtension);
+        InputStream inputStream = CircuitParser.class.getResourceAsStream(BASE_PATH + circuitName + ".json");
 
         try {
-            JSONTokener tokener = new JSONTokener(inputStream1);
+            JSONTokener tokener = new JSONTokener(inputStream);
 
             JSONObject jsonObject = new JSONObject(tokener);
 
@@ -102,7 +99,6 @@ public class CircuitParser {
 
             return waypoints;
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
     }
