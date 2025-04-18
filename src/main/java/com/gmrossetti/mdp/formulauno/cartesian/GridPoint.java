@@ -2,7 +2,7 @@ package com.gmrossetti.mdp.formulauno.cartesian;
 
 public class GridPoint extends AbstractPoint<Integer> {
     public GridPoint(int x, int y) {
-        super(Integer.valueOf(x), Integer.valueOf(y));
+        super(x, y);
     }
     public GridPoint(GridPoint gridPoint) {
         super(gridPoint.x, gridPoint.y);
@@ -25,23 +25,4 @@ public class GridPoint extends AbstractPoint<Integer> {
 
         return new GridPoint(newX, newY);
     }
-
-    /*public Set<GridPoint> gridPointsInRange(int radius) {
-        Set<GridPoint> pointsInradius = new HashSet<>();
-
-        final int x0 = this.x;
-        final int y0 = this.y;
-
-        // Esplora i punti nel cerchio di radius R
-        for (int x = x0 - radius; x <= x0 + radius; x++) {
-            for (int y = y0 - radius; y <= y0 + radius; y++) {
-                // Controlla se il punto (x, y) è all'interno del cerchio
-                if ((Math.pow(x - x0, 2) + Math.pow(y - y0, 2)) <= Math.pow(radius, 2)) {
-                    pointsInradius.add(new GridPoint(x, y));
-                }
-            }
-        }
-
-        return pointsInradius;
-    }*/
 }
