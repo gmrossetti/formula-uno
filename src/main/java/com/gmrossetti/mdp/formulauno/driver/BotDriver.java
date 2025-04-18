@@ -6,25 +6,37 @@ import com.gmrossetti.mdp.formulauno.cartesian.GridLine;
 import com.gmrossetti.mdp.formulauno.pawn.IPawn;
 import com.gmrossetti.mdp.formulauno.strategy.IStrategy;
 
+/**
+ * BotDriver class that extends the Driver class.
+ * It represents a bot driver in the Formula Uno game.
+ */
 class BotDriver extends Driver {
-    public ICircuit getCircuit() {
-        return circuit;
-    }
+    /**
+     * The circuit the driver is racing on.
+     */
     final ICircuit circuit;
+
+    /**
+     * The strategy used by the bot driver.
+     */
     final IStrategy strategy;
-    BotDriver(IPawn car, ICircuit circuit, IStrategy strategy) {
-        super(car, circuit.getWaypointsHead());
+    /**
+     * Constructor for BotDriver.
+     *
+     * @param pawn      The pawn associated with the driver.
+     * @param circuit  The circuit the driver is racing on.
+     * @param strategy The strategy used by the bot driver.
+     */
+    BotDriver(IPawn pawn, ICircuit circuit, IStrategy strategy) {
+        super(pawn, circuit.getWaypointsHead());
 
         this.circuit = circuit;
         this.strategy = strategy;
     }
     @Override
     public final GridLine makeMove(){
-        Move move = getNextMove();
+        Move move = strategy.chooseBestMove(this, circuit);
 
         return super.processMove(move);
-    }
-    private Move getNextMove(){
-        return strategy.chooseBestMove(this, circuit);
     }
 }

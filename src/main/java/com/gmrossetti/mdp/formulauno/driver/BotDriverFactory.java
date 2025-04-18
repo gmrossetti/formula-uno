@@ -8,6 +8,9 @@ import com.gmrossetti.mdp.formulauno.strategy.StrategyFactory;
 import com.gmrossetti.mdp.formulauno.strategy.StrategyParameters;
 import com.gmrossetti.mdp.formulauno.strategy.StrategyType;
 
+/**
+ * Factory class to create a BotDriver instance.
+ */
 public class BotDriverFactory {
     public static IDriver build(ICircuit circuit, StrategyType strategyType, StrategyParameters strategyParameters){
         IPawn botCar = PawnFactory.buildPawn(circuit.getRaceStartPoint().getGridPoint());

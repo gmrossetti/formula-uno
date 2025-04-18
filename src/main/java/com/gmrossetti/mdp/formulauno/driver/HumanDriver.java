@@ -5,11 +5,25 @@ import com.gmrossetti.mdp.formulauno.cartesian.GridLine;
 import com.gmrossetti.mdp.formulauno.circuit.ICircuit;
 import com.gmrossetti.mdp.formulauno.pawn.IPawn;
 
+/**
+ * HumanDriver class that extends the Driver class.
+ * It represents a human driver in the Formula Uno game.
+ */
 class HumanDriver extends Driver {
+    /**
+     * The input handler for processing user input.
+     */
     private final InputHandler inputHandler;
 
-    HumanDriver(IPawn car, InputHandler inputHandler, ICircuit circuit) {
-        super(car, circuit.getWaypointsHead());
+    /**
+     * Constructor for HumanDriver.
+     *
+     * @param pawn          The pawn associated with the driver.
+     * @param inputHandler  The input handler for processing user input.
+     * @param circuit      The circuit the driver is racing on.
+     */
+    HumanDriver(IPawn pawn, InputHandler inputHandler, ICircuit circuit) {
+        super(pawn, circuit.getWaypointsHead());
         this.inputHandler = inputHandler;
     }
 

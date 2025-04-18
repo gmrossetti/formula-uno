@@ -9,7 +9,16 @@ import com.gmrossetti.mdp.formulauno.pawn.IPawn;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Abstract class representing a driver in the Formula Uno game.
+ * It implements the IDriver interface and provides common functionality for all drivers.
+ */
 abstract class Driver implements IDriver {
+    /**
+     * Gets the pawn representing the driver.
+     *
+     * @return the pawn of the driver
+     */
     public IPawn getPawn() {
         return pawn;
     }
@@ -17,6 +26,12 @@ abstract class Driver implements IDriver {
     private Waypoint waypointTarget;
     private final IPawn pawn;
 
+    /**
+     * Constructor for the Driver class.
+     *
+     * @param pawn the pawn representing the driver
+     * @param waypointHead the head of the waypoint list
+     */
     public Driver(IPawn pawn, Waypoint waypointHead){
         this.pawn = pawn;
         this.waypointTarget = waypointHead.getNext();
@@ -49,6 +64,14 @@ abstract class Driver implements IDriver {
 
         return movesPoint;
     }
+
+    /**
+     * Processes a move for the driver.
+     *
+     * @param move the move to be processed
+     * @return the trace of the move
+     * @throws IllegalStateException if the driver has no waypoints left
+     */
     protected final GridLine processMove(Move move){
         if(!hasActiveWaypoint()){
             throw new IllegalStateException("Driver has no waypoints left");
