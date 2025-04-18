@@ -25,8 +25,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.gmrossetti.mdp'
-    mainClass = 'com.gmrossetti.mdp.MainApp'
+    mainModule = 'com.gmrossetti.mdp.formulauno'
+    mainClass = 'com.gmrossetti.mdp.formulauno.MainApp'
 }
 
 javafx {

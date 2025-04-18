@@ -1,0 +1,76 @@
+{
+  "name": "circuit1",
+  "data": {
+    "waypoints": [
+      {
+        "type": "BOUNDARY",
+        "center": { "x": 18, "y": 4 },
+        "width": 1,
+        "height": 7,
+        "boundaryType": "START"
+      },
+      {
+        "type": "MID",
+        "center": { "x": 47, "y": 5 },
+        "radius": 4
+      },
+      {
+        "type": "MID",
+        "center": { "x": 53, "y": 11 },
+        "radius": 4
+      },
+      {
+        "type": "MID",
+        "center": { "x": 49, "y": 18 },
+        "radius": 4
+      },
+      {
+        "type": "MID",
+        "center": { "x": 55, "y": 32 },
+        "radius": 4
+      },
+      {
+        "type": "MID",
+        "center": { "x": 36, "y": 39 },
+        "radius": 5
+      },
+      {
+        "type": "MID",
+        "center": { "x": 32, "y": 28 },
+        "radius": 5
+      },
+      {
+        "type": "MID",
+        "center": { "x": 23, "y": 24 },
+        "radius": 4
+      },
+      {
+        "type": "MID",
+        "center": { "x": 10, "y": 30 },
+        "radius": 5
+      },
+      {
+        "type": "MID",
+        "center": { "x": 4, "y": 22 },
+        "radius": 3
+      },
+      {
+        "type": "MID",
+        "center": { "x": 3, "y": 12 },
+        "radius": 3
+      },
+      {
+        "type": "MID",
+        "center": { "x": 8, "y": 5 },
+        "radius": 4
+      },
+      {
+        "type": "BOUNDARY",
+        "center": { "x": 17, "y": 4 },
+        "width": 1,
+        "height": 7,
+        "boundaryType": "FINISH"
+      }
+    ]
+  }
+}
