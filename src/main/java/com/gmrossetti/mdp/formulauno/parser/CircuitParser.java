@@ -24,7 +24,7 @@ import org.json.JSONTokener;
  */
 public class CircuitParser {
     final static String BASE_PATH = "/com/gmrossetti/mdp/formulauno/circuits/";
-    final static String IMG_FILE_EXT = ".gif";
+    final static String IMG_FILE_EXT = ".bmp";
     final static int SUPPORTED_IMG_WIDTH = 60;
     final static int SUPPORTED_IMG_HEIGHT = 45;
 
