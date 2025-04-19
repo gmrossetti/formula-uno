@@ -13,20 +13,20 @@ public class DriverTest {
     private static final GameConfigObject gameConfigObject = GameConfigParser.parse("game-config1");
     @Test
     void testDriverFactoryCreatesBasicDriver() {
-        IDriver driver = HumanDriverFactory.build(gameConfigObject.circuit());
+        IDriver driver = DriverFactory.buildHumanDriver(gameConfigObject.circuit());
         assertNotNull(driver, "DriverFactory should create a non-null Driver instance");
     }
 
     @Test
     void testDriverFactoryCreatesAdvancedDriver() {
-        IDriver driver = BotDriverFactory.build(gameConfigObject.circuit(), StrategyType.BASIC_STRATEGY,
+        IDriver driver = DriverFactory.buildBotDriver(gameConfigObject.circuit(), StrategyType.BASIC_STRATEGY,
                 new StrategyParameters(0,0,0,0));
         assertNotNull(driver, "DriverFactory should create a non-null Driver instance");
     }
 
     @Test
     void testDriverFunctionality() {
-        IDriver driver = BotDriverFactory.build(gameConfigObject.circuit(), StrategyType.BASIC_STRATEGY,
+        IDriver driver = DriverFactory.buildBotDriver(gameConfigObject.circuit(), StrategyType.BASIC_STRATEGY,
                 new StrategyParameters(0,0,0,0));
         assertNotNull(driver, "DriverFactory should create a non-null Driver instance");
 
