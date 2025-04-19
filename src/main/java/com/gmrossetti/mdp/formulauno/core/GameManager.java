@@ -1,7 +1,7 @@
 package com.gmrossetti.mdp.formulauno.core;
 
 import com.gmrossetti.mdp.formulauno.circuit.ICircuit;
-import com.gmrossetti.mdp.formulauno.driver.HumanDriverFactory;
+import com.gmrossetti.mdp.formulauno.driver.DriverFactory;
 import com.gmrossetti.mdp.formulauno.view.GameView;
 import com.gmrossetti.mdp.formulauno.parser.GameConfigObject;
 import com.gmrossetti.mdp.formulauno.parser.GameConfigParser;
@@ -47,7 +47,7 @@ public class GameManager {
     public void init() {
         GameConfigObject gameConfigObject = GameConfigParser.parse("game-config1");
         ICircuit circuit = gameConfigObject.circuit();
-        gameState = new GameState(circuit, HumanDriverFactory.build(circuit), gameConfigObject.botCarDrivers());
+        gameState = new GameState(circuit, DriverFactory.buildHumanDriver(circuit), gameConfigObject.botCarDrivers());
         view = new GameView(gameState);
         renderer = new Renderer(gameState, view);
         gameLogic = new GameLogic(gameState);

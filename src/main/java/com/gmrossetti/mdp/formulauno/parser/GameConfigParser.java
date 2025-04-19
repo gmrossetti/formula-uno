@@ -2,7 +2,7 @@ package com.gmrossetti.mdp.formulauno.parser;
 
 import com.gmrossetti.mdp.formulauno.circuit.CircuitFactory;
 import com.gmrossetti.mdp.formulauno.circuit.ICircuit;
-import com.gmrossetti.mdp.formulauno.driver.BotDriverFactory;
+import com.gmrossetti.mdp.formulauno.driver.DriverFactory;
 import com.gmrossetti.mdp.formulauno.driver.IDriver;
 import com.gmrossetti.mdp.formulauno.strategy.StrategyParameters;
 import com.gmrossetti.mdp.formulauno.strategy.StrategyType;
@@ -77,7 +77,7 @@ public class GameConfigParser {
             StrategyParameters strategyParameters = parseStrategyParameters(strategyParams);
 
             for (int i = 0; i < quantity; i++) {
-                drivers.add(BotDriverFactory.build(circuit, strategyType, strategyParameters));
+                drivers.add(DriverFactory.buildBotDriver(circuit, strategyType, strategyParameters));
             }
         }
 
