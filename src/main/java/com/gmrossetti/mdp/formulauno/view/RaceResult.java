@@ -53,7 +53,7 @@ public class RaceResult extends Dialog<Void> {
         StringBuilder message = new StringBuilder();
 
         if (humanCarDriverLeaderboardEntry.isDisqualified()) {
-            message.append("Sei uscito dalla pista!");
+            message.append("Sei stato squalificato!");
         } else {
             message.append("Hai concluso la gara in ")
                     .append(leaderBoard.getPosition(gameState.getHumanDriver()))
