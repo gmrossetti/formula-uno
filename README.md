@@ -9,6 +9,18 @@ The jdk version currently used in this project is `openjdk-21`.
 
 Set the `JAVA_HOME` environment variable to point to your JDK installation path.
 
+The following approach is temporary and the environment variable will persist only for the current session.
+
+Windows:
+```bash
+set JAVA_HOME=C:\path\to\jdk
+```
+
+Linux/Mac:
+```bash
+JAVA_HOME=/path/to/jdk
+```
+
 ### Build the Project
 Run the following command in the terminal to build the project:
 
