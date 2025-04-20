@@ -4,7 +4,7 @@ import javafx.animation.AnimationTimer;
 
 /**
  * GameLoop class is responsible for the main game loop.
- * It updates the game state and renders the graphics.
+ * It makes the game step forward and renders the graphics.
  */
 public class GameLoop extends AnimationTimer {
     private final GameLogic gameLogic;
