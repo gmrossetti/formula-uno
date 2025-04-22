@@ -15,7 +15,7 @@
       "qty": 3,
       "strategy": "basic-strategy",
       "params": {
-        "minVelocity": 0.45
+        "minVelocity": 0.50
       }
     },
     {
