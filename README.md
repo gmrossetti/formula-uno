@@ -26,7 +26,7 @@ Run the following command in the terminal to build the project:
 
 Windows:
 ```bash
-graglew.bat build
+gradlew.bat build
 ```
 
 Linux/Mac:
