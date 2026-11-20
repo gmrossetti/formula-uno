@@ -50,3 +50,9 @@ Linux/Mac:
 ```bash
 ./gradlew run
 ```
+
+## License
+
+Released under the [MIT License](LICENSE).
+ 
+This software is provided "as is", without warranty of any kind. The authors are not liable for any damage, data loss or security incident resulting from its use.
